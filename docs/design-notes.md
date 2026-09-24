@@ -4,6 +4,8 @@ I started with a fairly ordinary complaint: translating a book required too much
 
 The project grew through that workflow. I used Codex to implement and test changes, then fed the failures and rough edges back into the next iteration. Some features were obvious, like showing the book title next to Start / resume. Others only became obvious after using the output—an EPUB that technically opened could still be unpleasant to read.
 
+The name Babelbound combines Babel’s languages with a bound book: the point is to end up with something you can read.
+
 ## A saved response has to belong to the right page
 
 A response being visible is not enough. It might be incomplete, left over from the previous page, or associated with a request that was retried.
@@ -18,7 +20,7 @@ These checks establish bookkeeping and completion, not translation accuracy. A m
 
 A page-turn click can be dropped. It can also land on the wrong surface if focus or geometry changed. Blindly clicking again makes it hard to know whether the reader is one page ahead or two.
 
-BT records its turn state before delivering one forward click. Then it verifies a changed, stable source image. If the result is ambiguous, it keeps the uncertainty and pauses. Recovery starts with the saved evidence instead of assuming the click worked.
+Babelbound records its turn state before delivering one forward click. Then it verifies a changed, stable source image. If the result is ambiguous, it keeps the uncertainty and pauses. Recovery starts with the saved evidence instead of assuming the click worked.
 
 The same principle applies after a layout change. A different screenshot hash does not prove that the book advanced. The source-review path lets a person confirm that the content is the same while retaining the original capture.
 
@@ -83,13 +85,13 @@ The interesting failure is often one step after the apparent success: Gemini ans
 ```mermaid
 flowchart LR
     Book["BOOKWALKER tab"] -->|"shared tab content"| Gemini["Gemini sidebar"]
-    Book -->|"capture and verify"| BT["Hammerspoon state machine"]
-    BT -->|"verified prompt and collection"| Gemini
-    Gemini -->|"matching complete response"| BT
-    BT -->|"commit before advancing"| Saved["Checkpoint and source archive"]
+    Book -->|"capture and verify"| Babelbound["Babelbound / Hammerspoon state machine"]
+    Babelbound -->|"verified prompt and collection"| Gemini
+    Gemini -->|"matching complete response"| Babelbound
+    Babelbound -->|"commit before advancing"| Saved["Checkpoint and source archive"]
     Saved --> Artwork["Python illustration worker"]
-    Artwork -->|"illustration manifest"| BT
-    BT --> HTML["Illustrated HTML"]
+    Artwork -->|"illustration manifest"| Babelbound
+    Babelbound --> HTML["Illustrated HTML"]
     HTML --> Export["Python EPUB exporter"]
     Export --> Output["Portable EPUB"]
 ```

@@ -26,7 +26,7 @@ An existing customized prompt is retained; the bundled default is written as a `
 GeminiBook = require("gemini_book")
 ```
 
-If that file already contains other automation, retain it and add the module load once. A Hammerspoon configuration is Lua code; do not replace an existing configuration blindly. Choose **Reload Config** from Hammerspoon’s menu after making changes. The **BT** menu should appear.
+If that file already contains other automation, retain it and add the module load once. A Hammerspoon configuration is Lua code; do not replace an existing configuration blindly. Choose **Reload Config** from Hammerspoon’s menu after making changes. Babelbound’s menu appears as **BT**, short for **Book Translator**.
 
 Hammerspoon’s [official setup guide](https://www.hammerspoon.org/go/) covers installation, Accessibility access, and configuration reloads.
 
@@ -40,17 +40,17 @@ Installer options:
 | `--skip-deps` | Reuse an existing working `.bt-venv` without installing dependencies |
 | `--dry-run` | Show planned installation work without making changes |
 
-If `init.lua` ends with a top-level `return`, the installer stops before changing application files. Use `--no-init`, then add the BT load line before that return yourself.
+If `init.lua` ends with a top-level `return`, the installer stops before changing application files. Use `--no-init`, then add the Babelbound load line before that return yourself.
 
 The installer does not restart Hammerspoon or change macOS permissions. A custom `--config-dir` must match the directory Hammerspoon actually uses; the flag does not reconfigure Hammerspoon itself.
 
 ## Permissions and Chrome setup
 
-Enable Hammerspoon in macOS **System Settings → Privacy & Security → Accessibility**. Also allow screen recording when BT requests it; the exact setting label varies between macOS versions. Restart Hammerspoon if macOS asks you to do so.
+Enable Hammerspoon in macOS **System Settings → Privacy & Security → Accessibility**. Also allow screen recording when Babelbound requests it; the exact setting label varies between macOS versions. Restart Hammerspoon if macOS asks you to do so.
 
 Open the BOOKWALKER reader and Gemini sidebar in the same Chrome window. Share the book tab with Gemini. Confirm manually that Gemini can access the visible page before attempting automation. Keep the editor empty and close any model picker or modal dialog before starting.
 
-BT relies on accessibility roles, control labels, window geometry, and calibrated coordinates. Different Chrome builds, UI languages, and account features can expose different controls. A successful installation does not guarantee that every Gemini interface variant is supported.
+Babelbound relies on accessibility roles, control labels, window geometry, and calibrated coordinates. Different Chrome builds, UI languages, and account features can expose different controls. A successful installation does not guarantee that every Gemini interface variant is supported.
 
 ## Configuration
 
@@ -69,7 +69,7 @@ The defaults are defined in `hammerspoon/gemini_book.lua`. Relevant options incl
 | `illustrationPython` | Python interpreter for illustration, EPUB, and job-move helpers |
 | `pollSeconds` | Readiness checks target three starts per second |
 | `pageStableSeconds` | Require two seconds of continuous image stability |
-| `offerAutoResume` | Off; reset-time scheduling is explicitly chosen from BT |
+| `offerAutoResume` | Off; reset-time scheduling is explicitly chosen from the **BT** menu |
 
 Set overrides in the global `GeminiBookConfig` table **before** requiring the module. For example, in `init.lua`:
 
@@ -103,8 +103,14 @@ python3 hammerspoon/gemini_book_epub.py \
 
 The illustration command updates the illustration manifest and crops. In normal use, Hammerspoon also regenerates HTML from that manifest; running the extractor alone does not rewrite `translation.html`. The EPUB command treats the supplied HTML as the authoritative reading copy.
 
+## Upgrading from Gemini Book Translator
+
+Babelbound is the project’s name from version 1.4.3. The existing `gemini_book*` filenames, `GeminiBook` load line, `GeminiBookConfig` overrides, and `.bt-venv` helper environment keep their names. The default output folder remains `~/Documents/GeminiBookTranslations`. Existing saved jobs, calibration, and settings do not need a migration.
+
+Use the normal update procedure below with the same Hammerspoon configuration directory. There is no need to rename job folders, create replacement jobs, or translate saved screens again.
+
 ## Updates and removal
 
 Pause translation and wait for illustration/EPUB work to finish before updating installed files. Keep a backup of customized prompts, configuration, and saved job folders. After updating, reload Hammerspoon and restore the desired saved job; a reload does not automatically resume it.
 
-To disable BT, remove or comment out its load line in `init.lua`, then reload Hammerspoon. Saved jobs remain in the output directory. Removing the installed `gemini_book*` modules and helper environment is a separate manual cleanup; do not remove saved jobs unless you intend to delete that work.
+To disable Babelbound, remove or comment out its load line in `init.lua`, then reload Hammerspoon. Saved jobs remain in the output directory. Removing the installed `gemini_book*` modules and helper environment is a separate manual cleanup; do not remove saved jobs unless you intend to delete that work.

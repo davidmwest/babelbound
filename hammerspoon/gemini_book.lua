@@ -1,4 +1,4 @@
--- Gemini Book, v1.4.2 (portable install and illustrated EPUB export) — Hammerspoon / macOS / Chrome sidebar. No API or network code.
+-- Babelbound, v1.4.3 (portable install and illustrated EPUB export) — Hammerspoon / macOS / Chrome sidebar. No API or network code.
 -- Load with: GeminiBook = require("gemini_book")
 -- UI integration MUST be tested on your Chrome build before a long run.
 local core = require("gemini_book_core")
@@ -16,7 +16,7 @@ local sourcePolicy = require("gemini_book_source")
 local bookFocus = require("gemini_book_focus")
 local turnFocus
 local quota = {}
-local M = {version="1.4.2"}
+local M = {version="1.4.3"}
 
 -- User-adjustable defaults. Screen coordinates are calibrated, not hard-coded.
 M.config = {
@@ -153,7 +153,7 @@ local function dismissNotice()
     if noticeID then hs.alert.closeSpecific(noticeID,0); noticeID=nil end
 end
 local function alert(s)
-    hs.alert.show("Book translator: "..wrapNotice(s),12)
+    hs.alert.show("Babelbound: "..wrapNotice(s),12)
 end
 local function persistentNotice(s, remember)
     dismissNotice()
@@ -162,7 +162,7 @@ local function persistentNotice(s, remember)
             folder=job and job.folder,phase=phase,version=M.version}
         hs.settings.set(settingKey..".lastNotice",lastNotice)
     end
-    noticeID=hs.alert.show("Book translator\n\n"..wrapNotice(s)
+    noticeID=hs.alert.show("Babelbound\n\n"..wrapNotice(s)
         .."\n\nDismiss: Control-Option-Command-D or BT > Dismiss message"
         .."\nDismissing does NOT resume automation.",
         {textSize=19,fadeInDuration=0,fadeOutDuration=0},"until-dismissed")
@@ -194,7 +194,7 @@ local function readFile(path)
     local s = f:read("*a"); f:close(); return s
 end
 local function log(s)
-    print("[GeminiBook] " .. s)
+    print("[Babelbound] " .. s)
     if job and job.folder then
         local f = io.open(job.folder .. "/run.log", "a")
         if f then f:write(os.date("%Y-%m-%d %H:%M:%S ") .. s .. "\n"); f:close() end
@@ -408,7 +408,7 @@ pause = function(reason,kind)
         local ok, err = pcall(checkpoint)
         if not ok then
             sessionWarning="Could not save the job checkpoint: "..tostring(err)
-            print("[GeminiBook] Checkpoint error: " .. tostring(err))
+            print("[Babelbound] Checkpoint error: " .. tostring(err))
         end
     elseif reason and kind~="paused" and kind~="finished" then sessionWarning=reason end
     refreshMenu()
@@ -422,7 +422,7 @@ pause = function(reason,kind)
                     sent=job.pending and job.pending.sent or false,
                     saved=#job.records,remaining=job.remaining},true))
             end)
-            if not ok then print("[GeminiBook] Last-pause report error: "..tostring(err)) end
+            if not ok then print("[Babelbound] Last-pause report error: "..tostring(err)) end
         end
         persistentNotice(reason,true)
     end
@@ -698,7 +698,7 @@ local function inputFailure(why, details)
             pressResult=skillFlow.pressResult,error=why}
         atomicWrite(job.folder.."/skill-selection.txt",hs.json.encode(trace,true).."\n")
     end
-    local report="GeminiBook "..M.version.." input failure\nPhase: "..phase
+    local report="Babelbound "..M.version.." input failure\nPhase: "..phase
         .."\n"..why.."\nText contents omitted.\n"..(details or "").."\n"
         .."Pending ID: "..tostring(job and job.pending and job.pending.id).."\n"
         .."Readback wait seconds: "..tostring(inputReadback and now()-inputReadback.started or 0).."\n"
@@ -854,7 +854,7 @@ local function scopedRoots()
     return composer,panel
 end
 local function scanFailure(message,stats)
-    local report={"GeminiBook "..M.version.." scoped accessibility scan",
+    local report={"Babelbound "..M.version.." scoped accessibility scan",
         "Phase: "..phase,"Scope: "..tostring(scanKind),
         "Root: "..tostring(scanRootDescription),"Reason: "..message,
         "Visited AXChildren nodes: "..tostring(stats and stats.visited),
@@ -1354,7 +1354,7 @@ local function pageFailure(img,hash)
     end
     finishTurnTrace("failed-to-verify",img,hash)
     assert(img:saveToFile(job.folder.."/turn-failure.png",true,"PNG"),"Cannot save page failure image")
-    local report={"GeminiBook "..M.version.." page verification failure",os.date("%Y-%m-%d %H:%M:%S"),
+    local report={"Babelbound "..M.version.." page verification failure",os.date("%Y-%m-%d %H:%M:%S"),
         "Phase: "..phase,"Saved screens: "..#job.records,"Remaining: "..job.remaining,
         "Diagnosis: "..diagnosis,"Final hash: "..hash,"Last saved hash: "..tostring(job.lastSourceHash),
         "Final matches saved: "..tostring(hash==job.lastSourceHash),
@@ -3233,7 +3233,7 @@ function M.diagnostics()
     local w,err=guard(); if not w then warningNotice(err); return end
     mkdir(cfg.outputRoot)
     scanButtons(function(copies,stopped,lines,limitHit,model)
-        local out={"GeminiBook accessibility diagnostics", "Current composer model: "..tostring(model),
+        local out={"Babelbound accessibility diagnostics", "Current composer model: "..tostring(model),
             "Matched limit notice: "..tostring(limitHit and limitHit.text or "none"), "Chrome title: "..w:title(),
             "Visible Copy candidates: "..#copies, "Generation/Stop control: "..tostring(stopped),
             "Pending ID: "..(job and job.pending and job.pending.id or "none"),
@@ -3366,7 +3366,7 @@ quota.offer=function(event)
         "Gemini says its limit resets "..parsed.label..". This adds a 60-second buffer.\n\n"
         .."Leave Hammerspoon running, the Mac awake/unlocked, and the ORIGINAL book tab, source page and conversation in front. "
         .."At that time, resume with the currently selected model only if no blocking service or quota notice is visible. "
-        .."Gemini's continuing-with-Flash-Lite notice is allowed. BT never changes the model selection.\n\n"
+        .."Gemini's continuing-with-Flash-Lite notice is allowed. Babelbound never changes the model selection.\n\n"
         .."An already-sent request will only be collected, never automatically resent. "
         .."Stop, manual Start/resume, reload or quitting cancels this one-shot timer. No response means no timer.",
         "No, stay paused","Yes, auto-resume")
@@ -3423,7 +3423,7 @@ end
 function M.menuItems()
         local view=refreshMenu()
         return {
-            {title="Gemini Book "..M.version.." — "..view.label,disabled=true},
+            {title="Babelbound "..M.version.." — "..view.label,disabled=true},
             {title="Calibrate (Ctrl-Option-Cmd-C)",fn=safe(M.calibrate)},
             {title="Set forward click only (Ctrl-Option-Cmd-N)",fn=safe(M.calibrateNext)},
             {title="Preview source crop",fn=safe(M.preview)},

@@ -2,7 +2,7 @@
 
 ## Runtime
 
-Hammerspoon owns the menu, hotkeys, timers, accessibility queries, window/focus checks, mouse delivery, clipboard collection, and job checkpoints. Chrome renders BOOKWALKER and Gemini. BT does not use a Gemini API client or inject a hidden browser crawler.
+Hammerspoon owns the menu, hotkeys, timers, accessibility queries, window/focus checks, mouse delivery, clipboard collection, and job checkpoints. Chrome renders BOOKWALKER and Gemini. Babelbound does not use a Gemini API client or inject a hidden browser crawler.
 
 A normal screen follows this sequence:
 

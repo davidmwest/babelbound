@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Export a saved BT translation.html as an offline, reflowable EPUB 3.
+"""Export a saved Babelbound translation.html as an offline, reflowable EPUB 3.
 
 The saved HTML is the authoritative translation. No page is retranslated and
 no network resources are loaded. All local artwork is packaged in the EPUB;
@@ -521,7 +521,7 @@ class Exporter:
         ET.SubElement(metadata, tag(DC, 'identifier'), {'id': 'book-id'}).text = 'urn:uuid:' + str(uuid.uuid5(uuid.NAMESPACE_URL, 'bt-epub:' + str(identity)))
         ET.SubElement(metadata, tag(DC, 'title')).text = self.title
         ET.SubElement(metadata, tag(DC, 'language')).text = 'en'
-        ET.SubElement(metadata, tag(DC, 'description')).text = f'English reading copy exported from {len(self.sections)} saved BT screens. Translation model metadata is retained for each captured screen.'
+        ET.SubElement(metadata, tag(DC, 'description')).text = f'English reading copy exported from {len(self.sections)} screens saved with Babelbound. Translation model metadata is retained for each captured screen.'
         # Only explicit author metadata is used; do not infer creator from prose.
         author = self.metadata.get('author') or self.metadata.get('bookAuthor')
         if isinstance(author, str) and author.strip():

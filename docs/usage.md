@@ -1,5 +1,7 @@
 # Usage and recovery
 
+Babelbound’s compact menu-bar label is **BT**, short for **Book Translator**.
+
 ## Calibrate the visible reader
 
 Arrange the BOOKWALKER content to the left of the Gemini sidebar in one Chrome window, on one display. Keep that window size and position stable while running a batch.
@@ -30,7 +32,7 @@ Moving/resizing the window, changing display scaling, or changing sidebar width 
 
 A completed batch leaves its last translated source screen visible. Start / resume then asks for additional screens. The software does not infer that reaching a requested count means the entire book is finished.
 
-Avoid typing, changing tabs, opening dialogs, or turning the book manually while a batch is active. BT uses focus, screenshot, request-ID, and clipboard checks, but it still shares your desktop input.
+Avoid typing, changing tabs, opening dialogs, or turning the book manually while a batch is active. Babelbound uses focus, screenshot, request-ID, and clipboard checks, but it still shares your desktop input.
 
 ## Status and percentage
 
@@ -48,7 +50,7 @@ Avoid typing, changing tabs, opening dialogs, or turning the book manually while
 
 Percentage is `saved screens ÷ (saved screens + remaining requested screens)`, rounded down. Pending responses are not counted as saved. Adding a batch extends the target, so the percentage can decrease. This is progress toward the current job target, not a measured fraction of the physical book.
 
-Hover over BT for the title, saved count, remaining count, and warning reason. **Status** displays more information but pauses an active run to keep the overlay out of source captures. **Show last pause/error** also stops active collection before showing its message.
+Hover over **BT** for the title, saved count, remaining count, and warning reason. **Status** displays more information but pauses an active run to keep the overlay out of source captures. **Show last pause/error** also stops active collection before showing its message.
 
 ## Shortcuts
 
@@ -68,9 +70,9 @@ Every shortcut uses **Control–Option–Command** plus the listed key. Actions 
 
 **Choose saved job…** lists saved jobs; **Restore latest saved job** restores the most recently updated valid checkpoint. Restoring preserves pending requests and does not send a prompt or turn a page.
 
-Use **Rename current job…** to change the folder and displayed title. BT adds `Book-` and handles name collisions with suffixes such as `(2)`. Pause first, cancel any scheduled resume, and let illustration/EPUB work finish. Rename is disabled while a writer could still be using the old paths.
+Use **Rename current job…** to change the folder and displayed title. Babelbound adds `Book-` and handles name collisions with suffixes such as `(2)`. Pause first, cancel any scheduled resume, and let illustration/EPUB work finish. Rename is disabled while a writer could still be using the old paths.
 
-Request IDs do not depend on the folder title. Renaming updates operational paths while preserving translations, source captures, and pending-request identity. Use BT’s rename action instead of renaming an active job folder in Finder.
+Request IDs do not depend on the folder title. Renaming updates operational paths while preserving translations, source captures, and pending-request identity. Use Babelbound’s rename action instead of renaming an active job folder in Finder.
 
 ## Recover a pending response
 
@@ -86,12 +88,12 @@ If Gemini has already produced the complete response, **Collect existing pending
 
 ## Recover a page-position warning
 
-A page turn is one click followed by verification. If the image does not change, changes ambiguously, or changes unexpectedly, BT records the uncertainty and pauses. It does not repeatedly click until something happens.
+A page turn is one click followed by verification. If the image does not change, changes ambiguously, or changes unexpectedly, Babelbound records the uncertainty and pauses. It does not repeatedly click until something happens.
 
 Return to the pending source image when a pending request exists. Otherwise, compare the current book position with the last saved source. **Review last saved source** supports a deliberate review when the page is the same but its appearance has changed. Follow the comparison and confirmation prompts; do not assume that a changed screenshot is automatically the next page.
 
 ## Usage limits
 
-BT recognizes supported limit notices and preserves a complete reply when it can. A timeout is a warning, never evidence that a translation finished. Select the model you want in Gemini, close the picker, and resume when the service is available.
+Babelbound recognizes supported limit notices and preserves a complete reply when it can. A timeout is a warning, never evidence that a translation finished. Select the model you want in Gemini, close the picker, and resume when the service is available.
 
 Reset-time resume is off by default. **Schedule auto-resume from reset notice** is an opt-in local timer based on a recognized notice. It does not bypass account limits or run after an arbitrarily late wakeup. **Cancel auto-resume**, Stop, and reload cancel that scheduled action.

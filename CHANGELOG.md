@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.3 — 2026-09-23
+
+- Renamed the project to **Babelbound**, with updated documentation, installer messages, menu heading, and diagnostic labels.
+- Made the independent-project notice visible near the README introduction.
+- Kept **BT** (Book Translator) as the compact macOS menu label.
+- Preserved configuration names, module paths, settings, saved-job locations, request IDs, and EPUB identifiers. Existing installations and books need no migration.
+
+This release changes the project name and presentation; translation and recovery behavior are unchanged. Earlier releases retain their original names and files.
+
 ## 1.4.2 — 2026-09-23
 
 - Added an MIT license for original code, documentation, fixtures, and demo content, with explicit third-party screenshot exceptions.

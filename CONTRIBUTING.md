@@ -1,6 +1,6 @@
 # Contributing
 
-BT is a desktop tool with a portable export layer. You can work on its parsing, persistence, or EPUB behavior without opening Chrome. Changes to the live reader workflow need a separate macOS check.
+Babelbound is a desktop tool with a portable export layer. You can work on its parsing, persistence, or EPUB behavior without opening Chrome. Changes to the live reader workflow need a separate macOS check.
 
 ## Set up a development environment
 

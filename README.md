@@ -1,32 +1,34 @@
-# Gemini Book Translator
+# Babelbound
 
-**A resumable macOS workflow for translating BOOKWALKER pages through Gemini in Chrome and exporting illustrated HTML and EPUB.**
+*Across languages. Between covers.*
 
-Choose a model and a batch size. Gemini Book Translator (BT) translates the current screen, saves the response, and turns the page. If a step fails, it pauses with the saved state available for review and recovery.
+**A macOS book translator for BOOKWALKER and Gemini in Chrome, with resumable jobs and illustrated HTML and EPUB exports.**
 
-**Independent, unofficial project.** BT is not affiliated with, endorsed by, or sponsored by Google. Gemini and Chrome are Google products. See the [third-party notices](NOTICE.md).
+Choose a model and a batch size. Babelbound translates the current screen, saves the response, and turns the page. If a step fails, it pauses with the saved state available for review and recovery. In the menu bar, look for **BT**, short for **Book Translator**.
 
-**Version 1.4.2 · Lua / Hammerspoon · Python / Pillow · Chrome / macOS**
+**Independent, unofficial project.** Babelbound is not affiliated with, endorsed by, or sponsored by Google. Gemini and Chrome are Google products. See the [third-party notices](NOTICE.md).
+
+**Version 1.4.3 · Lua / Hammerspoon · Python / Pillow · Chrome / macOS**
 
 [Try the reading copy](#try-the-reading-copy) · [Setup](#install) · [Calibration](#first-translation) · [Model choice](#your-gemini-plan-and-model) · [Reading copies](#saved-output) · [Documentation](#documentation)
 
 ## Where it works
 
-**BT is built for BOOKWALKER’s paginated reader in Chrome on macOS, with the book on the left and Gemini’s sidebar on the right in the same window.** The bundled prompt translates Japanese light novels into English. That is the working setup this project was developed against.
+**Babelbound is built for BOOKWALKER’s paginated reader in Chrome on macOS, with the book on the left and Gemini’s sidebar on the right in the same window.** The bundled prompt translates Japanese light novels into English. That is the working setup this project was developed against.
 
 ![BOOKWALKER pages beside the Gemini translation in Chrome, with personal details blacked out](docs/images/bookwalker-gemini.png)
 
 *BOOKWALKER on the left, Gemini on the right. This documentation image comes from a working session and has been cropped and redacted.*
 
-Compatibility depends on how the book is displayed and how its pages turn. Calibrate records five screen positions; it does not teach BT how to use an arbitrary reader.
+Compatibility depends on how the book is displayed and how its pages turn. Calibrate records five screen positions; it does not teach Babelbound how to use an arbitrary reader.
 
 | Requirement | What that means in practice |
 | --- | --- |
 | A complete, readable page or spread | All the content for one translation fits inside a single rectangular crop, entirely left of Gemini and on one display. Single-page and two-page layouts are both usable; one saved “screen” is the whole visible page or spread. |
-| A consistent forward-click target | One mouse click at the same position advances to the next page or spread. Verify the direction yourself, especially in a right-to-left reader. BT does not scroll the source, swipe, drag, or use keyboard paging. |
+| A consistent forward-click target | One mouse click at the same position advances to the next page or spread. Verify the direction yourself, especially in a right-to-left reader. Babelbound does not scroll the source, swipe, drag, or use keyboard paging. |
 | A stable reader layout | Keep the window, zoom, sidebar width, and page layout fixed during a batch. The next page must visibly change and then settle. Moving or resizing the window, changing tabs, or obscuring the page interrupts this workflow. |
-| Gemini can read the shared book tab | Confirm this manually first. The saved screenshot crop is used for verification and artwork; BT does **not** upload it to Gemini as an image attachment. |
-| Browser controls BT can verify | Hammerspoon needs Accessibility and Screen Recording access. Chrome must expose the reader and Gemini’s input, Send, and Copy controls in the form BT expects. The default control labels are English. |
+| Gemini can read the shared book tab | Confirm this manually first. The saved screenshot crop is used for verification and artwork; Babelbound does **not** upload it to Gemini as an image attachment. |
+| Browser controls Babelbound can verify | Hammerspoon needs Accessibility and Screen Recording access. Chrome must expose the reader and Gemini’s input, Send, and Copy controls in the form Babelbound expects. The default control labels are English. |
 
 During calibration, you identify Gemini’s empty input, the book’s forward-click target, the two corners of the book rectangle, and the top-left of the Gemini pane. See the [calibration walkthrough](docs/usage.md#calibrate-the-visible-reader) for the exact sequence. Use **Preview source crop**, then complete a short three-screen batch before committing to a long run. A successful calibration alone does not prove that page turning or Gemini access works.
 
@@ -34,15 +36,15 @@ During calibration, you identify Gemini’s empty input, the book’s forward-cl
 
 ## Your Gemini plan and model
 
-BT uses **your own Google account and Gemini access in Chrome**. Requests use your account’s model access and usage allowance; BT does not provide a separate plan or require an API key. Availability and limits can change, so check [Google’s current plan and model information](https://support.google.com/gemini/answer/16275805?hl=en) rather than assuming a fixed number of pages per day.
+Babelbound uses **your own Google account and Gemini access in Chrome**. Requests use your account’s model access and usage allowance; Babelbound does not provide a separate plan or require an API key. Availability and limits can change, so check [Google’s current plan and model information](https://support.google.com/gemini/answer/16275805?hl=en) rather than assuming a fixed number of pages per day.
 
-Choose the model yourself: click the model name inside Gemini’s input box, select the model you want, and close the picker before starting BT. Pause BT before changing models mid-job. The tool uses that selection and records the observed model for each saved screen. [Google’s Chrome guide](https://support.google.com/gemini/answer/16283624?hl=en) documents the model picker and account requirements.
+Choose the model yourself: click the model name inside Gemini’s input box, select the model you want, and close the picker before starting Babelbound. Pause Babelbound before changing models mid-job. The tool uses that selection and records the observed model for each saved screen. [Google’s Chrome guide](https://support.google.com/gemini/answer/16283624?hl=en) documents the model picker and account requirements.
 
-**If you don’t have Google AI Ultra, I recommend Flash for this workflow.** It is my practical default for translating a book. Ultra is not a BT requirement, and you can select Pro or another model when your account offers it.
+**If you don’t have Google AI Ultra, I recommend Flash for this workflow.** It is my practical default for translating a book. Ultra is not a Babelbound requirement, and you can select Pro or another model when your account offers it.
 
 **Flash-Lite gave significantly worse translations in the comparison behind that recommendation.** The same 20 reader screens were translated with the same prompt in separate conversations. On the 15 prose screens, the source-based review scored Flash-Lite **5.0/10**, versus **9.1/10** for Flash. Flash-Lite’s problems included missing passages and reversed meanings; Flash still made errors and needed review.
 
-Those are this project’s blind AI-reviewer assessments of one sample, not a universal model benchmark or a promise about future versions. The observed UI selections were 3.5 Flash-Lite and 3.8 Flash; the backend models were not independently verified. BT can run with Flash-Lite, but I would not use it for a faithful reading copy based on those results.
+Those are this project’s blind AI-reviewer assessments of one sample, not a universal model benchmark or a promise about future versions. The observed UI selections were 3.5 Flash-Lite and 3.8 Flash; the backend models were not independently verified. Babelbound can run with Flash-Lite, but I would not use it for a faithful reading copy based on those results.
 
 ## What it does
 
@@ -83,6 +85,8 @@ GeminiBook = require("gemini_book")
 
 Use Hammerspoon’s **Reload Config** after installation. Grant Hammerspoon Accessibility and Screen Recording access when prompted. See [installation and configuration](docs/installation.md) for the full setup, updates, and custom paths. Hammerspoon’s [Getting Started guide](https://www.hammerspoon.org/go/) explains its configuration and reload controls.
 
+Existing Gemini Book Translator installations can [upgrade without migrating jobs or configuration](docs/installation.md#upgrading-from-gemini-book-translator).
+
 ## First translation
 
 1. Open a book you have permission to translate in BOOKWALKER’s Chrome reader.
@@ -99,13 +103,13 @@ Use Hammerspoon’s **Reload Config** after installation. Grant Hammerspoon Acce
 
 The normal request mode sends the bundled translation prompt directly. Creating a Gemini `/ln` skill is optional.
 
-When the requested batch completes, BT leaves the last translated screen visible and builds the reading copy. **BT → Open EPUB in Books** opens the saved ebook on the Mac. Transfer `translation.epub` to your iPad and open it in Books; the illustrations travel inside the file.
+When the requested batch completes, Babelbound leaves the last translated screen visible and builds the reading copy. **BT → Open EPUB in Books** opens the saved ebook on the Mac. Transfer `translation.epub` to your iPad and open it in Books; the illustrations travel inside the file.
 
 ## Continue a book
 
 Use **Start / resume — [book title]** to continue the loaded job. After a reload, use **Restore latest saved job** or **Choose saved job…**, review the book’s position, then resume. Restoring does not start translation.
 
-If the previous batch is finished, Start / resume asks how many additional screens to translate. **Finished means the requested batch is complete, not that BT has independently detected the end of the book.**
+If the previous batch is finished, Start / resume asks how many additional screens to translate. **Finished means the requested batch is complete, not that Babelbound has independently detected the end of the book.**
 
 Read [usage and recovery](docs/usage.md) before retrying a pending request or an uncertain page turn.
 
@@ -131,7 +135,7 @@ GeminiBookTranslations/
 
 *An actual EPUB layout check in Apple Books on macOS. Artwork and translated text travel together inside the EPUB; this is an output example, not a supported source reader.*
 
-Use **Rename current job…** to change a title while the job is paused and background saves have finished. BT updates the job’s paths without changing its request IDs or translated text.
+Use **Rename current job…** to change a title while the job is paused and background saves have finished. Babelbound updates the job’s paths without changing its request IDs or translated text.
 
 ## Documentation
 
@@ -149,7 +153,7 @@ The repository includes synthetic Python and Lua regression suites for response 
 
 The current integration targets macOS, the standard Chrome application, BOOKWALKER’s visible reader, and Gemini’s sidebar. English UI labels are the default. It is not a headless browser crawler and cannot translate unseen pages without turning to them. It does not automatically change models or assess their translation quality.
 
-BT stores screenshots, translations, and diagnostic traces locally. Gemini processes the shared page through your existing Chrome session. Documentation includes intentionally selected, redacted screenshots of the working setup. Full book archives, saved jobs, credentials, and personal browser state are not included in the repository.
+Babelbound stores screenshots, translations, and diagnostic traces locally. Gemini processes the shared page through your existing Chrome session. Documentation includes intentionally selected, redacted screenshots of the working setup. Full book archives, saved jobs, credentials, and personal browser state are not included in the repository.
 
 ## License
 

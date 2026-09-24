@@ -16,6 +16,6 @@ The offline demo uses original invented text and generated geometric artwork. It
 
 ## Dependencies and names
 
-Hammerspoon, Pillow, Python, Lua, browsers, and other external tools retain their own licenses. They are installed separately, not relicensed or bundled as part of BT's source. The MIT grant does not confer trademark rights or a provider's endorsement.
+Hammerspoon, Pillow, Python, Lua, browsers, and other external tools retain their own licenses. They are installed separately, not relicensed or bundled as part of Babelbound's source. The MIT grant does not confer trademark rights or a provider's endorsement.
 
-BT is an independent, unofficial project. It is not affiliated with, endorsed by, or sponsored by Google, BOOKWALKER, KADOKAWA, or Apple. Gemini and Chrome are Google products. A license to BT's software does not grant rights to source material processed with it or access to a Gemini service plan.
+Babelbound is an independent, unofficial project. It is not affiliated with, endorsed by, or sponsored by Google, BOOKWALKER, KADOKAWA, or Apple. Gemini and Chrome are Google products. A license to Babelbound's software does not grant rights to source material processed with it or access to a Gemini service plan.

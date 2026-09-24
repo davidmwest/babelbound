@@ -71,7 +71,7 @@ If Books keeps showing an older imported copy, check the new file’s modificati
 
 ## Model provenance
 
-BT accepts the model currently selected in Gemini, including Flash-Lite, Flash, or Pro when those choices are available. It does not switch the selection for you.
+Babelbound accepts the model currently selected in Gemini, including Flash-Lite, Flash, or Pro when those choices are available. It does not switch the selection for you.
 
 Metadata distinguishes the observation at submission from the observation at collection. If the visible selection changes during generation, the record can indicate uncertainty and possible model keys. If the UI cannot be read reliably, the record may be unknown or unverified.
 
@@ -81,4 +81,4 @@ The tags support later review and selecting pages for possible retranslation. Th
 
 ## Preserve reviewed work
 
-Normal BT HTML rebuilds derive text from checkpoint records and reviewed layout files. Hand-editing `translation.html` can therefore be overwritten by a later rebuild. Keep a separate reviewed copy if you edit HTML directly, and export that copy explicitly with the Python EPUB helper. The exporter itself preserves the input HTML.
+Normal Babelbound HTML rebuilds derive text from checkpoint records and reviewed layout files. Hand-editing `translation.html` can therefore be overwritten by a later rebuild. Keep a separate reviewed copy if you edit HTML directly, and export that copy explicitly with the Python EPUB helper. The exporter itself preserves the input HTML.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create an offline, synthetic HTML and EPUB preview of BT's export pipeline.
+"""Create an offline, synthetic HTML and EPUB preview of Babelbound's export pipeline.
 
 No browser, account, Hammerspoon installation, or model request is used. The
 English text is invented for this example; Pillow draws a geometric fixture.

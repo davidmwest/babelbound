@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract artwork from committed, visible Gemini Book Translator captures.
+"""Extract artwork from committed, visible Babelbound captures.
 
 Needs Python 3.9+ and Pillow. No network, model, OCR, or reader access is used.
 The checkpoint is the source of truth: uncommitted screenshots are never read.

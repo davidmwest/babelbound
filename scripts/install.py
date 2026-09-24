@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install BT without replacing unrelated Hammerspoon configuration."""
+"""Install Babelbound without replacing unrelated Hammerspoon configuration."""
 from __future__ import annotations
 
 import argparse
@@ -122,9 +122,9 @@ def plan_install(config: Path, source: Path, update_init: bool = True) -> list[t
         text = original.decode("utf-8")
         if not has_load_line(text):
             if has_top_level_return(text):
-                raise ValueError("init.lua has a top-level return. Use --no-init, then add the BT load line before that return manually.")
+                raise ValueError("init.lua has a top-level return. Use --no-init, then add the Babelbound load line before that return manually.")
             addition = ("\n" if original and not original.endswith(b"\n") else "")
-            addition += "\n-- Gemini Book Translator\n" + LOAD_LINE + "\n"
+            addition += "\n-- Babelbound\n" + LOAD_LINE + "\n"
             planned.append((init, original + addition.encode("utf-8")))
     return planned
 
@@ -197,7 +197,7 @@ def main(argv: list[str] | None = None) -> int:
         requirements = ROOT / "requirements.txt"
         if not requirements.is_file():
             raise ValueError("The package is missing requirements.txt")
-        print(f"BT installation directory: {config}")
+        print(f"Babelbound installation directory: {config}")
         for path, _ in planned:
             print(f"  {'Update' if path.exists() else 'Create'} {path.name}")
         if args.dry_run:
@@ -205,7 +205,7 @@ def main(argv: list[str] | None = None) -> int:
             print("Dry run complete; no files changed.")
             return 0
         if sys.platform != "darwin":
-            raise ValueError("BT requires macOS. Use --dry-run to inspect the install elsewhere.")
+            raise ValueError("Babelbound requires macOS. Use --dry-run to inspect the install elsewhere.")
         if args.skip_deps:
             check_environment(python)
         else:
@@ -219,7 +219,7 @@ def main(argv: list[str] | None = None) -> int:
         backup = apply_plan(config, planned)
         if backup:
             print(f"Replaced files backed up to: {backup}")
-        print("BT installed. Grant Hammerspoon Accessibility and Screen Recording access, then choose Reload Config.")
+        print("Babelbound installed (BT menu). Grant Hammerspoon Accessibility and Screen Recording access, then choose Reload Config.")
         if args.no_init:
             print(f"Add this to init.lua when ready: {LOAD_LINE}")
         return 0
