@@ -1,4 +1,4 @@
--- Gemini Book, v1.4.1 (portable install and illustrated EPUB export) — Hammerspoon / macOS / Chrome sidebar. No API or network code.
+-- Gemini Book, v1.4.2 (portable install and illustrated EPUB export) — Hammerspoon / macOS / Chrome sidebar. No API or network code.
 -- Load with: GeminiBook = require("gemini_book")
 -- UI integration MUST be tested on your Chrome build before a long run.
 local core = require("gemini_book_core")
@@ -16,7 +16,7 @@ local sourcePolicy = require("gemini_book_source")
 local bookFocus = require("gemini_book_focus")
 local turnFocus
 local quota = {}
-local M = {version="1.4.1"}
+local M = {version="1.4.2"}
 
 -- User-adjustable defaults. Screen coordinates are calibrated, not hard-coded.
 M.config = {

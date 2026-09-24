@@ -20,7 +20,24 @@ Python tests cover EPUB packaging and metadata, cover selection, prose cleanup,
 artwork layout, missing or unsafe resources, atomic export failure, image
 optimization, and cache freshness. Installer tests cover dry runs, customized
 prompts, backups, repeat installation, safe Lua loader edits, path validation,
-and dependency failures. All image fixtures are created at test time.
+and dependency failures. The offline demo smoke test checks packaged artwork,
+reading order, continuation cleanup, network-free operation, and refusal to
+replace an existing output path. All image fixtures are created at test time.
+Illustration extraction tests check committed-screen selection, stale review
+rejection, cache reuse, preservation of the published manifest after a failure,
+and exact crop contents and ordering.
+
+To inspect the same synthetic export yourself:
+
+```sh
+python3 scripts/demo.py --output demo-output
+```
+
+Open `demo-output/translation.html` in a browser or import
+`demo-output/translation.epub` into an ebook reader. The invented English text
+and geometric illustration do not use a model, browser automation, or an
+account. The command requires a new directory; use a different `--output` path
+for another run. It refuses an existing directory, file, or symlink.
 
 Lua tests cover status and percentage progress, prepared-draft resume and
 duplicate-submit prevention, source review and cancellation, page-turn focus
@@ -31,5 +48,6 @@ load the actual production code into a memory-only environment; no separate
 copy of the translator implementation is used.
 
 The GitHub workflow also compiles every Lua file before running the tests on
-Ubuntu with Python 3.12 and Lua 5.4. Native Chrome accessibility, screen capture,
-and the Apple Books interface still require manual validation on macOS.
+Ubuntu 24.04 with Python 3.10 and macOS 15 with Python 3.14, using Lua 5.4 on both.
+Native Chrome accessibility, screen capture, and the Apple Books interface
+still require manual validation on macOS.

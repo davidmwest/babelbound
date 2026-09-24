@@ -1,12 +1,12 @@
 # Gemini Book Translator
 
-I wanted to read a book in English without constantly moving between the reader, Gemini, and a saved document. The routine was getting ridiculous: translate a page, copy the response, save it, turn the page, repeat. If something got stuck, figure out which of those steps had actually happened.
+**A resumable macOS workflow for translating BOOKWALKER pages through Gemini in Chrome and exporting illustrated HTML and EPUB.**
 
-Gemini Book Translator handles that loop from a **BT** menu in macOS. It translates the visible BOOKWALKER page through Gemini in Chrome, keeps resumable jobs, and produces illustrated HTML and EPUB reading copies.
+Choose a model and a batch size. BT translates the current screen, saves the response, and turns the page. If a step fails, it pauses with the saved state available for review and recovery.
 
-**Version 1.4.1 · macOS · Hammerspoon · Lua + Python**
+**Version 1.4.2 · Lua / Hammerspoon · Python / Pillow · Chrome / macOS**
 
-I developed this with Codex, using the running desktop workflow to find problems and drive the next changes. The implementation and regression tests were AI-assisted. You don't need Codex or a Gemini API key to run it; BT uses your existing Gemini sidebar and selected model.
+[Try the reading copy](#try-the-reading-copy) · [Setup](#install) · [Calibration](#first-translation) · [Model choice](#your-gemini-plan-and-model) · [Reading copies](#saved-output) · [Documentation](#documentation)
 
 ## Where it works
 
@@ -53,20 +53,15 @@ Those are this project’s blind AI-reviewer assessments of one sample, not a un
 - Extracts illustrations from saved captures and inserts them in reading order.
 - Exports a self-contained EPUB for Apple Books, including artwork and any reviewed English cover layouts.
 
-## The tricky part
+## Try the reading copy
 
-Keeping a page, a request, and a saved translation in agreement gets surprisingly involved when any one of them stalls.
+You can try the export without setting up Chrome, Hammerspoon, or a Gemini account. With Python 3.10+ and the [Pillow dependency](requirements.txt) installed, run:
 
-| Problem encountered | What changed |
-| --- | --- |
-| Gemini finished, but Copy failed | Persist the pending request and collect the existing reply before considering a resend |
-| A page-turn click did nothing | Record turn state first, deliver one click, and verify a stable image change |
-| Every idle state looked like “paused” | Separate warnings, deliberate pauses, finished batches, and active work |
-| Faster polling could still read a moving page | Check readiness roughly three times a second while retaining an independent two-second stability check |
-| Moving HTML to an iPad lost the images | Package text and artwork together in EPUB |
-| One EPUB chapter per capture created blank spreads | Use one continuous reading document with screen anchors for navigation |
+```sh
+python3 scripts/demo.py --output demo-output
+```
 
-The [design notes](docs/design-notes.md) explain those choices. This is still desktop UI automation: Chrome, Gemini, the reader layout, and accessibility permissions have to cooperate. Try a short batch first, and review the translation.
+Open `demo-output/translation.html`, or import `demo-output/translation.epub` into Books. The demo uses invented English text and generated artwork to show the reading format; it does not translate a source book. Use a new output directory each time—the command leaves existing files alone.
 
 ## Install
 
@@ -143,7 +138,8 @@ Use **Rename current job…** to change a title while the job is paused and back
 - [Illustrations, HTML, EPUB, and model metadata](docs/reading-copies.md)
 - [Troubleshooting](docs/troubleshooting.md)
 - [Design notes](docs/design-notes.md)
-- [Architecture and contributing](docs/architecture.md)
+- [Architecture](docs/architecture.md)
+- [Contributing](CONTRIBUTING.md)
 
 ## Testing and limits
 
@@ -152,3 +148,9 @@ The repository includes synthetic Python and Lua regression suites for response 
 The current integration targets macOS, the standard Chrome application, BOOKWALKER’s visible reader, and Gemini’s sidebar. English UI labels are the default. It is not a headless browser crawler and cannot translate unseen pages without turning to them. It does not automatically change models or assess their translation quality.
 
 BT stores screenshots, translations, and diagnostic traces locally. Gemini processes the shared page through your existing Chrome session. Documentation includes intentionally selected, redacted screenshots of the working setup. Full book archives, saved jobs, credentials, and personal browser state are not included in the repository.
+
+## License
+
+The code and original project documentation are available under the [MIT License](LICENSE), including for commercial use, modification, and redistribution subject to its notice requirements.
+
+The documentation screenshots contain third-party book content, artwork, and interface elements. Those materials are excluded from the MIT grant; see [NOTICE](NOTICE.md). The license covers this project's contributions, not rights to the books you translate.

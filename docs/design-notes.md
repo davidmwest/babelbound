@@ -48,10 +48,60 @@ The first EPUB structure gave every capture its own reading document. Apple Book
 
 That last point matters: export cleanup does not rewrite the underlying translation. It does not guess how fragments should join or delete repeated prose. The original HTML, checkpoint, source screenshots, and responses remain available for review.
 
-## What I would validate before expanding this
+## Model choice needed a comparison
 
-The portable tests cover the parts that can be made deterministic: request parsing, interrupted state transitions, file transactions, image-cache freshness, EPUB structure, and text preservation. They use invented text and generated images.
+Model selection initially looked like a configuration detail. It turned out to have a direct effect on whether the saved result was worth reading.
 
-The desktop boundaries need separate validation. A changed Gemini sidebar should get a short live test. A pagination change should be opened in Books. Better model comparisons would need a reviewed source set and a repeatable grading method; a model tag alone is not a quality score.
+A comparison in this workflow translated the same 20 source captures with Flash-Lite and Flash, using the same prompt and separate fresh conversations. Each capture could contain one or two printed pages. Five were front matter or illustrations; fifteen contained prose.
 
-That is the direction for further work: make the uncertain parts more observable, keep recovery understandable, and improve the reading result without losing the evidence needed to debug it.
+The outputs received randomized blind A/B labels for each screen. AI reviewers checked them against the Japanese source, and every candidate received an independent second check. The rubric weighted accuracy at 50%, completeness at 25%, names/numbers at 15%, and fluency at 10%.
+
+| Observed selection | Mean score on 15 prose screens | Screens with major errors across the 20-screen sample |
+| --- | --- | --- |
+| 3.5 Flash-Lite | 5.0/10 | 15 |
+| 3.8 Flash | 9.1/10 | 3 |
+
+That is why I recommend Flash for this workflow when Ultra is not available, and why I would not choose Flash-Lite for a faithful reading copy based on this sample. Missing passages and reversed meanings matter more than a response sounding fluent. Flash also made errors, so the recommendation still includes review.
+
+These scores are blind AI-reviewer judgments from one sample, not an independently validated general benchmark. The model names came from Chrome's interface; the backend serving models were not independently verified. The passes ran at different times, so their timings do not establish a controlled speed advantage. This comparison did not evaluate Pro or prove that any subscription plan guarantees a particular translation quality.
+
+The full comparison corpus and book translations are not included in the repository. Broader claims would need more source material, independent Japanese-language review, and repeated runs across model versions. The existing study is useful evidence for the project's recommendation, with those limits.
+
+## Engineering decisions you can inspect
+
+The interesting failure is often one step after the apparent success: Gemini answered, but Copy failed; a click was delivered, but the book stayed put. These are the cases the persistence and verification code has to handle.
+
+| Decision | Implementation | Regression evidence |
+| --- | --- | --- |
+| Keep an already-sent request recoverable without sending it twice | [Pending-request state machine](../hammerspoon/gemini_book.lua) | [Prepared-draft and resume tests](../tests/test_prepared_resume.lua) |
+| Record page-turn state before one click, then verify the result | [Book focus checks](../hammerspoon/gemini_book_focus.lua) | [Turn delivery and interruption tests](../tests/test_turn_focus.lua) |
+| Preserve request IDs and saved work when a book folder is renamed | [Journaled rename transaction](../hammerspoon/gemini_book_rename.lua) | [Collision and rollback tests](../tests/test_rename.lua) |
+| Give errors, pauses, and completion distinct meanings | [Status and progress policy](../hammerspoon/gemini_book_status.lua) | [Status tests](../tests/test_status.lua) |
+| Wait for illustrated HTML before publishing an ebook | [Asynchronous export queue](../hammerspoon/gemini_book_epub.lua) | [Queue tests](../tests/test_epub_queue.lua) and [main-module integration](../tests/test_auto_epub.lua) |
+| Keep capture navigation without forcing a new EPUB chapter per screen | [EPUB exporter](../hammerspoon/gemini_book_epub.py) | [Text, metadata, and continuous-flow tests](../tests/test_epub_clean.py) |
+
+```mermaid
+flowchart LR
+    Book["BOOKWALKER tab"] -->|"shared tab content"| Gemini["Gemini sidebar"]
+    Book -->|"capture and verify"| BT["Hammerspoon state machine"]
+    BT -->|"verified prompt and collection"| Gemini
+    Gemini -->|"matching complete response"| BT
+    BT -->|"commit before advancing"| Saved["Checkpoint and source archive"]
+    Saved --> Artwork["Python illustration worker"]
+    Artwork -->|"illustration manifest"| BT
+    BT --> HTML["Illustrated HTML"]
+    HTML --> Export["Python EPUB exporter"]
+    Export --> Output["Portable EPUB"]
+```
+
+The screenshot is saved locally for verification and artwork; Gemini reads the shared tab. Readiness checks target three starts per second, while source pages still need an independent two-second stability check. Those are verification choices, not a pages-per-minute claim.
+
+The [architecture guide](architecture.md) has the full module map. Desktop integration still needs a short live test when Chrome or Gemini changes.
+
+## Validation boundaries
+
+The portable tests cover the parts that can be made deterministic: request parsing, interrupted state transitions, file transactions, image-cache freshness, EPUB structure, and text preservation. They use invented text and generated images. [The test guide](../tests/README.md) gives the commands and scope.
+
+The desktop boundaries need separate validation. A changed Gemini sidebar should get a short live test. A pagination change should be opened in Books. A source hash can tell us that an image changed; it cannot tell us that the translation is faithful. Keeping those claims separate makes the evidence more useful.
+
+Further work should make uncertain states easier to inspect, keep recovery understandable, and improve the reading result while preserving the evidence needed to debug it.

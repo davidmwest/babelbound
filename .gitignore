@@ -31,3 +31,6 @@ calibration*.json
 !docs/images/bookwalker-gemini.png
 !docs/images/calibration-guide.png
 !docs/images/epub-in-books.png
+
+# Generated offline demo output.
+demo-output/
