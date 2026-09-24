@@ -2,7 +2,9 @@
 
 **A resumable macOS workflow for translating BOOKWALKER pages through Gemini in Chrome and exporting illustrated HTML and EPUB.**
 
-Choose a model and a batch size. BT translates the current screen, saves the response, and turns the page. If a step fails, it pauses with the saved state available for review and recovery.
+Choose a model and a batch size. Gemini Book Translator (BT) translates the current screen, saves the response, and turns the page. If a step fails, it pauses with the saved state available for review and recovery.
+
+**Independent, unofficial project.** BT is not affiliated with, endorsed by, or sponsored by Google. Gemini and Chrome are Google products. See the [third-party notices](NOTICE.md).
 
 **Version 1.4.2 · Lua / Hammerspoon · Python / Pillow · Chrome / macOS**
 
