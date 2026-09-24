@@ -12,6 +12,10 @@ I developed this with Codex, using the running desktop workflow to find problems
 
 **BT is built for BOOKWALKER’s paginated reader in Chrome on macOS, with the book on the left and Gemini’s sidebar on the right in the same window.** The bundled prompt translates Japanese light novels into English. That is the working setup this project was developed against.
 
+![BOOKWALKER pages beside the Gemini translation in Chrome, with personal details blacked out](docs/images/bookwalker-gemini.png)
+
+*BOOKWALKER on the left, Gemini on the right. This documentation image comes from a working session and has been cropped and redacted.*
+
 Compatibility depends on how the book is displayed and how its pages turn. Calibrate records five screen positions; it does not teach BT how to use an arbitrary reader.
 
 | Requirement | What that means in practice |
@@ -25,6 +29,18 @@ Compatibility depends on how the book is displayed and how its pages turn. Calib
 During calibration, you identify Gemini’s empty input, the book’s forward-click target, the two corners of the book rectangle, and the top-left of the Gemini pane. See the [calibration walkthrough](docs/usage.md#calibrate-the-visible-reader) for the exact sequence. Use **Preview source crop**, then complete a short three-screen batch before committing to a long run. A successful calibration alone does not prove that page turning or Gemini access works.
 
 **Outside the current integration:** continuous-scroll books, readers that require swipes or moving click targets, separate reader/Gemini windows, and native apps such as Apple Books or Preview. There is no direct PDF, EPUB, CBZ, or image-file import; EPUB is an output format. Other websites and Chrome’s PDF viewer are unvalidated and may require code and prompt changes even if their layouts look similar to BOOKWALKER.
+
+## Your Gemini plan and model
+
+BT uses **your own Google account and Gemini access in Chrome**. Requests use your account’s model access and usage allowance; BT does not provide a separate plan or require an API key. Availability and limits can change, so check [Google’s current plan and model information](https://support.google.com/gemini/answer/16275805?hl=en) rather than assuming a fixed number of pages per day.
+
+Choose the model yourself: click the model name inside Gemini’s input box, select the model you want, and close the picker before starting BT. Pause BT before changing models mid-job. The tool uses that selection and records the observed model for each saved screen. [Google’s Chrome guide](https://support.google.com/gemini/answer/16283624?hl=en) documents the model picker and account requirements.
+
+**If you don’t have Google AI Ultra, I recommend Flash for this workflow.** It is my practical default for translating a book. Ultra is not a BT requirement, and you can select Pro or another model when your account offers it.
+
+**Flash-Lite gave significantly worse translations in the comparison behind that recommendation.** The same 20 reader screens were translated with the same prompt in separate conversations. On the 15 prose screens, the source-based review scored Flash-Lite **5.0/10**, versus **9.1/10** for Flash. Flash-Lite’s problems included missing passages and reversed meanings; Flash still made errors and needed review.
+
+Those are this project’s blind AI-reviewer assessments of one sample, not a universal model benchmark or a promise about future versions. The observed UI selections were 3.5 Flash-Lite and 3.8 Flash; the backend models were not independently verified. BT can run with Flash-Lite, but I would not use it for a faithful reading copy based on those results.
 
 ## What it does
 
@@ -80,6 +96,10 @@ Use Hammerspoon’s **Reload Config** after installation. Grant Hammerspoon Acce
 6. Choose **New job on current screen** and start with three screens. The current visible screen is the first one. A screen may contain more than one printed page.
 7. Let the automation use that Chrome window. **Control–Option–Command–P** pauses it; **Control–Option–Command–X** stops it while retaining saved work.
 
+![Five numbered calibration points: Gemini input, forward-click area, book crop corners, and Gemini pane corner](docs/images/calibration-guide.png)
+
+*The numbers and teal outline are a guide overlay. Record the corresponding positions in your own window; the forward-click area depends on the reader’s layout and reading direction.*
+
 The normal request mode sends the bundled translation prompt directly. Creating a Gemini `/ln` skill is optional.
 
 When the requested batch completes, BT leaves the last translated screen visible and builds the reading copy. **BT → Open EPUB in Books** opens the saved ebook on the Mac. Transfer `translation.epub` to your iPad and open it in Books; the illustrations travel inside the file.
@@ -110,6 +130,10 @@ GeminiBookTranslations/
     └── illustrations/
 ```
 
+![An illustrated EPUB open in Apple Books on macOS, with cover artwork and translated title text](docs/images/epub-in-books.png)
+
+*An actual EPUB layout check in Apple Books on macOS. Artwork and translated text travel together inside the EPUB; this is an output example, not a supported source reader.*
+
 Use **Rename current job…** to change a title while the job is paused and background saves have finished. BT updates the job’s paths without changing its request IDs or translated text.
 
 ## Documentation
@@ -127,4 +151,4 @@ The repository includes synthetic Python and Lua regression suites for response 
 
 The current integration targets macOS, the standard Chrome application, BOOKWALKER’s visible reader, and Gemini’s sidebar. English UI labels are the default. It is not a headless browser crawler and cannot translate unseen pages without turning to them. It does not automatically change models or assess their translation quality.
 
-BT stores screenshots, translations, and diagnostic traces locally. Gemini processes the shared page through your existing Chrome session. The source repository contains no books, saved jobs, credentials, or personal browser state.
+BT stores screenshots, translations, and diagnostic traces locally. Gemini processes the shared page through your existing Chrome session. Documentation includes intentionally selected, redacted screenshots of the working setup. Full book archives, saved jobs, credentials, and personal browser state are not included in the repository.

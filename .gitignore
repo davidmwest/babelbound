@@ -26,3 +26,8 @@ translation.*
 checkpoint*.json
 job*.json
 calibration*.json
+
+# Only reviewed documentation images belong in source control.
+!docs/images/bookwalker-gemini.png
+!docs/images/calibration-guide.png
+!docs/images/epub-in-books.png
