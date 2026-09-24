@@ -8,6 +8,24 @@ Gemini Book Translator handles that loop from a **BT** menu in macOS. It transla
 
 I developed this with Codex, using the running desktop workflow to find problems and drive the next changes. The implementation and regression tests were AI-assisted. You don't need Codex or a Gemini API key to run it; BT uses your existing Gemini sidebar and selected model.
 
+## Where it works
+
+**BT is built for BOOKWALKER’s paginated reader in Chrome on macOS, with the book on the left and Gemini’s sidebar on the right in the same window.** The bundled prompt translates Japanese light novels into English. That is the working setup this project was developed against.
+
+Compatibility depends on how the book is displayed and how its pages turn. Calibrate records five screen positions; it does not teach BT how to use an arbitrary reader.
+
+| Requirement | What that means in practice |
+| --- | --- |
+| A complete, readable page or spread | All the content for one translation fits inside a single rectangular crop, entirely left of Gemini and on one display. Single-page and two-page layouts are both usable; one saved “screen” is the whole visible page or spread. |
+| A consistent forward-click target | One mouse click at the same position advances to the next page or spread. Verify the direction yourself, especially in a right-to-left reader. BT does not scroll the source, swipe, drag, or use keyboard paging. |
+| A stable reader layout | Keep the window, zoom, sidebar width, and page layout fixed during a batch. The next page must visibly change and then settle. Moving or resizing the window, changing tabs, or obscuring the page interrupts this workflow. |
+| Gemini can read the shared book tab | Confirm this manually first. The saved screenshot crop is used for verification and artwork; BT does **not** upload it to Gemini as an image attachment. |
+| Browser controls BT can verify | Hammerspoon needs Accessibility and Screen Recording access. Chrome must expose the reader and Gemini’s input, Send, and Copy controls in the form BT expects. The default control labels are English. |
+
+During calibration, you identify Gemini’s empty input, the book’s forward-click target, the two corners of the book rectangle, and the top-left of the Gemini pane. See the [calibration walkthrough](docs/usage.md#calibrate-the-visible-reader) for the exact sequence. Use **Preview source crop**, then complete a short three-screen batch before committing to a long run. A successful calibration alone does not prove that page turning or Gemini access works.
+
+**Outside the current integration:** continuous-scroll books, readers that require swipes or moving click targets, separate reader/Gemini windows, and native apps such as Apple Books or Preview. There is no direct PDF, EPUB, CBZ, or image-file import; EPUB is an output format. Other websites and Chrome’s PDF viewer are unvalidated and may require code and prompt changes even if their layouts look similar to BOOKWALKER.
+
 ## What it does
 
 - Translates batches of visible screens or spreads, saving each accepted response before turning the page.
