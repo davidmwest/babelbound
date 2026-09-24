@@ -1,0 +1,36 @@
+name: Offline regression tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test dependencies
+        run: |
+          python -m pip install "Pillow>=10.1,<13"
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y lua5.4 fonts-dejavu-core
+      - name: Check Lua syntax
+        run: |
+          for file in hammerspoon/*.lua tests/*.lua; do
+            luac5.4 -p "$file"
+          done
+      - name: Test EPUB export and artwork handling
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Test translator policies and state transitions
+        run: |
+          for file in tests/test_*.lua; do
+            lua5.4 "$file"
+          done

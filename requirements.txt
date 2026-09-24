@@ -1,0 +1,2 @@
+# Local image extraction, reading-copy assets, and EPUB covers.
+Pillow>=10.1,<13
