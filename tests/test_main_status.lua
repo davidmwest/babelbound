@@ -22,6 +22,7 @@ local hs={configdir='/fixture/config',settings={get=function(k)return test.setti
 local actualJobs=dofile(paths.source("gemini_book_jobs.lua"))
 local modules={gemini_book_epub=dofile(paths.source("gemini_book_epub.lua")),gemini_book_status=S,gemini_book_core={markdown=function()return 'markdown'end,html=function()return 'html'end},
     gemini_book_jobs=actualJobs,gemini_book_limits={normalize=function(s)return tostring(s or ''):lower()end},
+    gemini_book_provider=dofile(paths.source("gemini_book_provider.lua")),
     gemini_book_resume={modelLabel=function(s)return s end}}
 local env=setmetatable({hs=hs,_TEST=test,_CLONE=clone,print=function()end,require=function(name)return modules[name] or {}end},{__index=_G})
 local injection=[[

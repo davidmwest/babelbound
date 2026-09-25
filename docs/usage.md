@@ -24,11 +24,13 @@ Moving/resizing the window, changing display scaling, or changing sidebar width 
 
 ## Start, pause, and resume
 
+**Provider** selects Gemini or the experimental ChatGPT extension. Each keeps its own calibration and most recently used job. Switching providers unloads the paused job while retaining its checkpoint; restoring that job selects its original provider. ChatGPT always uses direct prompts. [ChatGPT setup and limitations](chatgpt.md).
+
 **New job on current screen** creates a separate job beginning at screen 00001. It asks for a batch size from 1 to 1,000. The title is derived from the guarded reader window when possible; otherwise you enter it. The job starts after creation.
 
 **Start / resume — [book title]** continues the loaded job. If no job is loaded, it restores the latest saved job and stays idle for review. It never silently creates a new book.
 
-**Pause / resume** pauses local automation. Gemini may still finish a request already sent. **STOP** also retains all committed translations and pending-request information. Neither action deletes a job or undoes a page turn.
+**Pause / resume** pauses local automation. The provider may still finish a request already sent. **STOP** also retains all committed translations and pending-request information. Neither action deletes a job or undoes a page turn.
 
 A completed batch leaves its last translated source screen visible. Start / resume then asks for additional screens. The software does not infer that reaching a requested count means the entire book is finished.
 
@@ -41,7 +43,7 @@ Avoid typing, changing tabs, opening dialogs, or turning the book manually while
 | `BT ready` | No active work, or a new job ready to start |
 | `BT checking (N%)` | Verifying focus, source, or request state |
 | `BT turning (N%)` | Delivering or verifying one page turn |
-| `BT translating (N%)` | Submitting or waiting for Gemini |
+| `BT translating (N%)` | Submitting or waiting for the selected provider |
 | `BT saving (N%)` | Collecting a response or building reading copies |
 | `BT paused` | Unfinished work was deliberately paused |
 | `BT warning` | An error or uncertain state needs attention |

@@ -74,7 +74,8 @@ function C.pendingRecoveryProblem(job)
 end
 function C.inlineRequestText(id,instructions)
     assert(type(instructions)=="string" and #C.trim(instructions)>=100,"Translation instructions are missing")
-    return C.trim(instructions).."\n\nCURRENT AUTOMATED REQUEST\n"..C.requestText(id)
+    local request=C.requestText(id):gsub("the skill's exact output format", "the exact output format above")
+    return C.trim(instructions).."\n\nCURRENT AUTOMATED REQUEST\n"..request
 end
 function C.requestText(id)
     return "Request ID: " .. id
@@ -82,6 +83,16 @@ function C.requestText(id)
         .. "\nCopy these exact marker lines, preserving every character:\n[[BEGIN:"..id.."]]"
         .. "\nPut the source anchors, [[TEXT]], and complete translation between them."
         .. "\n[[END:"..id.."]]"
+end
+
+-- Preserve exact prepared drafts made before the direct-prompt wording change.
+-- This only recognizes our suffix; submission still checks the ENTIRE saved
+-- request against the current editor immediately before Send.
+function C.isPreparedInlineRequest(text,id)
+    if type(text)~="string" or type(id)~="string" or id=="" then return false end
+    local legacy=C.requestText(id)
+    local current=legacy:gsub("the skill's exact output format", "the exact output format above")
+    return text:sub(-#legacy)==legacy or text:sub(-#current)==current
 end
 
 -- The chip may be included or omitted in AXValue after a paste. Require the
@@ -136,7 +147,7 @@ function C.parse(raw, id, options)
     local beginMark = "[[BEGIN:" .. id .. "]]"
     local endMark = "[[END:" .. id .. "]]"
     if s:find("[[ERROR:" .. id .. "]]", 1, true) then
-        return nil, "Gemini reported a source/translation error", "error"
+        return nil, "The translator reported a source/translation error", "error"
     end
     if s:sub(1, #beginMark) ~= beginMark then
         return nil, "Not the response for the current request", "other"

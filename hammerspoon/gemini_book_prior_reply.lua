@@ -21,6 +21,13 @@ function P.find(job,log)
         return nil,"The current retry already has drafted request text. Review it before changing its identity."
     end
     local prior=job.priorSentReply
+    local provider=job.provider or "gemini"
+    if (p.provider or "gemini")~=provider then
+        return nil,"The pending request belongs to a different provider."
+    end
+    if prior and (prior.provider or "gemini")~=provider then
+        return nil,"The earlier reply belongs to a different provider."
+    end
     if type(prior)=="table" and prior.index==p.index and prior.sourceHash==p.sourceHash
         and sameSlot(prior.id,job.tag,p.index) and prior.id~=p.id then
         return prior.id,"saved-before-retry"
@@ -28,6 +35,9 @@ function P.find(job,log)
     -- Older versions logged sent-state at the failed AX scan but did not retain
     -- the prior identity in the checkpoint. Recognize only this exact adjacent
     -- diagnostic pair, never a generic mention of an ID in text or a prompt.
+    if provider~="gemini" then
+        return nil,"No earlier sent request with matching provider metadata was found."
+    end
     local candidate
     for id in (log or ""):gmatch("Pending ID: ([^\r\n]+)\r?\nPending marked sent: true")do
         if sameSlot(id,job.tag,p.index) and id~=p.id then candidate=id end

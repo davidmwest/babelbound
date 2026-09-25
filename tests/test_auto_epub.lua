@@ -53,6 +53,7 @@ local modules={gemini_book_status=S,gemini_book_epub=epub,
     gemini_book_core={markdown=function()return'markdown'end,html=function()return'html'end},
     gemini_book_jobs=dofile(paths.source("gemini_book_jobs.lua")),
     gemini_book_limits={normalize=function(s)return tostring(s or''):lower()end},
+    gemini_book_provider=dofile(paths.source("gemini_book_provider.lua")),
     gemini_book_resume={modelLabel=function(s)return s end}}
 local injection=[[
 atomicWrite=function(path,value)_TEST.writes[path]=_CLONE(value)end

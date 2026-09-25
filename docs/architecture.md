@@ -2,7 +2,9 @@
 
 ## Runtime
 
-Hammerspoon owns the menu, hotkeys, timers, accessibility queries, window/focus checks, mouse delivery, clipboard collection, and job checkpoints. Chrome renders BOOKWALKER and Gemini. Babelbound does not use a Gemini API client or inject a hidden browser crawler.
+Hammerspoon owns the menu, hotkeys, timers, accessibility queries, window/focus checks, mouse delivery, clipboard collection, and job checkpoints. Chrome renders BOOKWALKER and the selected provider’s side panel. Babelbound does not use an API client or inject a hidden browser crawler.
+
+`gemini_book_provider.lua` describes Gemini and the experimental ChatGPT extension adapter. Provider selection has separate calibration/latest-job settings. Jobs, pending requests, saved records, and model observations retain provider identity; missing legacy identity means Gemini. The runtime verifies ChatGPT’s extension web-area URL from the calibrated input’s ancestry before acting. Switching the menu provider unloads the paused job without converting its checkpoint. Restoring a job selects its provider and stays paused.
 
 A normal screen follows this sequence:
 

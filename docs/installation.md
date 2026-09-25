@@ -4,7 +4,7 @@
 
 - macOS with [Hammerspoon](https://www.hammerspoon.org/) installed and running.
 - Google Chrome, using the standard `com.google.Chrome` application bundle by default.
-- Access to Gemini’s Chrome sidebar and a BOOKWALKER tab that Gemini can read when shared.
+- Access to Gemini’s Chrome sidebar or the official ChatGPT extension, and a BOOKWALKER tab the chosen provider can read. [ChatGPT setup](chatgpt.md) is experimental.
 - Python 3.10 or newer, with Pillow available to the interpreter used by the helpers.
 - Accessibility and Screen Recording permission for Hammerspoon.
 
@@ -50,6 +50,8 @@ Enable Hammerspoon in macOS **System Settings → Privacy & Security → Accessi
 
 Open the BOOKWALKER reader and Gemini sidebar in the same Chrome window. Share the book tab with Gemini. Confirm manually that Gemini can access the visible page before attempting automation. Keep the editor empty and close any model picker or modal dialog before starting.
 
+For ChatGPT, choose **BT → Provider → ChatGPT extension**, open the official extension’s side panel, and follow [its setup guide](chatgpt.md). Calibrate each provider separately. Restoring a saved job selects its recorded provider and stays paused.
+
 Babelbound relies on accessibility roles, control labels, window geometry, and calibrated coordinates. Different Chrome builds, UI languages, and account features can expose different controls. A successful installation does not guarantee that every Gemini interface variant is supported.
 
 ## Configuration
@@ -58,6 +60,7 @@ The defaults are defined in `hammerspoon/gemini_book.lua`. Relevant options incl
 
 | Option | Default behavior |
 | --- | --- |
+| `provider` | `gemini` on first use; subsequent menu choices are remembered |
 | `defaultRequestMode` | `inline`: send the translation prompt directly |
 | `skill` | `/ln`, used only for the explicit skill workflow |
 | `defaultBatch` | Three screens or spreads |

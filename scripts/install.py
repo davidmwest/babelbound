@@ -18,7 +18,7 @@ FILES = (
     "gemini_book_epub.lua", "gemini_book_epub.py", "gemini_book_focus.lua",
     "gemini_book_illustrations.py", "gemini_book_jobs.lua", "gemini_book_limits.lua",
     "gemini_book_move.py", "gemini_book_names.lua", "gemini_book_portable.py",
-    "gemini_book_prior_reply.lua", "gemini_book_prompt.txt", "gemini_book_rename.lua",
+    "gemini_book_prior_reply.lua", "gemini_book_prompt.txt", "gemini_book_provider.lua", "gemini_book_rename.lua",
     "gemini_book_resume.lua", "gemini_book_skill.lua", "gemini_book_source.lua",
     "gemini_book_status.lua",
 )

@@ -1,4 +1,4 @@
--- Babelbound, v1.4.3 (portable install and illustrated EPUB export) — Hammerspoon / macOS / Chrome sidebar. No API or network code.
+-- Babelbound, v1.5.0 (Gemini and ChatGPT side panels) — Hammerspoon / macOS / Chrome sidebar. No API or network code.
 -- Load with: GeminiBook = require("gemini_book")
 -- UI integration MUST be tested on your Chrome build before a long run.
 local core = require("gemini_book_core")
@@ -14,12 +14,14 @@ local epubExport = require("gemini_book_epub")
 local priorReply = require("gemini_book_prior_reply")
 local sourcePolicy = require("gemini_book_source")
 local bookFocus = require("gemini_book_focus")
+local providers = require("gemini_book_provider")
 local turnFocus
 local quota = {}
-local M = {version="1.4.3"}
+local M = {version="1.5.0"}
 
 -- User-adjustable defaults. Screen coordinates are calibrated, not hard-coded.
 M.config = {
+    provider = "gemini", -- Gemini or the official ChatGPT Chrome side panel.
     skill = "/ln",
     defaultRequestMode = "inline", -- New/legacy jobs use the working direct prompt; skill is explicit opt-in.
     usageLimitDetection = true,
@@ -95,7 +97,17 @@ end
 local cfg = M.config
 local mods = {"ctrl", "alt", "cmd"}
 local settingKey = "GeminiBookMac.v1"
-local cal = hs.settings.get(settingKey .. ".calibration")
+local provider = providers.id(hs.settings.get(settingKey .. ".provider") or cfg.provider)
+assert(provider, "Unknown translation provider")
+local function providerKey(suffix)
+    return settingKey .. suffix .. (provider == "gemini" and "" or "." .. provider)
+end
+local function providerName() return providers.get(provider).name end
+local function inputHints()
+    return provider == "gemini" and cfg.inputPlaceholders or providers.get(provider).placeholders
+end
+local function modelLabel(value) return providers.modelLabel(provider, value) end
+local cal = hs.settings.get(providerKey(".calibration"))
 local job, running, phase, due = nil, false, "idle", 0
 local scan, scanStarted, epoch = nil, 0, 0
 local scanKind, scanRootDescription
@@ -127,9 +139,12 @@ local lastNotice = hs.settings.get(settingKey .. ".lastNotice")
 
 local sessionWarning
 local function uiState()
-    return jobStatus.view(job,{running=running,phase=phase,recoveryActive=recoveryActive,
+    local view=jobStatus.view(job,{running=running,phase=phase,recoveryActive=recoveryActive,
         resuming=resumeCaptureEpoch~=nil and resumeCaptureEpoch==epoch,
         illustrationBuild=illustrationBuild,epubBuild=epubManager and job and epubManager:state(job.folder),warning=sessionWarning})
+    view.provider=provider
+    view.tooltip=view.tooltip.."\nProvider: "..providerName()
+    return view
 end
 local function refreshMenu()
     local view=uiState()
@@ -231,6 +246,8 @@ local function chromeWindow()
     return w
 end
 local function guard()
+    local problem = providers.problem(provider, job, cal)
+    if problem then return nil, problem end
     if not cal then return nil, "Calibrate first with Control-Option-Command-C." end
     local w, err = chromeWindow()
     if not w then return nil, err end
@@ -242,6 +259,26 @@ local function guard()
         return nil, "Chrome tab/title changed. Return to the calibrated book tab."
     end
     if hs.eventtap.isSecureInputEnabled() then return nil, "macOS Secure Input is active." end
+    -- The reader window/title can survive switching side panels. Verify the
+    -- ChatGPT extension's own web area from the calibrated input ancestry.
+    -- A coordinate or a model name alone is not provider identity evidence.
+    local e=hs.axuielement.systemWideElement():elementAtPosition(cal.input.x,cal.input.y)
+    local foundURL
+    for _=1,24 do
+        if not e or attr(e,"AXRole")=="AXWindow" then break end
+        if attr(e,"AXRole")=="AXWebArea" then
+            local url=attr(e,"AXURL")
+            foundURL=type(url)=="table" and url.url or (type(url)=="string" and url or nil)
+            if foundURL then break end
+        end
+        e=attr(e,"AXParent")
+    end
+    local chatgptURL="chrome-extension://hehggadaopoacecdllhhajmbjkdcmajg/codex-sidepanel/index.html"
+    if provider=="chatgpt" and foundURL~=chatgptURL then
+        return nil,"The calibrated input is not in the ChatGPT extension. Open its side panel and recalibrate."
+    elseif provider=="gemini" and foundURL==chatgptURL then
+        return nil,"ChatGPT is open, but this job uses Gemini. Restore the Gemini sidebar before continuing."
+    end
     return w
 end
 -- absolutePosition warps the cursor. Post a mouseMoved event as well so
@@ -266,8 +303,8 @@ local function capture()
 end
 local function pendingSourceStillVisible()
     if not job or not job.pending then return true end
-    local _, hash = capture()
-    return hash == job.pending.sourceHash
+    local img, hash = capture()
+    return hash == job.pending.sourceHash, img, hash
 end
 local function setPhase(p, delay)
     if p ~= phase then inputReadback=nil end
@@ -284,7 +321,7 @@ end
 function pageModels.identity(value)
     local normalized=limits.normalize(value)
     if normalized=="" or normalized=="unverified" or normalized=="unknown" then return "Unknown","unknown" end
-    local parsed=resetClock.modelLabel(value) or value
+    local parsed=modelLabel(value) or value
     local key=limits.normalize(parsed):gsub("%s+","-"):gsub("[^%w\128-\255%-]","")
     local known={pro="Pro",["flash-lite"]="Flash-Lite",flash="Flash",fast="Fast",thinking="Thinking",auto="Auto"}
     return known[key] or parsed,key
@@ -307,6 +344,7 @@ function pageModels.atSubmit(p,model,sample)
     local label,key=pageModels.identity(model)
     local verified=observation and observation.selectedModelKey==key and key~="unknown"
     p.modelProvenance={basis=verified and "composer-at-submit" or "unknown",
+        provider=provider,
         selectedModel=verified and label or "Unknown",selectedModelKey=verified and key or "unknown",
         observedAt=observation and observation.observedAt,
         observedAtEpoch=observation and observation.observedAtEpoch,version=M.version,
@@ -347,7 +385,7 @@ function pageModels.index(records,generatedAt)
     for _,r in ipairs(records)do
         local label,key=pageModels.identity(r.model)
         local status,possible=pageModels.status(key,r.modelProvenance)
-        out.records[#out.records+1]={index=r.index,id=r.id,savedAt=r.savedAt,
+        out.records[#out.records+1]={index=r.index,id=r.id,savedAt=r.savedAt,provider=r.provider or "gemini",
             model=label,modelKey=r.modelKey or key,modelAtSubmit=r.modelAtSubmit or "unverified",
             modelStatus=r.modelStatus or status,possibleModelKeys=pageModels.copy(r.possibleModelKeys or possible),
             modelProvenance=pageModels.copy(r.modelProvenance)
@@ -624,7 +662,7 @@ local function focusDescription(e)
     local f = frameOf(e)
     local value = attr(e,"AXValue")
     local placeholder = attr(e,"AXPlaceholderValue")
-    local normalized, valueClass = core.composerValue(value, placeholder, cfg.inputPlaceholders)
+    local normalized, valueClass = core.composerValue(value, placeholder, inputHints())
     return string.format("role=%s focused=%s enabled=%s pid=%s frame=%s valueBytes=%s placeholderBytes=%s equalsPlaceholder=%s valueClass=%s matchesSkill=%s hasRequestID=%s",
         tostring(attr(e,"AXRole")),tostring(attr(e,"AXFocused")),
         tostring(attr(e,"AXEnabled")),tostring(pidOf(e)),
@@ -676,9 +714,9 @@ local function focusedInput(requireEmpty)
             -- omit AXPlaceholderValue. Match the whole configured hint only;
             -- unknown nonempty values still stop before any typing.
             local value = core.composerValue(attr(e,"AXValue"),
-                attr(e,"AXPlaceholderValue"), cfg.inputPlaceholders)
+                attr(e,"AXPlaceholderValue"), inputHints())
             if requireEmpty and (type(value)~="string" or core.trim(value)~="") then
-                return nil,"Gemini input is not verifiably empty. Do not send the draft. Clear it manually, then use BT > Retry pending screen.",
+                return nil,"The chat input is not verifiably empty. Do not send the draft. Clear it manually, then use BT > Retry pending screen.",
                     nil,"content",description().."\neditor: "..focusDescription(e)
             end
             verifiedInput=e
@@ -964,7 +1002,7 @@ end
 -- picker merely because that compact root is absent.
 local function composerModel(e,composer,panel,scanPath,role)
     return scopedAX.readModelControl(e,{cal=cal,composer=composer,panel=panel,scanPath=scanPath,
-        knownRole=role,parseLabel=resetClock.modelLabel,normalize=limits.normalize})
+        knownRole=role,parseLabel=modelLabel,normalize=limits.normalize,namedPicker=provider=="chatgpt"})
 end
 scanButtons = function(done, readback)
     -- Reacquire an unavailable sidebar with bounded read-only retries. Model
@@ -1004,7 +1042,7 @@ scanButtons = function(done, readback)
         if readback.attempt>=maxReads then return false end
         log("Sidebar readback unavailable at "..phase.." (read "..readback.attempt.."/"..maxReads
             .."): "..reason..". Rechecking the current controls; no UI action will be replayed.")
-        if menu then menu:setTooltip("Rechecking Gemini sidebar ("..(readback.attempt+1).."/"..maxReads..")")end
+        if menu then menu:setTooltip("Rechecking the chat sidebar ("..(readback.attempt+1).."/"..maxReads..")")end
         local token,expectedPhase=epoch,phase
         -- Hold the main loop while waiting. Epoch cancellation also covers
         -- Stop, manual pause, reload/shutdown and changes to the active job.
@@ -1022,7 +1060,7 @@ scanButtons = function(done, readback)
             pendingID=job.pending and job.pending.id,controls={},
             scanStatus="missing-scope-root",noticeCheckComplete=false})
         if retryRead("Current sidebar root unavailable")then return end
-        scanFailure("Cannot locate the current Gemini sidebar after "..readback.attempt
+        scanFailure("Cannot locate the current chat sidebar after "..readback.attempt
             .." fresh reads. No click, paste, send, or page turn was performed by these checks.");return
     end
     local initialRootFrame=scopeRoot and frameOf(scopeRoot)
@@ -1050,7 +1088,7 @@ scanButtons = function(done, readback)
             local observed={}
             for _,k in ipairs({"AXTitle","AXValue","AXDescription","AXHelp"})do
                 local v=attr(e,k)
-                if type(v)=="string" and #v<=120 and (resetClock.modelLabel(v)
+                if type(v)=="string" and #v<=120 and (modelLabel(v)
                     or limits.normalize(v):match("^open mode picker")) then observed[k]=v end
             end
             if next(observed) then
@@ -1214,7 +1252,7 @@ local function skillDraft()
     -- composer here; do not type or send while a popup has focus.
     if not verifiedInput or not inComposer(verifiedInput)then return nil end
     return core.composerValue(attr(verifiedInput,"AXValue"),
-        attr(verifiedInput,"AXPlaceholderValue"),cfg.inputPlaceholders)
+        attr(verifiedInput,"AXPlaceholderValue"),inputHints())
 end
 local function pointDescription(p)
     local ok, e=pcall(function()
@@ -1382,7 +1420,7 @@ local function preparePage(img, hash)
     turnTrace=nil
     local index = #job.records + 1
     job.pending = {id=job.tag .. "-" .. string.format("%05d", index), index=index,
-        sourceHash=hash, sent=false}
+        sourceHash=hash, sent=false, provider=provider}
     local sourcePath = job.folder .. string.format("/sources/%05d.png", index)
     assert(img:saveToFile(sourcePath, true, "PNG"), "Cannot save source screenshot")
     job.needAdvance, job.turnUncertain, job.expectChange = false, false, false
@@ -1546,7 +1584,7 @@ saveAnswer = function(answer, manual)
     local p = job.pending
     local evaluation=evaluationForPending()
     local model,modelKey,modelProvenance,modelStatus,possibleModelKeys=pageModels.forRecord(p,lastModelReadback)
-    local record = {index=p.index, id=p.id, first=answer.first, last=answer.last,
+    local record = {index=p.index, id=p.id, first=answer.first, last=answer.last,provider=provider,
         text=answer.text, sourceHash=p.sourceHash, manual=manual,
         model=model,modelKey=modelKey,modelAtSubmit=p.modelAtSubmit or "unverified",
         modelProvenance=modelProvenance,modelStatus=modelStatus,possibleModelKeys=possibleModelKeys,
@@ -1725,13 +1763,13 @@ tick = function()
     elseif phase == "preflight" then
         scanButtons(function(_, stopped, _, _, model)
             if not running then return end
-            if stopped then pause("Gemini is already generating. Wait/stop it before retrying this screen.")
+            if stopped then pause("The chat is already generating. Wait/stop it before retrying this screen.")
             else setPhase("focus") end
         end)
     elseif phase == "preflight-manual" then
         scanButtons(function(_,stopped,_,_,model)
             if not running then return end
-            if stopped then pause("Gemini is already generating. Wait for it before continuing.")
+            if stopped then pause("The chat is already generating. Wait for it before continuing.")
             else setPhase("focus-manual")end
         end)
     elseif phase == "focus-manual" then
@@ -1749,12 +1787,11 @@ tick = function()
     elseif phase == "focus" then
         hs.mouse.absolutePosition(cal.input)
         hs.eventtap.leftClick(cal.input, 50000)
-        local inline=(job.requestMode or cfg.defaultRequestMode)=="inline"
+        local inline=provider=="chatgpt" or (job.requestMode or cfg.defaultRequestMode)=="inline"
         local p=job.pending
-        local suffix=p and type(p.id)=="string" and core.requestText(p.id)
         local prepared=p and p.sent==false and p.inputMode=="inline"
             and type(p.requestText)=="string" and type(p.pasteAttemptedAt)=="number"
-            and suffix and p.requestText:sub(-#suffix)==suffix
+            and core.isPreparedInlineRequest(p.requestText,p.id)
         -- A pause/reload can leave our complete unsent request in the editor.
         -- Revalidate it through submit, including the existing source/model/
         -- generation checks; never append another copy or clear a foreign draft.
@@ -1785,13 +1822,14 @@ tick = function()
         job.pending.composerPrefix=""
         job.pending.selectionVerified=nil
         job.pending.selectionEvidence=nil
-        job.pending.requestText=core.inlineRequestText(job.pending.id,instructions)
+        job.pending.requestText=core.inlineRequestText(job.pending.id,providers.instructions(provider,instructions))
         job.pending.pasteAttemptedAt=now()
         checkpoint()
         log("Pasting full local translation instructions once; no slash or skill-picker action.")
         if not pasteRequestOnce(job.pending.requestText)then return end
         setPhase("submit",cfg.inputReadbackPollSeconds)
     elseif phase == "type-skill" then
+        if provider=="chatgpt" then pause("ChatGPT jobs use direct prompts. No skill command was sent.");return end
         local e = readyInput(true)
         if not e then return end
         skillFlow={baseline={}}
@@ -1943,7 +1981,7 @@ tick = function()
             handleUsageLimit(deferredLimit,"pending-reply-limit-timeout");return
         end
         if now() - job.pending.sentAt > cfg.responseTimeout then
-            pause("No validated reply within 5 minutes. " .. (job.lastCopyProblem or "Check Gemini and run diagnostics.")); return
+            pause("No validated reply within 5 minutes. " .. (job.lastCopyProblem or "Check the chat panel and run diagnostics.")); return
         end
         local checkStarted=now()
         probeComposerReadiness(function(state,probe)
@@ -2008,15 +2046,53 @@ tick = function()
         setPhase("response-scroll-settle",cfg.responseScrollSettle)
     elseif phase == "response-scroll-settle" then
         if not pendingSourceStillVisible() then
-            stopCollection("The book image changed while scrolling the Gemini pane.");return
+            stopCollection("The book image changed while scrolling the chat pane.");return
         end
         ensureCollection().viewReady=true
         setPhase("wait",0.25)
+    elseif phase == "copy-source-check" then
+        local c=ensureCollection()
+        if not job.pending.sent or not c.sourceWaitStarted then
+            stopCollection("No sent request is awaiting its original source image.");return
+        end
+        if now()-c.sourceWaitStarted>=30 then
+            stopCollection("The original book image did not return unchanged before copying the reply.");return
+        end
+        if pendingSourceStillVisible() then
+            c.sourceWaitMatchedAt=c.sourceWaitMatchedAt or now()
+            if now()-c.sourceWaitMatchedAt>=1 then
+                collectionEvent("original-source-restored",{waitSeconds=now()-c.sourceWaitStarted})
+                c.sourceWaitStarted,c.sourceWaitMatchedAt=nil,nil
+                copyTarget=nil
+                -- Reacquire generation/model/copy controls after the wait.
+                -- Never click the old target or adopt a changed source hash.
+                setPhase("wait");return
+            end
+        else c.sourceWaitMatchedAt=nil end
+        scheduleReadinessCheck("copy-source-check",now())
     elseif phase == "copy-click" then
         if not copyTarget or not job.pending.sent then
             stopCollection("There is no verified Copy target for this sent request.");return
         end
-        if not pendingSourceStillVisible() then
+        local sameSource,sourceImage,observedHash=pendingSourceStillVisible()
+        if not sameSource then
+            local folder=collectionEvent("source-mismatch-before-copy",{
+                expectedHash=job.pending.sourceHash,observedHash=observedHash})
+            -- Keep the actual mismatch, before a pause alert can cover the
+            -- source. This is diagnostic evidence, never a new reference.
+            if sourceImage and sourceImage.saveToFile then
+                pcall(function()sourceImage:saveToFile(folder.."/source-mismatch.png",true,"PNG")end)
+            end
+            if provider=="chatgpt" then
+                local c=ensureCollection()
+                c.sourceWaitStarted=now();c.sourceWaitMatchedAt=nil
+                copyTarget=nil
+                -- Chrome's tab-reading debugger banner can remain briefly
+                -- after generation and resize the reader. Poll for the exact
+                -- original image; no blind sleep and no changed-page adoption.
+                collectionEvent("waiting-for-original-source",{timeoutSeconds=30,stableSeconds=1})
+                setPhase("copy-source-check",cfg.pollSeconds);return
+            end
             stopCollection("The book image changed before copying the reply.");return
         end
         local button,why=visibleCopyAt(copyTarget)
@@ -2079,7 +2155,7 @@ tick = function()
         -- Check the notice/model before turning away from its saved source.
         scanButtons(function(_,stopped,_,_,model)
             if not running then return end
-            if stopped then pause("Gemini is generating unexpectedly; no page turn was sent.")
+            if stopped then pause("The chat is generating unexpectedly; no page turn was sent.")
             else setPhase("advance-ready") end
         end)
     elseif phase == "advance-ready" then
@@ -2172,21 +2248,42 @@ tick = function()
     end
 end
 
+function M.selectProvider(id)
+    local selected=providers.id(id)
+    if not selected then return nil,"Unknown provider." end
+    if selected==provider then return true end
+    if running or recoveryActive or resumeCaptureEpoch==epoch or illustrationTask then
+        warningNotice("Pause the job and wait for its active operation before changing providers.");return false
+    end
+    if quota.cancel then quota.cancel("Provider changed",false) end
+    if job then checkpoint() end
+    cancelScan();releaseOwnership();dismissNotice()
+    -- Retain the old checkpoint and its provider-specific latest-job pointer.
+    -- Switching providers never converts an existing pending request.
+    provider=selected;hs.settings.set(settingKey..".provider",provider)
+    cal=hs.settings.get(providerKey(".calibration"))
+    job=nil;phase="idle";sessionWarning=nil;verifiedInput=nil
+    calibrationStep,calibrationDraft,nextCalibration=nil,nil,nil
+    refreshMenu()
+    alert(providerName().." selected. Open its sidebar, calibrate, then create or restore a job.")
+    return true
+end
+function M.currentProvider() return provider end
 function M.calibrate()
     if running then pause("Paused for calibration.","paused") end
     if not hs.accessibilityState(true) then warningNotice("Enable Hammerspoon Accessibility permission first."); return end
     local w, err = chromeWindow()
     if not w then warningNotice(err); return end
     local prompts = {
-        "Hover over the middle of Gemini's EMPTY input field; press this shortcut again.",
+        "Hover over the middle of "..providerName().."'s EMPTY input field; press this shortcut again.",
         "Hover over BOOKWALKER's FORWARD page-turn click target; press again. Verify the direction yourself.",
         "Hover at the TOP-LEFT of the book-content rectangle (no browser controls); press again.",
-        "Hover at the BOTTOM-RIGHT of that rectangle (all page text, no Gemini pane); press again.",
-        "Hover just INSIDE the TOP-LEFT of the Gemini sidebar, below Chrome's toolbar; press again."
+        "Hover at the BOTTOM-RIGHT of that rectangle (all page text, no chat pane); press again.",
+        "Hover just INSIDE the TOP-LEFT of the "..providerName().." sidebar, below Chrome's toolbar; press again."
     }
     if not calibrationStep then
         calibrationStep = 1
-        calibrationDraft = {windowID=w:id(), windowTitle=w:title(), windowFrame=plainFrame(w:frame()),
+        calibrationDraft = {provider=provider,windowID=w:id(), windowTitle=w:title(), windowFrame=plainFrame(w:frame()),
             screenID=w:screen():id()}
         alert(prompts[1]); return
     end
@@ -2211,11 +2308,11 @@ function M.calibrate()
     local r = draft.crop
     if not inRect({x=r.x,y=r.y},sf) or not inRect({x=r.x+r.w,y=r.y+r.h},sf)
        or draft.input.x <= draft.panel.x or r.x+r.w > draft.panel.x then
-        warningNotice("Invalid geometry: crop must be on one display and entirely left of the Gemini pane. Recalibrate."); return
+        warningNotice("Invalid geometry: crop must be on one display and entirely left of the chat pane. Recalibrate."); return
     end
     draft.topLeft=nil
     cal=draft
-    hs.settings.set(settingKey .. ".calibration", cal)
+    hs.settings.set(providerKey(".calibration"), cal)
     hs.screenRecordingState(true)
     sessionWarning=nil;refreshMenu()
     alert("Calibrated. Allow screen capture if asked. Use BT > Preview source crop before starting.")
@@ -2236,7 +2333,7 @@ function M.calibrateNext()
         return
     end
     cal.next={x=p.x,y=p.y}
-    hs.settings.set(settingKey..".calibration",cal)
+    hs.settings.set(providerKey(".calibration"),cal)
     nextCalibration=nil
     log(string.format("Forward click updated to x=%.1f y=%.1f. Source crop and input calibration unchanged.",p.x,p.y))
     sessionWarning=nil;refreshMenu()
@@ -2309,8 +2406,8 @@ function M.newJob(batchSize,requestedTitle)
     local tag=string.format("B%X",createdAt).."-"..hs.host.uuid():gsub("-",""):sub(1,8)
     job={folder=folder,folderName=folder:match("([^/]+)$"),bookTitle=cleanTitle,
         sourceWindowTitle=w:title(),createdAt=os.date("!%Y-%m-%dT%H:%M:%SZ",createdAt),
-        tag=tag,records={},remaining=n,needAdvance=false,requestMode=cfg.defaultRequestMode}
-    hs.settings.set(settingKey .. ".latest",folder)
+        tag=tag,records={},remaining=n,needAdvance=false,provider=provider,requestMode=provider=="chatgpt" and "inline" or cfg.defaultRequestMode}
+    hs.settings.set(providerKey(".latest"),folder)
     phase="idle";sessionWarning=nil;checkpoint()
     w:focus()
     -- Delay gives the textPrompt window time to disappear before guard/capture.
@@ -2410,6 +2507,7 @@ end
 -- Explicit batch count for authorized programmatic continuations. The regular
 -- Start/resume menu keeps its prompt; neither path changes the source guards.
 function M.configureEvaluationRun(config)
+    if provider~="gemini" then return nil,"This saved comparison mode is for Gemini Flash and Flash-Lite." end
     if running or recoveryActive or resumeCaptureEpoch==epoch or not job or job.pending then
         return nil,"Load and pause a job with no pending response before configuring a comparison."
     end
@@ -2474,7 +2572,7 @@ local function retryNow()
     if b~="Retry" then return end
     if job.pending.sent then
         job.priorSentReply={id=job.pending.id,index=job.pending.index,
-            sourceHash=job.pending.sourceHash,modelAtSubmit=job.pending.modelAtSubmit,
+            sourceHash=job.pending.sourceHash,provider=provider,modelAtSubmit=job.pending.modelAtSubmit,
             modelProvenance=pageModels.copy(job.pending.modelProvenance),
             sentAt=job.pending.sentAt}
     end
@@ -2868,7 +2966,7 @@ main{display:flex;gap:20px}figure{margin:0;flex:1}img{width:100%;border:1px soli
                 ..explanation.."Continue ONLY if the reader is still on the SAME book page as the pending reference, "
                 .."with all its text visible and no popup covering it. Do not approve a later or previous page. "
                 .."If unsure, Cancel and compare the two images in the job's latest recovery folder.\n\n"
-                .."Confirm Gemini is idle and its input contains no draft or skill chip. "
+                .."Confirm the chat is idle and its input contains no draft or skill chip. "
                 .."This backs up the old source, refreshes ONLY this pending screen's reference, "
                 .."and tests ONE direct-prompt translation. Previously saved translations are untouched. "
                 .."No initial page turn or API call. The rest of the batch stays paused.",
@@ -2918,6 +3016,7 @@ main{display:flex;gap:20px}figure{margin:0;flex:1}img{width:100%;border:1px soli
     end)
 end
 function M.continueSelectedSkill()
+    if provider=="chatgpt" then warningNotice("ChatGPT uses direct prompts; no skill selection is needed.");return end
     if recoveryActive then pause("Recovery cancelled before manual-skill recovery.","paused") end
     if running then pause("Paused for manual skill selection.","paused")end
     dismissNotice();hs.alert.closeAll(0)
@@ -2981,22 +3080,29 @@ function M.restoreFolder(folder)
         warningNotice("Cannot restore this job: "..tostring(err)..". No new job was created.")
         return false
     end
+    local selected=providers.id(candidate.job.provider)
+    if not selected then warningNotice("Cannot restore a job with an unknown provider.");return false end
+    local problem=providers.problem(selected,candidate.job,nil)
+    if problem then warningNotice(problem);return false end
     if quota.cancel then quota.cancel("Restore/reload",false) end
     if recoveryActive then pause("Recovery cancelled before restoring a job.","paused") end
     if running then pause("Paused before restoring a job.","paused") end
     cancelScan();releaseOwnership();dismissNotice();hs.alert.closeAll(0)
-    job=candidate.job;job.folder=folder;phase="restored";running=false
-    if not job.requestMode then job.requestMode=cfg.defaultRequestMode end
+    calibrationStep,calibrationDraft,nextCalibration=nil,nil,nil
+    provider=selected;hs.settings.set(settingKey..".provider",provider)
+    cal=hs.settings.get(providerKey(".calibration"))
+    job=candidate.job;job.folder=folder;job.provider=provider;phase="restored";running=false
+    if not job.requestMode then job.requestMode=provider=="chatgpt" and "inline" or cfg.defaultRequestMode end
     if job.autoResume and job.autoResume.active then
         job.autoResume.active=false;job.autoResume.status="Cancelled on restore; not rearmed."
     end
     -- Repair the remembered pointer only AFTER successful decoding/validation.
-    hs.settings.set(settingKey..".latest",folder)
+    hs.settings.set(providerKey(".latest"),folder)
     sessionWarning=nil;refreshMenu()
     log("Restored existing job "..candidate.name..": "..#job.records.." saved, "
         ..job.remaining.." remaining; mode="..job.requestMode..". No request or turn sent.")
     persistentNotice("Loaded "..#job.records.." saved screens; "..job.remaining.." remaining.\n"
-        ..candidate.name.."\nMode: "..(job.requestMode=="inline" and "direct prompt (no skill picker)" or "skill")
+        ..candidate.name.."\nProvider: "..providerName().."\nMode: "..(job.requestMode=="inline" and "direct prompt (no skill picker)" or "skill")
         .."\nReturn to its saved/pending source page, close any menus, then Start / resume. No new job was created.",true)
     return true
 end
@@ -3078,7 +3184,11 @@ function M.renameJob(title,folder)
         responseCandidate,responseSince,collection,copyTarget=nil,nil,nil,nil
         illustrationBuild=jobNames.rewritePaths(illustrationBuild,folder,result.folder)
     end
-    if hs.settings.get(settingKey..".latest")==folder then hs.settings.set(settingKey..".latest",result.folder)end
+    local renamedProvider=providers.id(result.job.provider)
+    if renamedProvider then
+        local pointer=settingKey..".latest"..(renamedProvider=="gemini" and "" or "."..renamedProvider)
+        if hs.settings.get(pointer)==folder then hs.settings.set(pointer,result.folder)end
+    end
     if lastNotice and lastNotice.folder==folder then
         lastNotice=jobNames.rewritePaths(lastNotice,folder,result.folder)
         hs.settings.set(settingKey..".lastNotice",lastNotice)
@@ -3130,11 +3240,16 @@ function M.restoreLatest()
     if quota.cancel then quota.cancel("Restore/reload",false) end
     if recoveryActive then pause("Recovery cancelled before restoring a job.","paused")end
     if running then pause("Paused before restoring a job.","paused")end
-    local folder=hs.settings.get(settingKey..".latest")
+    local folder=hs.settings.get(providerKey(".latest"))
     local current=folder and readSavedJob(folder)
     -- A recorded, populated job is an explicit prior choice; honor it.
-    if current and current.saved>0 then return M.restoreFolder(folder)end
+    if current and current.saved>0 and providers.id(current.job.provider)==provider then return M.restoreFolder(folder)end
     local entries,scanErrors=availableSavedJobs()
+    local matching={}
+    for _,entry in ipairs(entries)do
+        if providers.id(entry.job.provider)==provider then matching[#matching+1]=entry end
+    end
+    entries=matching
     local candidate,why=savedJobs.select(entries,folder)
     if candidate then return M.restoreFolder(candidate.folder)end
     if #entries>0 then return chooseSavedJobEntries(entries)end
@@ -3190,7 +3305,7 @@ function M.collectPriorReply()
             #job.records.." saved screens; "..job.remaining.." remaining.\n"
             .."Earlier sent request: "..oldID.."\n"
             .."Current unsent retry: "..expectedID.."\n\n"
-            .."Confirm the visible Gemini answer is for that earlier ID and the CURRENT book spread. "
+            .."Confirm the visible answer is for that earlier ID and the CURRENT book spread. "
             .."This backs up the checkpoint and restores only the pending request identity, "
             .."then copies/validates ONE existing reply and pauses. "
             .."No translation request or page turn will be sent.","Cancel","Collect earlier reply")
@@ -3327,7 +3442,7 @@ quota.attempt=function(plan)
                 local hit=hs.axuielement.systemWideElement():elementAtPosition(cal.input.x,cal.input.y)
                 local e=editorAtOrAbove(hit)
                 if e and inComposer(e) then
-                    draft=core.composerValue(attr(e,"AXValue"),attr(e,"AXPlaceholderValue"),cfg.inputPlaceholders)
+                    draft=core.composerValue(attr(e,"AXValue"),attr(e,"AXPlaceholderValue"),inputHints())
                 end
             end
             if type(draft)~="string" or core.trim(draft)~="" then
@@ -3424,6 +3539,10 @@ function M.menuItems()
         local view=refreshMenu()
         return {
             {title="Babelbound "..M.version.." — "..view.label,disabled=true},
+            {title="Provider: "..providerName(),menu={
+                {title="Gemini",checked=provider=="gemini",fn=safe(function()M.selectProvider("gemini")end)},
+                {title="ChatGPT extension (experimental)",checked=provider=="chatgpt",fn=safe(function()M.selectProvider("chatgpt")end)},
+            }},
             {title="Calibrate (Ctrl-Option-Cmd-C)",fn=safe(M.calibrate)},
             {title="Set forward click only (Ctrl-Option-Cmd-N)",fn=safe(M.calibrateNext)},
             {title="Preview source crop",fn=safe(M.preview)},
@@ -3433,8 +3552,8 @@ function M.menuItems()
             {title="Pause / resume (Ctrl-Option-Cmd-P)",fn=safe(M.togglePause)},
             {title="STOP (Ctrl-Option-Cmd-X)",fn=safe(M.stop)},
             {title="-"},
-            {title="Retry pending screen (clear Gemini input first)",fn=safe(M.retry)},
-            {title="Continue with manually selected ln skill",fn=safe(M.continueSelectedSkill)},
+            {title="Retry pending screen (clear "..providerName().." input first)",fn=safe(M.retry)},
+            {title="Continue with manually selected ln skill",fn=safe(M.continueSelectedSkill),disabled=provider~="gemini"},
             {title="Recover pending screen with direct prompt (test one)",fn=safe(M.retryInlineOne)},
             {title="Collect existing pending reply only (test one)",fn=safe(M.collectPendingOne)},
             {title="Collect earlier reply from before Retry (test one)",fn=safe(M.collectPriorReply)},

@@ -18,4 +18,4 @@ The offline demo uses original invented text and generated geometric artwork. It
 
 Hammerspoon, Pillow, Python, Lua, browsers, and other external tools retain their own licenses. They are installed separately, not relicensed or bundled as part of Babelbound's source. The MIT grant does not confer trademark rights or a provider's endorsement.
 
-Babelbound is an independent, unofficial project. It is not affiliated with, endorsed by, or sponsored by Google, BOOKWALKER, KADOKAWA, or Apple. Gemini and Chrome are Google products. A license to Babelbound's software does not grant rights to source material processed with it or access to a Gemini service plan.
+Babelbound is an independent, unofficial project. It is not affiliated with, endorsed by, or sponsored by Google, OpenAI, BOOKWALKER, KADOKAWA, or Apple. Gemini and Chrome are Google products. ChatGPT is an OpenAI product. A license to Babelbound's software does not grant rights to source material processed with it or access to a provider’s service plan.

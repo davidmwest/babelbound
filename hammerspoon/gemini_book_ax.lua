@@ -247,6 +247,7 @@ function A.readModelControl(e,opts)
     local values={}
     for _,label in ipairs(labels)do
         local explicit=control and label.normalized:match("^open mode picker,%s*currently%s+.+$")
+            or (opts.namedPicker and role=="AXPopUpButton")
         if explicit or compactContext then values[label.model]=explicit and "live-footer-caption" or "compact-composer-caption" end
     end
     local result,evidence,count=nil,nil,0

@@ -21,6 +21,7 @@ local hs={configdir='/fixture',settings={get=function(k)return s.settings[k]end,
     pasteboard={changeCount=function()return 0 end}}
 local mods={gemini_book_epub=dofile(paths.source("gemini_book_epub.lua")),gemini_book_status=status,gemini_book_core=core,
     gemini_book_limits={normalize=function(x)return tostring(x or ''):lower()end},
+    gemini_book_provider=dofile(paths.source("gemini_book_provider.lua")),
     gemini_book_resume={modelLabel=function(x)return x end}}
 local env=setmetatable({hs=hs,_S=s,_CLONE=clone,print=function()end,
     require=function(name)return mods[name]or{}end},{__index=_G})

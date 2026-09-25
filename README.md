@@ -2,19 +2,19 @@
 
 *Across languages. Between covers.*
 
-**A macOS book translator for BOOKWALKER and Gemini in Chrome, with resumable jobs and illustrated HTML and EPUB exports.**
+**A macOS book translator for BOOKWALKER with Gemini or ChatGPT in Chrome, with resumable jobs and illustrated HTML and EPUB exports.**
 
 Choose a model and a batch size. Babelbound translates the current screen, saves the response, and turns the page. If a step fails, it pauses with the saved state available for review and recovery. In the menu bar, look for **BT**, short for **Book Translator**.
 
-**Independent, unofficial project.** Babelbound is not affiliated with, endorsed by, or sponsored by Google. Gemini and Chrome are Google products. See the [third-party notices](NOTICE.md).
+**Independent, unofficial project.** Babelbound is not affiliated with, endorsed by, or sponsored by Google or OpenAI. Gemini and Chrome are Google products; ChatGPT is an OpenAI product. See the [third-party notices](NOTICE.md).
 
-**Version 1.4.3 · Lua / Hammerspoon · Python / Pillow · Chrome / macOS**
+**Version 1.5.0 · Lua / Hammerspoon · Python / Pillow · Chrome / macOS**
 
 [Try the reading copy](#try-the-reading-copy) · [Setup](#install) · [Calibration](#first-translation) · [Model choice](#your-gemini-plan-and-model) · [Reading copies](#saved-output) · [Documentation](#documentation)
 
 ## Where it works
 
-**Babelbound is built for BOOKWALKER’s paginated reader in Chrome on macOS, with the book on the left and Gemini’s sidebar on the right in the same window.** The bundled prompt translates Japanese light novels into English. That is the working setup this project was developed against.
+**Babelbound is built for BOOKWALKER’s paginated reader in Chrome on macOS, with the book on the left and Gemini’s sidebar on the right in the same window.** The bundled prompt translates Japanese light novels into English. That is the original working setup. **Experimental ChatGPT support** uses the official ChatGPT Chrome extension’s side panel in the same layout; see [ChatGPT setup and limits](docs/chatgpt.md).
 
 ![BOOKWALKER pages beside the Gemini translation in Chrome, with personal details blacked out](docs/images/bookwalker-gemini.png)
 
@@ -24,19 +24,21 @@ Compatibility depends on how the book is displayed and how its pages turn. Calib
 
 | Requirement | What that means in practice |
 | --- | --- |
-| A complete, readable page or spread | All the content for one translation fits inside a single rectangular crop, entirely left of Gemini and on one display. Single-page and two-page layouts are both usable; one saved “screen” is the whole visible page or spread. |
+| A complete, readable page or spread | All the content for one translation fits inside a single rectangular crop, entirely left of the chat panel and on one display. Single-page and two-page layouts are both usable; one saved “screen” is the whole visible page or spread. |
 | A consistent forward-click target | One mouse click at the same position advances to the next page or spread. Verify the direction yourself, especially in a right-to-left reader. Babelbound does not scroll the source, swipe, drag, or use keyboard paging. |
 | A stable reader layout | Keep the window, zoom, sidebar width, and page layout fixed during a batch. The next page must visibly change and then settle. Moving or resizing the window, changing tabs, or obscuring the page interrupts this workflow. |
-| Gemini can read the shared book tab | Confirm this manually first. The saved screenshot crop is used for verification and artwork; Babelbound does **not** upload it to Gemini as an image attachment. |
-| Browser controls Babelbound can verify | Hammerspoon needs Accessibility and Screen Recording access. Chrome must expose the reader and Gemini’s input, Send, and Copy controls in the form Babelbound expects. The default control labels are English. |
+| The provider can read the current book tab | Confirm this manually first. The saved screenshot crop is used for verification and artwork; Babelbound does **not** upload it as an image attachment. |
+| Browser controls Babelbound can verify | Hammerspoon needs Accessibility and Screen Recording access. Chrome must expose the reader and the selected provider’s input, Send, and Copy controls in the form Babelbound expects. The default control labels are English. |
 
-During calibration, you identify Gemini’s empty input, the book’s forward-click target, the two corners of the book rectangle, and the top-left of the Gemini pane. See the [calibration walkthrough](docs/usage.md#calibrate-the-visible-reader) for the exact sequence. Use **Preview source crop**, then complete a short three-screen batch before committing to a long run. A successful calibration alone does not prove that page turning or Gemini access works.
+During calibration, you identify the provider’s empty input, the book’s forward-click target, the two corners of the book rectangle, and the top-left of the chat pane. See the [calibration walkthrough](docs/usage.md#calibrate-the-visible-reader) for the exact sequence. Use **Preview source crop**, then complete a short three-screen batch before committing to a long run. A successful calibration alone does not prove that page turning or source access works.
 
-**Outside the current integration:** continuous-scroll books, readers that require swipes or moving click targets, separate reader/Gemini windows, and native apps such as Apple Books or Preview. There is no direct PDF, EPUB, CBZ, or image-file import; EPUB is an output format. Other websites and Chrome’s PDF viewer are unvalidated and may require code and prompt changes even if their layouts look similar to BOOKWALKER.
+**Outside the current integration:** continuous-scroll books, readers that require swipes or moving click targets, separate reader/chat windows, and native apps such as Apple Books or Preview. There is no direct PDF, EPUB, CBZ, or image-file import; EPUB is an output format. Other websites and Chrome’s PDF viewer are unvalidated and may require code and prompt changes even if their layouts look similar to BOOKWALKER.
 
-## Your Gemini plan and model
+## Your plan and model
 
 Babelbound uses **your own Google account and Gemini access in Chrome**. Requests use your account’s model access and usage allowance; Babelbound does not provide a separate plan or require an API key. Availability and limits can change, so check [Google’s current plan and model information](https://support.google.com/gemini/answer/16275805?hl=en) rather than assuming a fixed number of pages per day.
+
+The ChatGPT provider uses **your own ChatGPT account, selected model, and available allowance** through the official extension. It does not use an API key or change your model for you. Select **BT → Provider → ChatGPT extension**, then calibrate that panel separately. [Setup details](docs/chatgpt.md).
 
 Choose the model yourself: click the model name inside Gemini’s input box, select the model you want, and close the picker before starting Babelbound. Pause Babelbound before changing models mid-job. The tool uses that selection and records the observed model for each saved screen. [Google’s Chrome guide](https://support.google.com/gemini/answer/16283624?hl=en) documents the model picker and account requirements.
 
@@ -53,13 +55,13 @@ Those are this project’s blind AI-reviewer assessments of one sample, not a un
 - Shows the loaded book title in **Start / resume** and progress such as **BT translating (42%)**.
 - Distinguishes deliberate pauses, warnings, active work, and finished batches.
 - Stores jobs in named folders such as `Book-The Lantern Archive - Vol. 01`.
-- Records the model observed in Gemini’s interface for each translation.
+- Records the provider and observed model selection for each translation.
 - Extracts illustrations from saved captures and inserts them in reading order.
 - Exports a self-contained EPUB for Apple Books, including artwork and any reviewed English cover layouts.
 
 ## Try the reading copy
 
-You can try the export without setting up Chrome, Hammerspoon, or a Gemini account. With Python 3.10+ and the [Pillow dependency](requirements.txt) installed, run:
+You can try the export without setting up Chrome, Hammerspoon, or a model-provider account. With Python 3.10+ and the [Pillow dependency](requirements.txt) installed, run:
 
 ```sh
 python3 scripts/demo.py --output demo-output
@@ -69,7 +71,7 @@ Open `demo-output/translation.html`, or import `demo-output/translation.epub` in
 
 ## Install
 
-You need macOS, Google Chrome with a working Gemini sidebar, [Hammerspoon](https://www.hammerspoon.org/), and [Python 3.10 or newer](https://www.python.org/downloads/macos/). The illustration and EPUB helpers use Pillow.
+You need macOS, Google Chrome with a working Gemini sidebar or the official ChatGPT extension, [Hammerspoon](https://www.hammerspoon.org/), and [Python 3.10 or newer](https://www.python.org/downloads/macos/). The illustration and EPUB helpers use Pillow.
 
 Download or clone this repository, then run from its directory:
 
@@ -90,10 +92,10 @@ Existing Gemini Book Translator installations can [upgrade without migrating job
 ## First translation
 
 1. Open a book you have permission to translate in BOOKWALKER’s Chrome reader.
-2. Open Gemini in the sidebar of that same Chrome window. Share the book tab with Gemini and select the model you want to use. Leave the input empty.
-3. Keep the book on the left and Gemini on the right, with the window on one display.
+2. Select the provider in **BT → Provider** and open its sidebar in the same Chrome window. For Gemini, share the book tab. For ChatGPT, follow the [extension setup](docs/chatgpt.md). Select the model you want and leave the input empty.
+3. Keep the book on the left and the selected chat panel on the right, with the window on one display.
 4. Choose **BT → Calibrate**, then follow the five hover prompts using **Control–Option–Command–C**. No clicking is needed to record the points.
-5. Choose **Preview source crop**. Check that it contains the whole visible book page or spread, without browser controls or the Gemini pane.
+5. Choose **Preview source crop**. Check that it contains the whole visible book page or spread, without browser controls or the chat pane.
 6. Choose **New job on current screen** and start with three screens. The current visible screen is the first one. A screen may contain more than one printed page.
 7. Let the automation use that Chrome window. **Control–Option–Command–P** pauses it; **Control–Option–Command–X** stops it while retaining saved work.
 
@@ -141,6 +143,7 @@ Use **Rename current job…** to change a title while the job is paused and back
 
 - [Installation and configuration](docs/installation.md)
 - [Usage, shortcuts, statuses, and recovery](docs/usage.md)
+- [ChatGPT extension setup and testing limits](docs/chatgpt.md)
 - [Illustrations, HTML, EPUB, and model metadata](docs/reading-copies.md)
 - [Troubleshooting](docs/troubleshooting.md)
 - [Design notes](docs/design-notes.md)
@@ -151,9 +154,9 @@ Use **Rename current job…** to change a title while the job is paused and back
 
 The repository includes synthetic Python and Lua regression suites for response parsing, duplicate-submit prevention, source review, renames, status, illustration assets, and EPUB output. [Run them locally](tests/README.md); CI runs the portable suites. Native Chrome interaction and Apple Books pagination also need manual macOS testing. A passing parser test can't tell you that Google moved a button.
 
-The current integration targets macOS, the standard Chrome application, BOOKWALKER’s visible reader, and Gemini’s sidebar. English UI labels are the default. It is not a headless browser crawler and cannot translate unseen pages without turning to them. It does not automatically change models or assess their translation quality.
+The current integration targets macOS, the standard Chrome application, BOOKWALKER’s visible reader, and the selected chat sidebar. ChatGPT support is experimental; Gemini is the established integration. English UI labels are the default. It is not a headless browser crawler and cannot translate unseen pages without turning to them. It does not automatically change models or assess their translation quality.
 
-Babelbound stores screenshots, translations, and diagnostic traces locally. Gemini processes the shared page through your existing Chrome session. Documentation includes intentionally selected, redacted screenshots of the working setup. Full book archives, saved jobs, credentials, and personal browser state are not included in the repository.
+Babelbound stores screenshots, translations, and diagnostic traces locally. The selected provider processes the visible page through your existing Chrome session. Documentation includes intentionally selected, redacted screenshots of the working setup. Full book archives, saved jobs, credentials, and personal browser state are not included in the repository.
 
 ## License
 

@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.5.0 — 2026-09-24
+
+- Added an experimental provider for the official ChatGPT Chrome side panel, using direct prompts and the existing save/turn workflow.
+- Added a provider menu, separate calibration and latest-job settings, and provider metadata on pending requests and saved pages.
+- Bound ChatGPT interactions to the extension’s accessible web area; mismatched jobs and pending requests stop before input or collection.
+- Preserved older Gemini jobs, prepared drafts, and the existing optional Gemini skill flow.
+- Verified one authorized Japanese capture through the official extension with 6 Astra Medium: two visible Copy operations, a validated response, HTML and EPUB output, and provider/model provenance.
+- Added bounded, read-only source checks when Chrome's temporary debugging banner shifts the reader, with a diagnostic capture if the fingerprint differs.
+- Cleared unfinished calibration state when restoring a job from another provider.
+
+A two-capture local reader test saved both translations and an EPUB with one
+verified forward turn. It exposed a temporary banner interruption; a fresh run
+with the fix completed automatically after the original source returned.
+BOOKWALKER pagination with ChatGPT remains unverified because the live reader
+requires a new sign-in after its session expired. Support remains experimental.
+
 ## 1.4.3 — 2026-09-23
 
 - Renamed the project to **Babelbound**, with updated documentation, installer messages, menu heading, and diagnostic labels.

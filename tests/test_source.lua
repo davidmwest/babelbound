@@ -69,6 +69,7 @@ local cal={windowID=1,windowTitle="Book",windowFrame=wf,screenID=1,
 local window={id=function()return 1 end,title=function()return "Book" end,
     frame=function()return wf end,focus=function()end}
 local hs={configdir="/fixture",menubar={new=function()return nil end},
+    axuielement={systemWideElement=function()return {elementAtPosition=function()return nil end}end},
     settings={get=function(key)if key:match("calibration$")then return cal end end,set=function()end},
     timer={secondsSinceEpoch=function()return clock end,
         doAfter=function(delay,fn)queue[#queue+1]={at=clock+delay,fn=fn};return {}end,
