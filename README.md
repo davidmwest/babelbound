@@ -165,6 +165,7 @@ Use **Rename current job…** to change a title while the job is paused and back
 - [Illustrations, HTML, EPUB, and model metadata](docs/reading-copies.md)
 - [Troubleshooting](docs/troubleshooting.md)
 - [Design notes](docs/design-notes.md)
+- [Proposed menu redesign and whole-book translation](docs/menu-and-whole-book-design.md) — design and tradeoffs; not implemented yet
 - [Architecture](docs/architecture.md)
 - [Contributing](CONTRIBUTING.md)
 
