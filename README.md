@@ -38,17 +38,32 @@ During calibration, you identify the provider’s empty input, the book’s forw
 
 Babelbound uses **your own Google account and Gemini access in Chrome**. Requests use your account’s model access and usage allowance; Babelbound does not provide a separate plan or require an API key. Availability and limits can change, so check [Google’s current plan and model information](https://support.google.com/gemini/answer/16275805?hl=en) rather than assuming a fixed number of pages per day.
 
-The ChatGPT provider uses **your own ChatGPT account, selected model, and available allowance** through the official extension. It does not use an API key or change your model for you. Select **BT → Provider → ChatGPT extension**, then calibrate that panel separately. [Setup details](docs/chatgpt.md).
+The experimental ChatGPT provider uses **your own ChatGPT account, selected model, and available allowance** through the official extension. It does not use an API key or change your model for you. Select **BT → Provider → ChatGPT extension**, choose the model and reasoning level offered in the panel, then calibrate that panel separately. Live translation and local page-turning checks have passed; a full BOOKWALKER batch remains unverified. [Setup and testing details](docs/chatgpt.md).
 
 Choose the model yourself: click the model name inside Gemini’s input box, select the model you want, and close the picker before starting Babelbound. Pause Babelbound before changing models mid-job. The tool uses that selection and records the observed model for each saved screen. [Google’s Chrome guide](https://support.google.com/gemini/answer/16283624?hl=en) documents the model picker and account requirements.
 
-**If you don’t have Google AI Ultra, I recommend Flash for this workflow.** It is my practical default for translating a book. Ultra is not a Babelbound requirement, and you can select Pro or another model when your account offers it.
+### Which model should you use?
 
-**Flash-Lite gave significantly worse translations in the comparison behind that recommendation.** The same 20 reader screens were translated with the same prompt in separate conversations. On the 15 prose screens, the source-based review scored Flash-Lite **5.0/10**, versus **9.1/10** for Flash. Flash-Lite’s problems included missing passages and reversed meanings; Flash still made errors and needed review.
+**For Gemini, start with Flash with extended thinking off, especially if you don’t have Google AI Ultra.** Ultra is not required by Babelbound. Flash delivered English for every capture in this comparison, though its translations still needed review. Pro's delivered translations scored higher, but several requests failed in the tested browser session.
 
-Those are this project’s blind AI-reviewer assessments of one sample, not a universal model benchmark or a promise about future versions. The observed UI selections were 3.5 Flash-Lite and 3.8 Flash; the backend models were not independently verified. Babelbound can run with Flash-Lite, but I would not use it for a faithful reading copy based on those results.
+The September 2026 benchmark compares **29 model/reasoning settings on 12 Japanese → English captures: 348 responses, each reviewed by two AI judges against the source**. A capture can contain more than one printed page.
 
-For a broader comparison, the [Japanese → English benchmark](docs/benchmarks/2026-09-japanese-english/README.md) tests 29 model/reasoning settings on the same twelve captures. It separates translation quality from failed requests and estimates OpenAI API-equivalent costs. Gemini browser costs remain unknown. These are separate Codex CLI and Gemini web experiments, not a test of the ChatGPT extension.
+| Setting | What the sample showed | Estimated API cost per capture |
+| --- | --- | --- |
+| OpenAI Sol / high | **9.67/10**; all 12 outputs usable by both reviewers. Best measured API value among settings averaging at least 9.5/10 with all outputs usable and complete cost estimates. | **6.4¢** with observed caching; **8.4¢** without caching |
+| OpenAI Astra / high | **9.79/10**; all 12 outputs usable by both reviewers. | **20.5¢** with observed caching |
+| Gemini Flash / extended thinking off | **8.76/10**; English delivered for 12/12 captures, but only **7/12** outputs usable by both reviewers. | Unknown |
+| Gemini Pro / extended thinking off | **7.13/10 overall**; **9.83/10** on the 8 delivered English translations. Four requests failed. | Unknown |
+| Gemini Flash-Lite / extended thinking off | **5.28/10**; English delivered for 10/12 captures. Translation quality was substantially weaker. | Unknown |
+| Gemini Flash-Lite / extended thinking on | **8.44/10**; English delivered for 12/12 captures, with **8/12** outputs usable by both reviewers. | Unknown |
+
+With extended thinking off, Flash-Lite is a poor starting point for a faithful reading copy based on this sample. Extended thinking helped it considerably, but neither that improvement nor a completed response guarantees an accurate translation.
+
+**Babelbound uses your provider's existing allowance; the prices above are API-equivalent estimates, not per-page charges from Babelbound.** The OpenAI runs used Codex CLI and the Gemini runs used gemini.google.com. They measure those model settings in those workflows, not the ChatGPT extension or Gemini sidebar. Model names and reasoning controls available in your panel may differ; Babelbound uses the selection you make there.
+
+This is a small sample from one series with AI reviews, not human-validated scores. The providers were graded in separate batches, so cross-provider comparisons are exploratory. Pro's successful-only score covers a different subset, and browser failures do not establish a model's intrinsic translation ability. Gemini token usage and API-equivalent costs were unavailable.
+
+**[See the full benchmark →](docs/benchmarks/2026-09-japanese-english/README.md)** All 29 settings, per-capture scores, delivery failures, pricing assumptions, and methods are available there, along with a downloadable interactive report.
 
 ## What it does
 
