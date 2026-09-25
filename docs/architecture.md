@@ -20,11 +20,17 @@ Timeouts and uncertainty produce warnings, not successful completion. A pending 
 
 Lightweight readiness polling targets three starts per second, while bounded accessibility scans and independent page-stability checks still take the time they require. Increasing CPU speed does not eliminate network generation time or the need to verify a page turn.
 
+The menu reads a cached runtime snapshot and local output availability. Building it does not inspect Chrome, change focus, or start work. A pure policy module selects the primary action, labels, and enabled commands; the runtime binds handlers and checks the policy again before acting. Callbacks from an older job, provider, or operation cannot start new work. Opening a reading copy or a diagnostic dialog pauses active work and cancels pending checks or a scheduled resume before changing focus.
+
+The menu redesign retains fixed screen counts. A completed target offers **Translate more**; continuous translation and end-of-book review remain planned in the [whole-book design](menu-and-whole-book-design.md).
+
 ## Modules
 
 | Module | Responsibility |
 | --- | --- |
 | `gemini_book.lua` | Main state machine, UI, capture/save flow, and integration |
+| `gemini_book_menu.lua` | Pure menu construction, primary-action selection, and command availability |
+| `gemini_book_provider.lua` | Provider identity, adapter configuration, and sidebar recognition |
 | `gemini_book_core.lua` | Prompt/response protocol and Markdown/HTML rendering |
 | `gemini_book_ax.lua` | Scoped accessibility traversal |
 | `gemini_book_focus.lua` | Book focus and page-turn delivery checks |

@@ -293,8 +293,14 @@ do
     eq(j.records[1].modelProvenance.provider,"chatgpt","model observation records provider")
     eq(s.files[j.folder.."/page-metadata.json"].records[1].provider,"chatgpt","searchable metadata records provider")
     eq(j.pending,nil,"save clears only committed pending request");eq(j.remaining,2,"one save consumes one screen")
-    local items=M.menuItems();local skill
-    for _,item in ipairs(items)do if item.title=="Continue with manually selected ln skill"then skill=item end end
+    local function find(items,title)
+        for _,item in ipairs(items)do
+            if item.title==title then return item end
+            if item.menu then local match=find(item.menu,title);if match then return match end end
+        end
+    end
+    local skill=find(M.menuItems(),"Continue with selected Gemini skill")
+    check(skill~=nil,"Gemini skill flow is grouped under Recovery")
     eq(skill.disabled,true,"ChatGPT menu disables Gemini skill flow")
     M.config.defaultRequestMode="inline"
 end

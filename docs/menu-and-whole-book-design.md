@@ -1,8 +1,10 @@
 # A simpler BT menu and whole-book translation
 
-**Design proposal · September 25, 2026 · Based on Babelbound 1.5.0**
+**Design and rollout plan · September 25, 2026 · Menu cleanup shipped in Babelbound 1.6.0**
 
-This describes the next implementation. The menu and whole-book mode below are **not shipped yet**. Current instructions remain in [Usage](usage.md).
+**Stage 1 is implemented:** the grouped menu, state-dependent primary action, passive status summary, guarded actions, and separate EPUB repair work with existing fixed-count jobs. See [Usage](usage.md) for the shipped menu and shortcuts.
+
+**Whole-book mode remains planned.** Continuous scopes, beginning/coverage evidence, endpoint review, and a reader-position adapter below describe later stages. Version 1.6.0 has no scope chooser or end-of-book confirmation; **Translate more** still asks for another screen count.
 
 ## The decision
 
@@ -12,21 +14,23 @@ Add three explicit translation scopes: **Entire book**, **From here to the end**
 
 Start with continuous translation and a reviewed endpoint. Add unattended end detection only for readers whose position and terminal controls have been inspected and tested. A missed click must never become a successfully finished book.
 
-## What is confusing today
+## What prompted the redesign
 
-The [current menu](../hammerspoon/gemini_book.lua) exposes calibration, daily use, recovery experiments, scheduling, and diagnostics together. Some labels describe implementation history—“test one”—instead of what will happen.
+The 1.5.0 menu exposed calibration, daily use, recovery experiments, scheduling, and diagnostics together. Some labels described implementation history—“test one”—instead of what would happen.
 
-Several actions also hide important differences:
+Several actions also hid important differences:
 
-- **Start / resume** may restore a job without starting, resume unfinished work, or ask for another batch.
+- **Start / resume** could restore a job without starting, resume unfinished work, or ask for another batch.
 - **Finished** means the requested screen count was saved. It does not establish that the book ended.
 - **Pause** and **STOP** both retain saved work and pending requests. They do not cancel a response already generating in the provider.
-- **Status** and **Show last pause/error** currently pause automation to display their dialogs.
-- An EPUB failure can override the displayed status while translation is still running. A status label alone cannot determine whether Resume is safe.
+- **Status** and **Show last pause/error** paused automation to display their dialogs without saying so in their labels.
+- An EPUB failure could override the displayed status while translation was still running. A status label alone could not determine whether Resume was safe.
 
 The menu should answer: **Which book? What is happening? What can I do next?** Detailed repair tools belong one level deeper.
 
-## Proposed menu
+## Menu direction
+
+The four groups and primary-action rules are implemented for fixed-count jobs. The example below includes the planned whole-book progress display; scope and endpoint entries are not in version 1.6.0.
 
 Example with a paused book and an unknown endpoint:
 
@@ -81,7 +85,7 @@ Advanced
 
 Recovery contains **Collect existing reply and pause**, **Resend pending request…**, **Recover earlier reply…**, **Use direct prompt for this screen…**, **Continue with selected Gemini skill**, **Save reviewed clipboard…**, and **Review saved source…**. Unavailable entries remain disabled with a short reason. The optional Gemini skill stays an advanced compatibility feature; it is not a setup requirement.
 
-Diagnostics contains **Pause and show details…**, **Pause and inspect browser controls…**, **Last message…**, **Dismiss message**, and the version. Any dialog that still pauses work must say so in its active-state label. The summary at the top is passive: opening the menu never pauses, moves focus, captures a page, sends a prompt, or starts a job.
+Diagnostics contains **Pause and show details…**, **Pause and inspect browser controls…**, **Show last message…**, **Dismiss message**, and the version. Any dialog that still pauses work must say so in its active-state label. The summary at the top is passive: opening the menu never pauses, moves focus, captures a page, sends a prompt, or starts a job.
 
 Keep shortcuts C/N/S/P/X/M/D. S dispatches the displayed Start/Resume/Translate more command and cannot bypass a required review. P pauses active translation or resumes a normally paused job; it does not dismiss a warning or silently start another batch. X remains an immediate stop/cancel for local automation, recovery, and scheduled resume, without deleting work or cancelling a provider response. Do not introduce a separate “stopped job” lifecycle just to justify a second button.
 
@@ -111,7 +115,7 @@ Disable new/open book, provider changes, calibration, and scope changes during e
 
 Enforce these gates again inside the action handlers. The menu can become stale between opening and clicking.
 
-## Starting and continuing
+## Planned scope selection
 
 Use a short native chooser/dialog flow, not a new settings application:
 
@@ -260,7 +264,7 @@ The menu policy returns labels, enabled states, and reasons from a snapshot. It 
 
 ## Rollout and acceptance
 
-**1. Menu cleanup first.** Implement the pure menu policy and grouped commands against current fixed-count jobs. Ship clearer labels and passive status without claiming whole-book support. Keep the existing usage guide accurate as labels change.
+**1. Menu cleanup — shipped in 1.6.0.** The pure menu policy and grouped commands operate on current fixed-count jobs. The menu shows a passive book/provider/model/progress summary, directs warnings to review, and exposes repair tools under Advanced. S dispatches the primary action; P only pauses or resumes ordinary work. Opening an output or diagnostic dialog cancels active continuation and scheduled resume before changing focus. Handler guards repeat menu restrictions. Existing jobs need no migration, and the [usage guide](usage.md) describes the installed labels.
 
 **2. Continuous scope and reviewed endpoints.** Add durable run scope, coverage evidence, endpoint review, reviewed non-content resolution, mode-aware recovery, and final export. Clearly state that an endpoint review may be required. Test on a short synthetic reader before a real book.
 

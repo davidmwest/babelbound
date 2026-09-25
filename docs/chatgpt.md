@@ -13,10 +13,10 @@ is required.
    and make sure the extension can use this tab. Keep the reader visible on the left.
 3. Choose the model and reasoning level in the panel. Babelbound leaves that
    selection to you; availability and limits depend on your account.
-4. Pause any active Babelbound job, then choose **BT → Provider → ChatGPT extension**.
-5. **Calibrate** the empty ChatGPT input, the book’s forward target, the source
+4. Pause any active Babelbound job and cancel any scheduled resume, then choose **BT → Setup → Translation provider → ChatGPT extension**.
+5. Use **Setup → Calibrate…** for the empty ChatGPT input, the book’s forward target, the source
    rectangle, and the panel’s top-left corner. Preview the crop.
-6. Start a separate one-screen job first. Check its saved source and translation
+6. Use **Books → Start a new book…** for a separate one-screen job first. Check its saved source and translation
    before starting a longer batch.
 
 Gemini and ChatGPT keep separate calibrations and remembered jobs. Restoring a

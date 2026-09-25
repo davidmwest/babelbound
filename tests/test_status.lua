@@ -68,7 +68,7 @@ eq(S.view(job({autoResume={active=false}, pauseKind="warning"})).kind, "warning"
 eq(S.view(job({autoResume={active=true}}), {recoveryActive=true}).kind, "checking", "active preflight beats scheduled")
 local currentBuild = {folder=named.folder, status="failed", error="Disk write failed"}
 local warning = S.view(named, {running=true, phase="wait", illustrationBuild=currentBuild})
-eq(warning.kind, "warning", "renderer failure visible while translation runs")
+eq(warning.kind, "translating", "renderer failure does not hide translation")
 has(warning.tooltip, "Disk write failed", "renderer reason")
 eq(named.pauseKind, nil, "view leaves persisted state untouched")
 currentBuild.folder="/books/another-book"
@@ -81,8 +81,33 @@ eq(warningDuringBuild.kind, "warning", "background rendering cannot hide paused 
 has(warningDuringBuild.tooltip, "Page turn failed", "paused failure reason retained during rendering")
 eq(S.view(job({turnUncertain=true}), {illustrationBuild=currentBuild}).kind, "warning", "background rendering cannot hide uncertain turn")
 eq(S.view(named, {running=true, phase="wait", illustrationBuild=currentBuild}).kind, "translating", "translation takes priority over rendering")
-eq(S.view(named, {warning="Current action failed", running=true, illustrationBuild=currentBuild}).kind, "warning", "session warning priority")
+eq(S.view(named, {warning="Current action failed", running=true, illustrationBuild=currentBuild}).kind, "checking", "active work remains visible with session warning")
+has(S.view(named, {warning="Current action failed", running=true}).tooltip, "Warning: Current action failed", "active session warning remains in details")
 has(S.view(named, {warning="Current action failed"}).tooltip, "Current action failed", "session warning reason")
+eq(S.view(named, {warning="Current action failed"}).kind, "warning", "idle session warning blocks translation")
+
+local failedBuild = {folder=named.folder, status="failed", error="Reading-copy disk failure"}
+local failedEbook = {folder=named.folder, status="failed", error="EPUB disk failure"}
+for _, row in ipairs({
+    {job=job(), ctx={}, kind="paused", label="Paused"},
+    {job=job({remaining=0}), ctx={}, kind="finished", label="Batch complete"},
+    {job=job(), ctx={running=true, phase="wait"}, kind="translating", label="Translating (25%)"},
+    {job=job(), ctx={recoveryActive=true}, kind="checking", label="Checking (25%)"},
+    {job=job(), ctx={resuming=true}, kind="checking", label="Checking (25%)"},
+    {job=job({autoResume={active=true}}), ctx={}, kind="scheduled", label="Scheduled"},
+    {job=job({pauseKind="warning", pauseReason="Page turn failed"}), ctx={}, kind="warning", label="Warning"},
+}) do
+    row.ctx.illustrationBuild = failedBuild
+    row.ctx.epubBuild = failedEbook
+    local view = S.view(row.job, row.ctx)
+    eq(view.kind, row.kind, "export failure preserves " .. row.kind .. " state")
+    eq(view.label, row.label, "export failure preserves " .. row.kind .. " label")
+    has(view.tooltip, "Reading copy could not be rebuilt: Reading-copy disk failure", "reading-copy failure remains visible for " .. row.kind)
+    has(view.tooltip, "EPUB export failed: EPUB disk failure", "EPUB failure remains visible for " .. row.kind)
+end
+eq(S.view(job(), {warning="Session failed", resuming=true}).kind, "checking", "resume check precedes session warning")
+eq(S.view(job({autoResume={active=true}}), {warning="Session failed"}).kind, "scheduled", "scheduled resume precedes session warning")
+eq(S.view(job({remaining=0}), {epubBuild={folder="/books/other", status="failed", error="Other failure"}}).tooltip:find("Other failure", 1, true), nil, "other book export error not shown")
 local state = S.view(job({pauseKind="warning", pauseReason="Copy failed"}))
 eq(state.menuTitle, "BT warning", "warning menu")
 eq(state.label, "Warning", "warning label")
@@ -91,6 +116,7 @@ has(state.tooltip, "Saved screens: 1", "saved tooltip")
 has(state.tooltip, "Remaining in batch: 3", "remaining tooltip")
 has(state.tooltip, "Copy failed", "warning tooltip")
 eq(S.view(job({remaining=0, pauseReason=completed})).menuTitle, "BT finished", "finished menu")
+eq(S.view(job({remaining=0, pauseReason=completed})).label, "Batch complete", "fixed-count completion is explicit")
 eq(S.view(job({pauseReason=stopped})).menuTitle, "BT paused", "intentional paused menu")
 has(S.view(job({turnUncertain=true})).tooltip, "last page turn needs review", "uncertain reason")
 local function records(count)

@@ -1,4 +1,4 @@
--- Babelbound, v1.5.0 (Gemini and ChatGPT side panels) — Hammerspoon / macOS / Chrome sidebar. No API or network code.
+-- Babelbound, v1.6.0 (Gemini and ChatGPT side panels) — Hammerspoon / macOS / Chrome sidebar. No API or network code.
 -- Load with: GeminiBook = require("gemini_book")
 -- UI integration MUST be tested on your Chrome build before a long run.
 local core = require("gemini_book_core")
@@ -10,6 +10,7 @@ local savedJobs = require("gemini_book_jobs")
 local jobNames = require("gemini_book_names")
 local jobRename = require("gemini_book_rename")
 local jobStatus = require("gemini_book_status")
+local menuPolicy = require("gemini_book_menu")
 local epubExport = require("gemini_book_epub")
 local priorReply = require("gemini_book_prior_reply")
 local sourcePolicy = require("gemini_book_source")
@@ -17,7 +18,7 @@ local bookFocus = require("gemini_book_focus")
 local providers = require("gemini_book_provider")
 local turnFocus
 local quota = {}
-local M = {version="1.5.0"}
+local M = {version="1.6.0"}
 
 -- User-adjustable defaults. Screen coordinates are calibrated, not hard-coded.
 M.config = {
@@ -140,7 +141,8 @@ local lastNotice = hs.settings.get(settingKey .. ".lastNotice")
 local sessionWarning
 local function uiState()
     local view=jobStatus.view(job,{running=running,phase=phase,recoveryActive=recoveryActive,
-        resuming=resumeCaptureEpoch~=nil and resumeCaptureEpoch==epoch,
+        resuming=(resumeCaptureEpoch~=nil and resumeCaptureEpoch==epoch)
+            or (job and job.autoResume and job.autoResume.active==true and phase=="quota-resume-check"),
         illustrationBuild=illustrationBuild,epubBuild=epubManager and job and epubManager:state(job.folder),warning=sessionWarning})
     view.provider=provider
     view.tooltip=view.tooltip.."\nProvider: "..providerName()
@@ -178,7 +180,7 @@ local function persistentNotice(s, remember)
         hs.settings.set(settingKey..".lastNotice",lastNotice)
     end
     noticeID=hs.alert.show("Babelbound\n\n"..wrapNotice(s)
-        .."\n\nDismiss: Control-Option-Command-D or BT > Dismiss message"
+        .."\n\nDismiss: Control-Option-Command-D or BT > Advanced > Diagnostics > Dismiss message"
         .."\nDismissing does NOT resume automation.",
         {textSize=19,fadeInDuration=0,fadeOutDuration=0},"until-dismissed")
 end
@@ -478,6 +480,16 @@ local function defer(seconds, fn)
         if token == epoch then fn() end
     end))
 end
+-- Reserve the operation before a dialog-dismissal delay. Menu actions and
+-- shortcuts must see checking immediately, not only after the timer fires.
+local function deferAction(seconds, fn)
+    resumeCaptureEpoch=epoch;refreshMenu()
+    return defer(seconds,function()
+        resumeCaptureEpoch=nil
+        fn()
+        refreshMenu()
+    end)
+end
 local function openPath(path)
     hs.task.new("/usr/bin/open", nil, {path}):start()
 end
@@ -716,7 +728,7 @@ local function focusedInput(requireEmpty)
             local value = core.composerValue(attr(e,"AXValue"),
                 attr(e,"AXPlaceholderValue"), inputHints())
             if requireEmpty and (type(value)~="string" or core.trim(value)~="") then
-                return nil,"The chat input is not verifiably empty. Do not send the draft. Clear it manually, then use BT > Retry pending screen.",
+                return nil,"The chat input is not verifiably empty. Do not send the draft. Clear it manually, then use BT > Advanced > Recovery > Resend pending request.",
                     nil,"content",description().."\neditor: "..focusDescription(e)
             end
             verifiedInput=e
@@ -862,10 +874,13 @@ local function handleUsageLimit(event, origin)
         .."The notice was NOT saved as a translation. "
         .."See usage-limit.txt in the output folder. "
         ..(cfg.offerAutoResume and "An optional reset-time prompt follows when a future timestamp is readable."
-            or "Pause-only mode: when Gemini is available, close the model picker and use Start / resume with the currently selected model. Nothing is scheduled automatically."))
+            or "Pause-only mode: when Gemini is available, close the model picker and use Review problem, then Check and resume with the currently selected model. Nothing is scheduled automatically."))
     refreshMenu()
     if cfg.offerAutoResume and quota.offer and job.remaining>0 then
-        defer(0.4,function() quota.offer(event) end)
+        local limitedJob=job
+        deferAction(0.4,function()
+            if job==limitedJob and job.usageLimit==event then quota.offer(event) end
+        end)
     end
     return true
 end
@@ -1245,7 +1260,7 @@ end
 local function skillMenuFailure(why)
     inputFailure(why.." No request text was pasted or sent. "
         .."Instead of repeating Retry, clear the draft, manually select the ln skill from Gemini's / menu, "
-        .."then use BT > Continue with manually selected ln skill.")
+        .."then use BT > Advanced > Recovery > Continue with selected Gemini skill.")
 end
 local function skillDraft()
     -- A popup may temporarily own keyboard focus. Read the originally verified
@@ -1406,7 +1421,7 @@ local function pageFailure(img,hash)
     end
     atomicWrite(job.folder.."/turn-failure.txt",table.concat(report,"\n").."\n")
     pause(diagnosis.." No extra click was sent. Saved translations are retained. "
-        .."See turn-failure.txt in BT > Open output folder. Resume will ask you to verify the page position.")
+        .."See turn-failure.txt in BT > Read translation > Open output folder. Resume will ask you to verify the page position.")
 end
 local function waitForPage(mustChange)
     job.expectChange = mustChange
@@ -1461,7 +1476,7 @@ local function stopCollection(reason)
     job.lastCopyProblem=reason
     collectionEvent("paused",{reason=reason})
     pause(reason.." No new translation request or page turn was sent by collection. "
-        .."The existing reply is still pending. See the collection folder in BT > Open output folder.")
+        .."The existing reply is still pending. See the collection folder in BT > Read translation > Open output folder.")
 end
 local function scrollResponse(reason)
     local c=ensureCollection()
@@ -1622,7 +1637,7 @@ saveAnswer = function(answer, manual)
         local event=job.deferredUsageLimit
         log("Saved the complete reply before honoring the usage-limit pause.")
         handleUsageLimit(event,"after-saving-complete-reply")
-    elseif pauseAfterOne then pause("One-screen test complete. "..#job.records.." screens saved; "..job.remaining.." remain in this batch. Leave this book page displayed. Start/resume continues the remaining screens.","paused")
+    elseif pauseAfterOne then pause("Screen saved. "..#job.records.." screens saved; "..job.remaining.." remain in this batch. Leave this book page displayed. Resume continues the remaining screens.","paused")
     elseif manual then pause("Reviewed response saved. Resume when ready.","paused") end
 end
 -- Only Copy uses this path. Request submission and book navigation are unchanged.
@@ -1902,7 +1917,7 @@ tick = function()
     elseif phase == "verify-selection" then
         local e,value=awaitInputContent(function(v)
             return core.selectedSkillValue(v,cfg.skill)
-        end,"The clicked ln skill did not become a selected chip. No request was pasted or sent. Manually select ln, then use BT > Continue with manually selected ln skill.")
+        end,"The clicked ln skill did not become a selected chip. No request was pasted or sent. Manually select ln, then use BT > Advanced > Recovery > Continue with selected Gemini skill.")
         if not e then return end
         job.pending.composerPrefix=value
         job.pending.selectionVerified=true
@@ -1926,11 +1941,11 @@ tick = function()
     elseif phase == "submit" then
         local request=job.pending.requestText
         if not request or (not job.pending.selectionVerified and job.pending.inputMode~="inline") then
-            inputFailure("No verified request-preparation state. Clear the draft and use BT > Retry pending screen.");return
+            inputFailure("No verified request-preparation state. Clear the draft and use BT > Advanced > Recovery > Resend pending request.");return
         end
         local e = awaitInputContent(function(value)
             return core.requestDraftMatches(value,request,job.pending.composerPrefix)
-        end,"Cannot verify the COMPLETE request in Gemini's input after waiting. No Send/Return was issued. Clear the draft and use BT > Retry pending screen.",request)
+        end,"Cannot verify the COMPLETE request in Gemini's input after waiting. No Send/Return was issued. Clear the draft and use BT > Advanced > Recovery > Resend pending request.",request)
         if not e then return end
         pasteInFlight=false
         setPhase("submit-check")
@@ -2143,7 +2158,7 @@ tick = function()
                 contentTypes=types,elapsed=now()-copyStarted})
             if c.clipboardTimeouts>=2 then
                 stopCollection(job.lastCopyProblem.." You can dismiss this message, click the reply's Copy button yourself, "
-                    .."then use BT > Accept reviewed clipboard (Ctrl-Option-Cmd-M).")
+                    .."then use BT > Advanced > Recovery > Save reviewed clipboard (Ctrl-Option-Cmd-M).")
             else scrollResponse(job.lastCopyProblem)end
         else
             -- A clipboard ownership change can precede delivery of its text.
@@ -2167,7 +2182,7 @@ tick = function()
         local wf=cal.windowFrame
         if cal.next.x<wf.x or cal.next.x>=cal.panel.x
             or cal.next.y<cal.panel.y or cal.next.y>wf.y+wf.h then
-            pause("Forward target is outside the book pane. Use BT > Set forward click only."); return
+            pause("Forward target is outside the book pane. Use BT > Setup > Adjust forward-click target."); return
         end
         startTurnTrace(img,hash)
         local focusError,focusEvidence
@@ -2262,7 +2277,7 @@ function M.selectProvider(id)
     -- Switching providers never converts an existing pending request.
     provider=selected;hs.settings.set(settingKey..".provider",provider)
     cal=hs.settings.get(providerKey(".calibration"))
-    job=nil;phase="idle";sessionWarning=nil;verifiedInput=nil
+    job=nil;phase="idle";sessionWarning=nil;verifiedInput=nil;lastModelReadback=nil
     calibrationStep,calibrationDraft,nextCalibration=nil,nil,nil
     refreshMenu()
     alert(providerName().." selected. Open its sidebar, calibrate, then create or restore a job.")
@@ -2315,7 +2330,7 @@ function M.calibrate()
     hs.settings.set(providerKey(".calibration"), cal)
     hs.screenRecordingState(true)
     sessionWarning=nil;refreshMenu()
-    alert("Calibrated. Allow screen capture if asked. Use BT > Preview source crop before starting.")
+    alert("Calibrated. Allow screen capture if asked. Use BT > Setup > Preview source crop before starting.")
 end
 function M.calibrateNext()
     if running then pause("Paused to change the forward-click target.","paused") end
@@ -2357,7 +2372,7 @@ function M.preview()
     if not hs.screenRecordingState(true) then return end
     mkdir(cfg.outputRoot)
     hs.alert.closeAll(0)
-    defer(0.5,function()
+    deferAction(0.5,function()
         local current,why=guard(); if not current then warningNotice(why); return end
         local img = capture()
         local path=cfg.outputRoot .. "/calibration-preview.png"
@@ -2381,7 +2396,7 @@ function M.newJob(batchSize,requestedTitle)
     local n=type(batchSize)=="number" and batchSize or nil
     if not n then
         local button, value = hs.dialog.textPrompt("New book-translation job",
-            "CREATE A SEPARATE JOB starting at screen 00001, not a continuation. To continue an existing book, Cancel and use Restore latest saved job. New batch size (screens/spreads):",
+            "CREATE A SEPARATE JOB starting at screen 00001, not a continuation. To continue an existing book, Cancel and use BT > Books > Open saved book. New batch size (screens/spreads):",
             tostring(cfg.defaultBatch), "Create", "Cancel")
         if button ~= "Create" then return end
         n=tonumber(value)
@@ -2408,12 +2423,12 @@ function M.newJob(batchSize,requestedTitle)
         sourceWindowTitle=w:title(),createdAt=os.date("!%Y-%m-%dT%H:%M:%SZ",createdAt),
         tag=tag,records={},remaining=n,needAdvance=false,provider=provider,requestMode=provider=="chatgpt" and "inline" or cfg.defaultRequestMode}
     hs.settings.set(providerKey(".latest"),folder)
-    phase="idle";sessionWarning=nil;checkpoint()
+    phase="idle";sessionWarning=nil;lastModelReadback=nil;checkpoint()
     w:focus()
     -- Delay gives the textPrompt window time to disappear before guard/capture.
-    defer(0.6, M.resume)
+    M.resume(nil,0.6)
 end
-function M.resume(origin)
+function M.resume(origin, delay)
     if quota.cancel then quota.cancel("Manual Start/resume",false) end
     if recoveryActive then pause("Recovery cancelled by Start/resume. Prepare a fresh source review before approving it.","paused"); return end
     if running then return end
@@ -2422,7 +2437,7 @@ function M.resume(origin)
     dismissNotice()
     hs.alert.closeAll(0)
     local manualResume=origin~="scheduled"
-    defer(0.05, function() resumeNow(manualResume) end)
+    deferAction(delay or 0.05, function() resumeNow(manualResume) end)
 end
 resumeNow = function(manualResume)
     if running then return end
@@ -2441,7 +2456,7 @@ resumeNow = function(manualResume)
         local n=tonumber(s)
         if not n or n<1 or n>1000 or n~=math.floor(n) then pause("Enter 1–1000."); return end
         job.remaining=n; w:focus(); checkpoint()
-        defer(0.6, M.resume); return
+        M.resume(nil,0.6); return
     end
     resumeCaptureEpoch=epoch;refreshMenu()
     local expectedHash=job.pending and job.pending.sourceHash
@@ -2464,7 +2479,7 @@ resumeNow = function(manualResume)
             log("User approved one retry from the matching last saved screen.")
             checkpoint()
             -- Do not capture while the confirmation dialog is disappearing.
-            defer(0.7,M.resume)
+            M.resume(nil,0.7)
             return
         end
         local b=hs.dialog.blockAlert("Verify the page position",
@@ -2476,10 +2491,10 @@ resumeNow = function(manualResume)
         job.turnUncertain,job.needAdvance=false,false
         log("User confirmed current screen is the next source; no recovery click will be sent.")
         checkpoint()
-        defer(0.7,M.resume)
+        M.resume(nil,0.7)
         return
     elseif job.needAdvance and hash~=job.lastSourceHash then
-        pause("The current image differs from the last saved source. If this is the same page, use BT > Review last saved source. No page turn was sent."); return
+        pause("The current image differs from the last saved source. If this is the same page, use BT > Advanced > Recovery > Review saved source. No page turn was sent."); return
     end
     quota.manualResumeEpoch=manualResume and epoch or nil
     running=true; job.pauseReason=nil;job.pauseKind=nil;sessionWarning=nil;beginOwnership()
@@ -2556,13 +2571,20 @@ function M.continueBatch(count)
 end
 
 function M.togglePause()
-    if running then pause("Paused. Gemini itself may still finish its reply.","paused") else M.resume() end
+    local snapshot=M.menuSnapshot()
+    if snapshot.running or snapshot.checking then
+        pause("Paused. The provider may still finish its reply.","paused")
+    elseif not snapshot.scheduled then
+        return M.performMenuAction("resume")
+    else
+        alert("A resume is scheduled. Use Resume now or Cancel scheduled resume in the menu.")
+    end
 end
 function M.stop() pause("Automation stopped. Saved files retained; resume is available.","paused") end
 local function retryNow()
     if running then pause("Paused for retry.","paused") end
-    if not job then alert("No job is loaded. Choose BT > Restore latest saved job, then retry.");return end
-    if not job.pending then alert("This loaded job has no pending screen. Use BT > Status to inspect it."); return end
+    if not job then alert("No job is loaded. Choose BT > Books > Open most recent book, then retry.");return end
+    if not job.pending then alert("This loaded job has no pending screen. Use BT > Advanced > Diagnostics > Show details to inspect it."); return end
     local w,err=guard(); if not w then warningNotice(err); return end
     if not pendingSourceStillVisible() then warningNotice("Return to the pending source page first."); return end
     local b=hs.dialog.blockAlert("Retry this screen?",
@@ -2590,13 +2612,13 @@ local function retryNow()
     inputReadback=nil
     pasteInFlight=false
     checkpoint()
-    defer(0.6, M.resume)
+    M.resume(nil,0.6)
 end
 function M.retry()
     if recoveryActive then pause("Recovery cancelled before retry.","paused") end
     if running then pause("Paused for retry.","paused") end
     dismissNotice(); hs.alert.closeAll(0)
-    defer(0.5,retryNow)
+    deferAction(0.5,retryNow)
 end
 -- Human-selected fallback: the user explicitly confirms the blue ln chip in
 -- the CURRENT composer. No slash, selection Enter, or automatic deletion is
@@ -2882,7 +2904,7 @@ end
 function M.runNextOne()
     if running or recoveryActive then return nil,"Pause the current operation first." end
     local problem=sourcePolicy.problem(job);if problem then return nil,problem end
-    if not job.remaining or job.remaining<1 then return nil,"This batch has no remaining screens. Add a batch through Start/resume first." end
+    if not job.remaining or job.remaining<1 then return nil,"This batch has no remaining screens. Use Translate more to choose another screen count." end
     job.pauseAfterNext=true;checkpoint()
     M.resume("manual")
     return {status="starting",savedCount=#job.records,targetCount=#job.records+1,remaining=job.remaining}
@@ -2968,11 +2990,11 @@ main{display:flex;gap:20px}figure{margin:0;flex:1}img{width:100%;border:1px soli
                 .."If unsure, Cancel and compare the two images in the job's latest recovery folder.\n\n"
                 .."Confirm the chat is idle and its input contains no draft or skill chip. "
                 .."This backs up the old source, refreshes ONLY this pending screen's reference, "
-                .."and tests ONE direct-prompt translation. Previously saved translations are untouched. "
+                .."and translates this one screen using a direct prompt. Previously saved translations are untouched. "
                 .."No initial page turn or API call. The rest of the batch stays paused.",
-                "Cancel","Same page - test one")
+                "Cancel","Same page — translate once")
             w:focus()
-            if button~="Same page - test one" then
+            if button~="Same page — translate once" then
                 report.result="cancelled";atomicWrite(recoveryFolder.."/review.json",hs.json.encode(report,true))
                 pause("Recovery cancelled. No reference, request, or book page was changed.","paused");return
             end
@@ -3020,10 +3042,10 @@ function M.continueSelectedSkill()
     if recoveryActive then pause("Recovery cancelled before manual-skill recovery.","paused") end
     if running then pause("Paused for manual skill selection.","paused")end
     dismissNotice();hs.alert.closeAll(0)
-    defer(0.5,function()
-        if not job then alert("No job is loaded. Choose BT > Restore latest saved job first.");return end
-        if not job.pending then alert("The loaded job has no pending screen. Use BT > Status.");return end
-        if job.pending.sent then alert("This pending request was already marked sent. Use Start/resume to collect it, not manual selection.");return end
+    deferAction(0.5,function()
+        if not job then alert("No job is loaded. Choose BT > Books > Open most recent book first.");return end
+        if not job.pending then alert("The loaded job has no pending screen. Use BT > Advanced > Diagnostics > Show details.");return end
+        if job.pending.sent then alert("This pending request was already marked sent. Use BT > Advanced > Recovery > Collect existing reply and pause.");return end
         local w,err=guard();if not w then warningNotice(err);return end
         if not pendingSourceStillVisible()then warningNotice("Return to the pending source page before continuing.");return end
         local b=hs.dialog.blockAlert("Continue with selected ln skill?",
@@ -3031,7 +3053,7 @@ function M.continueSelectedSkill()
             .."that there is no draft text, and that Gemini is idle. This will paste and submit ONE request for the current pending screen, "
             .."then continue the remaining batch. No initial page turn is sent.","Cancel","Continue")
         w:focus();if b~="Continue"then return end
-        defer(0.7,function()
+        deferAction(0.7,function()
             local win,why=guard();if not win then warningNotice(why);return end
             if not pendingSourceStillVisible()then warningNotice("Source page changed; no request sent.");return end
             job.pending.composerPrefix=nil;job.pending.selectionVerified=nil
@@ -3062,7 +3084,7 @@ function M.acceptClipboard()
     w:focus()
     if b=="Save" then
         hs.alert.closeAll(0)
-        defer(0.5,function() saveAnswer(answer,true) end)
+        deferAction(0.5,function() saveAnswer(answer,true) end)
     end
 end
 -- File discovery is read-only. Selecting a checkpoint never creates a book,
@@ -3091,7 +3113,7 @@ function M.restoreFolder(folder)
     calibrationStep,calibrationDraft,nextCalibration=nil,nil,nil
     provider=selected;hs.settings.set(settingKey..".provider",provider)
     cal=hs.settings.get(providerKey(".calibration"))
-    job=candidate.job;job.folder=folder;job.provider=provider;phase="restored";running=false
+    job=candidate.job;job.folder=folder;job.provider=provider;phase="restored";running=false;lastModelReadback=nil
     if not job.requestMode then job.requestMode=provider=="chatgpt" and "inline" or cfg.defaultRequestMode end
     if job.autoResume and job.autoResume.active then
         job.autoResume.active=false;job.autoResume.status="Cancelled on restore; not rearmed."
@@ -3262,7 +3284,7 @@ function M.collectPendingOne()
     if running then pause("Paused before collecting the existing reply.","paused")end
     if not job then M.restoreLatest()end
     if not job or not job.pending then
-        persistentNotice("There is no pending reply to collect. Use Start/resume for a completed batch.",true);return
+        persistentNotice("There is no pending reply to collect. Use Translate more for a completed batch.",true);return
     end
     local p=job.pending
     if p.sent~=true or p.index~=#job.records+1 or job.needAdvance or job.turnUncertain
@@ -3282,7 +3304,7 @@ function M.collectPendingOne()
     p.collectDespiteLimit=true
     checkpoint()
     log("User authorized collection-only test of already-sent "..p.id.."; no re-submission or page turn.")
-    defer(0.7,M.resume)
+    M.resume(nil,0.7)
 end
 -- Deliberate recovery after Retry changed an already-generated request ID.
 -- No wildcard parser acceptance and no automatic ID substitution. The user
@@ -3293,7 +3315,7 @@ function M.collectPriorReply()
     if not job and not M.restoreLatest()then return end
     if job and job.pending and job.pending.sent then M.collectPendingOne();return end
     dismissNotice();hs.alert.closeAll(0)
-    defer(0.5,function()
+    deferAction(0.5,function()
         local w,err=guard();if not w then warningNotice(err);return end
         local oldID,why=priorReply.find(job,readFile(job.folder.."/run.log"))
         if not oldID then persistentNotice(why.." No request was sent and no file changed.",true);return end
@@ -3311,7 +3333,7 @@ function M.collectPriorReply()
             .."No translation request or page turn will be sent.","Cancel","Collect earlier reply")
         w:focus()
         if b~="Collect earlier reply"then return end
-        defer(0.7,function()
+        deferAction(0.7,function()
             local valid,msg=guard();if not valid then warningNotice(msg);return end
             local again=priorReply.find(job,readFile(job.folder.."/run.log"))
             if not job.pending or job.pending.id~=expectedID or again~=oldID
@@ -3347,7 +3369,9 @@ function M.diagnostics()
     if running then pause("Paused for diagnostics.","paused") end
     local w,err=guard(); if not w then warningNotice(err); return end
     mkdir(cfg.outputRoot)
+    recoveryActive=true;refreshMenu()
     scanButtons(function(copies,stopped,lines,limitHit,model)
+        recoveryActive=false;refreshMenu()
         local out={"Babelbound accessibility diagnostics", "Current composer model: "..tostring(model),
             "Matched limit notice: "..tostring(limitHit and limitHit.text or "none"), "Chrome title: "..w:title(),
             "Visible Copy candidates: "..#copies, "Generation/Stop control: "..tostring(stopped),
@@ -3375,7 +3399,7 @@ function M.status()
     local s="Status: "..uiState().label.."\nState: "..phase.."; running="..tostring(running)
     if job then s=s.."\nBook: "..(job.bookTitle or job.folder:match("([^/]+)$")).."\nSaved: "..#job.records.."; remaining: "..job.remaining.."\n"..job.folder end
     if job then s=s.."\nRequest mode: "..(job.requestMode or cfg.defaultRequestMode)end
-    if not job then s=s.."\nNo job loaded. Use Restore latest saved job." end
+    if not job then s=s.."\nNo job loaded. Use BT > Books > Open saved book." end
     if job and job.pending then s=s.."\nPending ID: "..job.pending.id.."; sent="..tostring(job.pending.sent) end
     if job and job.pauseReason then s=s.."\nLast pause: "..job.pauseReason end
     if job and job.autoResume then s=s.."\nAuto-resume: "..tostring(job.autoResume.status)
@@ -3412,7 +3436,8 @@ quota.attempt=function(plan)
     if quota.timer then quota.timer:stop();quota.timer=nil end
     if not job or not plan.active or job.autoResume~=plan then return end
     dismissNotice();hs.alert.closeAll(0)
-    defer(0.6,function()
+    deferAction(0.6,function()
+        if not job or not plan.active or job.autoResume~=plan then return end
         local ok,why=sessionUsable()
         if not ok then pause("Scheduled auto-resume stopped: "..why);return end
         local w,err=guard()
@@ -3422,6 +3447,7 @@ quota.attempt=function(plan)
         local allowed,reason=resetClock.canRun(plan,job,now(),hash)
         if not allowed then pause("Scheduled auto-resume stopped: "..reason);return end
         phase="quota-resume-check" -- running stays false; the scan is read-only.
+        refreshMenu()
         scanButtons(function(_,stopped,_,limitHit,model)
             if not job or job.autoResume~=plan or not plan.active then return end
             if stopped then pause("Scheduled auto-resume stopped: Gemini is generating. Collect its reply manually.");return end
@@ -3465,7 +3491,7 @@ quota.offer=function(event)
         event.resetParseError=why;pcall(checkpoint)
         log("No reset timer offered: "..why)
         persistentNotice("Paused for Gemini's availability check. "..why
-            .." Use BT > Schedule auto-resume from reset notice to paste the exact notice or an explicit local date/time. Nothing is scheduled.",true)
+            .." Use BT > Advanced > Resume after usage reset to paste the exact notice or an explicit local date/time. Nothing is scheduled.",true)
         return
     end
     local w,err=guard()
@@ -3483,7 +3509,7 @@ quota.offer=function(event)
         .."At that time, resume with the currently selected model only if no blocking service or quota notice is visible. "
         .."Gemini's continuing-with-Flash-Lite notice is allowed. Babelbound never changes the model selection.\n\n"
         .."An already-sent request will only be collected, never automatically resent. "
-        .."Stop, manual Start/resume, reload or quitting cancels this one-shot timer. No response means no timer.",
+        .."Stop, Resume now, reload or quitting cancels this one-shot timer. No response means no timer.",
         "No, stay paused","Yes, auto-resume")
     w:focus()
     if b~="Yes, auto-resume" then
@@ -3505,9 +3531,14 @@ quota.offer=function(event)
         if now()>=plan.dueAt then quota.attempt(plan) end
     end))
     persistentNotice("Auto-resume check scheduled for "..label.." using the currently selected model. No blocking Gemini notice may remain, and the original book page must be in front. "
-        .."The Mac must remain awake/unlocked. Stop or BT > Cancel auto-resume cancels the timer.",true)
+        .."The Mac must remain awake/unlocked. Stop or BT > Cancel scheduled resume cancels the timer.",true)
 end
-function M.cancelAutoResume() quota.cancel("Cancelled by user",true) end
+function M.cancelAutoResume()
+    -- Also invalidate checks from a timer that has already fired.
+    cancelScan();resumeCaptureEpoch=nil
+    quota.cancel("Cancelled by user",true)
+    refreshMenu()
+end
 function M.scheduleLimitResume()
     if running then pause("Paused before scheduling an optional reset-time resume.","paused") end
     if not job then M.restoreLatest() end
@@ -3532,50 +3563,144 @@ function M.scheduleLimitResume()
     local parsed,why=resetClock.parseReset(text,now())
     if not parsed then job.remaining=oldRemaining;checkpoint();warningNotice(why.." No timer was armed.");return end
     job.usageLimit=event;checkpoint()
-    defer(0.6,function()quota.offer(event)end)
+    deferAction(0.6,function()quota.offer(event)end)
 end
 
+-- Snapshot construction is passive: cached state and local file existence only.
+-- It never focuses Chrome, reads its accessibility tree, or modifies a job.
+function M.menuSnapshot()
+    local folder=job and job.folder
+    local scheduled=job and job.autoResume and job.autoResume.active==true or false
+    local last=job and job.records and job.records[#job.records]
+    local calibrated=type(cal)=="table" and cal.windowID~=nil and type(cal.windowTitle)=="string"
+        and type(cal.windowFrame)=="table" and cal.screenID~=nil
+        and type(cal.input)=="table" and type(cal.next)=="table"
+        and type(cal.crop)=="table" and type(cal.panel)=="table"
+        and not providers.problem(provider,nil,cal)
+    local build=illustrationBuild.folder==folder and illustrationBuild or {}
+    return {job=job,provider=provider,providerName=providerName(),version=M.version,
+        calibrated=calibrated==true,running=running,
+        checking=recoveryActive or resumeCaptureEpoch==epoch or (scheduled and phase=="quota-resume-check"),
+        scheduled=scheduled,warning=sessionWarning,phase=phase,
+        model=lastModelReadback and lastModelReadback.model or last and last.model,
+        illustrationBusy=illustrationTask~=nil or illustrationQueued~=nil,
+        illustrationError=build.status=="failed" and build.error or nil,
+        epubBusy=epubManager and folder and epubManager:busy(folder) or false,
+        epub=epubManager and folder and epubManager:state(folder) or {},
+        outputs={folder=folder and exists(folder) or false,
+            html=folder and exists(folder.."/translation.html") or false,
+            epub=folder and exists(folder.."/translation.epub") or false}}
+end
+
+-- User-facing commands share the same fresh checks as the menu. Core resume
+-- remains available to the explicit reviewed recovery flows below.
+local menuMethods={newBook="newJob",chooseSavedJob="chooseSavedJob",restoreLatest="restoreLatest",
+    rename="renameCurrentJob",calibrate="calibrate",calibrateNext="calibrateNext",preview="preview",
+    collectPending="collectPendingOne",resend="retry",collectPrior="collectPriorReply",
+    directPrompt="retryInlineOne",selectedSkill="continueSelectedSkill",clipboard="acceptClipboard",
+    reviewSource="reviewLastSavedSource",scheduleResume="scheduleLimitResume",cancelResume="cancelAutoResume",
+    rebuildReadingCopy="rebuildIllustrations",rebuildEpub="exportEpub",openReadingCopy="openReadingCopy",
+    openEpub="openEpub",openOutput="openOutput",details="status",diagnostics="diagnostics",
+    lastMessage="showLastMessage",dismiss="dismissMessage",stop="stop"}
+local foregroundActions={openReadingCopy=true,openEpub=true,openOutput=true,details=true,diagnostics=true,lastMessage=true}
+local function commandAllowed(action)
+    -- These controls must remain available even if inspecting the job fails.
+    if action=="stop" or action=="dismiss" then return true end
+    local snapshot=M.menuSnapshot()
+    local allowed,why=menuPolicy.allowed(snapshot,action)
+    if not allowed then alert(why);return false,why end
+    if foregroundActions[action] and (snapshot.running or snapshot.checking or snapshot.scheduled) then
+        pause(nil,"paused")
+    end
+    return true
+end
+for action,name in pairs(menuMethods) do
+    local handler=M[name]
+    M[name]=function(...)
+        local allowed,why=commandAllowed(action)
+        if not allowed then return nil,why end
+        return handler(...)
+    end
+end
+-- Restoration from a chooser/CLI and provider selection must recheck at the
+-- moment of invocation as well, not just when their menu was constructed.
+do
+    local restore,selectProvider=M.restoreFolder,M.selectProvider
+    M.restoreFolder=function(...)
+        local allowed,why=commandAllowed("chooseSavedJob")
+        if not allowed then return nil,why end
+        return restore(...)
+    end
+    M.selectProvider=function(id)
+        local selected=providers.id(id)
+        if not selected then return nil,"Unknown provider." end
+        local allowed,why=commandAllowed(selected=="gemini" and "providerGemini" or "providerChatgpt")
+        if not allowed then return false,why end
+        return selectProvider(id)
+    end
+end
+
+function M.reviewProblem()
+    local allowed,why=commandAllowed("reviewProblem")
+    if not allowed then return nil,why end
+    local current,token=job,epoch
+    local reader=hs.window.frontmostWindow()
+    local message=sessionWarning or job and job.pauseReason or "Review the current book before continuing."
+    local snapshot=M.menuSnapshot()
+    local nextAction=not snapshot.calibrated and "calibrate"
+        or (not job and "chooseSavedJob")
+        or (job.turnUncertain and "reviewPosition")
+        or (job.pending and job.pending.sent and "collectPending") or "reviewedResume"
+    local label=({calibrate="Set up translator",chooseSavedJob="Open saved book",reviewPosition="Review page position",
+        collectPending="Collect existing reply",reviewedResume="Check and resume"})[nextAction]
+    local explanation=nextAction=="collectPending" and "Collect the existing reply and pause. The request will not be sent again."
+        or "Check the reader and sidebar before continuing. Page position and input guards still apply."
+    local button=hs.dialog.blockAlert("Review problem — "..jobStatus.bookTitle(job),message.."\n\n"..explanation,"Cancel",label)
+    if button~=label then return end
+    if job~=current or epoch~=token then alert("The operation changed. Reopen the menu and review its current state.");return end
+    if nextAction~="chooseSavedJob" and reader then reader:focus() end
+    if nextAction=="reviewedResume" then return M.resume() end
+    return M.performMenuAction(nextAction)
+end
+
+function M.performMenuAction(action, binding)
+    if binding and action~="stop" and action~="pause" and action~="dismiss"
+        and (binding.job~=job or binding.provider~=provider or binding.epoch~=epoch) then
+        local why="The book or operation changed. Reopen the menu to use its current commands."
+        alert(why);return nil,why
+    end
+    local allowed,why=commandAllowed(action)
+    if not allowed then return nil,why end
+    if action=="pause" then return pause("Paused. The provider may still finish its reply.","paused") end
+    if action=="resume" or action=="translateMore" or action=="reviewPosition" then return M.resume() end
+    if action=="reviewProblem" then return M.reviewProblem() end
+    if action=="providerGemini" then return M.selectProvider("gemini") end
+    if action=="providerChatgpt" then return M.selectProvider("chatgpt") end
+    return M[assert(menuMethods[action],"Unknown menu action")]()
+end
+function M.primaryAction()
+    local item=menuPolicy.primary(M.menuSnapshot())
+    if item.disabled or not item.action then alert(item.tooltip or "This operation is unavailable.");return end
+    return M.performMenuAction(item.action)
+end
 function M.menuItems()
-        local view=refreshMenu()
-        return {
-            {title="Babelbound "..M.version.." — "..view.label,disabled=true},
-            {title="Provider: "..providerName(),menu={
-                {title="Gemini",checked=provider=="gemini",fn=safe(function()M.selectProvider("gemini")end)},
-                {title="ChatGPT extension (experimental)",checked=provider=="chatgpt",fn=safe(function()M.selectProvider("chatgpt")end)},
-            }},
-            {title="Calibrate (Ctrl-Option-Cmd-C)",fn=safe(M.calibrate)},
-            {title="Set forward click only (Ctrl-Option-Cmd-N)",fn=safe(M.calibrateNext)},
-            {title="Preview source crop",fn=safe(M.preview)},
-            {title="Review last saved source",fn=safe(M.reviewLastSavedSource)},
-            {title="New job on current screen",fn=safe(M.newJob)},
-            {title=view.startLabel,fn=safe(M.resume)},
-            {title="Pause / resume (Ctrl-Option-Cmd-P)",fn=safe(M.togglePause)},
-            {title="STOP (Ctrl-Option-Cmd-X)",fn=safe(M.stop)},
-            {title="-"},
-            {title="Retry pending screen (clear "..providerName().." input first)",fn=safe(M.retry)},
-            {title="Continue with manually selected ln skill",fn=safe(M.continueSelectedSkill),disabled=provider~="gemini"},
-            {title="Recover pending screen with direct prompt (test one)",fn=safe(M.retryInlineOne)},
-            {title="Collect existing pending reply only (test one)",fn=safe(M.collectPendingOne)},
-            {title="Collect earlier reply from before Retry (test one)",fn=safe(M.collectPriorReply)},
-            {title="Accept reviewed clipboard (Ctrl-Option-Cmd-M)",fn=safe(M.acceptClipboard)},
-            {title="Restore latest saved job",fn=safe(M.restoreLatest)},
-            {title="Choose saved job…",fn=safe(M.chooseSavedJob)},
-            {title="Rename current job…",fn=safe(M.renameCurrentJob),disabled=not job or running or recoveryActive or illustrationTask~=nil or epubManager:busy(job.folder)},
-            {title="Schedule auto-resume from reset notice",fn=safe(M.scheduleLimitResume)},
-            {title="Cancel auto-resume",fn=safe(M.cancelAutoResume)},
-            {title="Rebuild illustrated reading copy (all saved screens)",fn=safe(M.rebuildIllustrations)},
-            {title="Open illustrated reading copy",fn=safe(M.openReadingCopy)},
-            {title="Open EPUB in Books",fn=safe(M.openEpub)},
-            {title="Open output folder",fn=safe(M.openOutput)},
-            {title="Accessibility diagnostics",fn=safe(M.diagnostics)},
-            {title="Show last pause/error",fn=safe(M.showLastMessage)},
-            {title="Dismiss message (Ctrl-Option-Cmd-D)",fn=safe(M.dismissMessage)},
-            {title="Status",fn=safe(M.status)},
-        }
+    local binding={job=job,provider=provider,epoch=epoch}
+    local function bind(items)
+        for _,item in ipairs(items)do
+            if item.menu then bind(item.menu) end
+            if item.action then
+                local action=item.action
+                item.fn=safe(function()M.performMenuAction(action,binding)end)
+                item.action=nil
+            end
+        end
+        return items
+    end
+    return bind(menuPolicy.build(M.menuSnapshot()))
 end
 if menu then refreshMenu();menu:setMenu(M.menuItems)end
 M.hotkeys={}
-for key,fn in pairs({c=M.calibrate,s=M.resume,p=M.togglePause,x=M.stop,m=M.acceptClipboard,d=M.dismissMessage,n=M.calibrateNext}) do
+for key,fn in pairs({c=M.calibrate,s=M.primaryAction,p=M.togglePause,x=M.stop,m=M.acceptClipboard,d=M.dismissMessage,n=M.calibrateNext}) do
     -- Run on key release, so modifier keys are not held during synthetic typing.
     M.hotkeys[#M.hotkeys+1]=hs.hotkey.bind(mods,key,nil,safe(fn))
 end
@@ -3588,5 +3713,5 @@ hs.shutdownCallback=function()
     dismissNotice()
     if priorShutdown then priorShutdown() end
 end
-log("Loaded v"..M.version..". Existing calibration retained. Use BT > Restore latest saved job to continue saved work after reload.")
+log("Loaded v"..M.version..". Existing calibration retained. Use BT > Books > Open saved book to continue saved work after reload.")
 return M

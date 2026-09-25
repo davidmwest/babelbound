@@ -50,7 +50,7 @@ Enable Hammerspoon in macOS **System Settings → Privacy & Security → Accessi
 
 Open the BOOKWALKER reader and Gemini sidebar in the same Chrome window. Share the book tab with Gemini. Confirm manually that Gemini can access the visible page before attempting automation. Keep the editor empty and close any model picker or modal dialog before starting.
 
-For ChatGPT, choose **BT → Provider → ChatGPT extension**, open the official extension’s side panel, and follow [its setup guide](chatgpt.md). Calibrate each provider separately. Restoring a saved job selects its recorded provider and stays paused.
+For ChatGPT, choose **BT → Setup → Translation provider → ChatGPT extension**, open the official extension’s side panel, and follow [its setup guide](chatgpt.md). Calibrate each provider separately through **Setup → Calibrate…**. Opening a saved book selects its recorded provider and stays paused.
 
 Babelbound relies on accessibility roles, control labels, window geometry, and calibrated coordinates. Different Chrome builds, UI languages, and account features can expose different controls. A successful installation does not guarantee that every Gemini interface variant is supported.
 
@@ -114,6 +114,8 @@ Use the normal update procedure below with the same Hammerspoon configuration di
 
 ## Updates and removal
 
-Pause translation and wait for illustration/EPUB work to finish before updating installed files. Keep a backup of customized prompts, configuration, and saved job folders. After updating, reload Hammerspoon and restore the desired saved job; a reload does not automatically resume it.
+Pause translation, cancel any scheduled resume, and wait for illustration/EPUB work to finish before updating installed files. Keep a backup of customized prompts, configuration, and saved job folders. After updating, reload Hammerspoon and use **BT → Books → Open saved book…** or **Open most recent book**; a reload does not automatically resume translation.
+
+Version 1.6.0 groups the menu into Read translation, Books, Setup, and Advanced. The primary action reflects the loaded job’s state. With no job loaded, **Start translating…** begins new-book setup; opening a previous book is an explicit action in **Books**. Existing jobs and calibration need no migration. See [usage and shortcuts](usage.md) for the new menu paths.
 
 To disable Babelbound, remove or comment out its load line in `init.lua`, then reload Hammerspoon. Saved jobs remain in the output directory. Removing the installed `gemini_book*` modules and helper environment is a separate manual cleanup; do not remove saved jobs unless you intend to delete that work.

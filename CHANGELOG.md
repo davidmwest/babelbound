@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.6.0 — 2026-09-25
+
+- Replaced the flat BT menu with four groups: Read translation, Books, Setup, and Advanced.
+- Added a primary action that follows the actual job state: start, pause, resume, review a problem or page position, or translate more after a completed batch.
+- Added a passive summary of the loaded book, provider, last observed model, and screen target. Opening the menu does not query the browser or pause work.
+- Kept export errors separate from translation activity, and added Rebuild EPUB for repair from saved work.
+- Made actions that open another window explicitly pause active automation and cancel pending resume checks or scheduled resume before changing focus.
+- Guarded book changes, provider changes, and calibration during translation, recovery checks, or scheduled resume; rename also waits for background writers.
+- Clarified recovery labels and shortcut behavior. S follows the primary action; P cannot bypass a warning or start another batch.
+
+This release implements the menu cleanup in the [menu and whole-book design](docs/menu-and-whole-book-design.md). Jobs still use a fixed screen count. Continuous translation scopes, coverage tracking, and end-of-book review remain planned.
+
 ## 1.5.0 — 2026-09-24
 
 - Added an experimental provider for the official ChatGPT Chrome side panel, using direct prompts and the existing save/turn workflow.

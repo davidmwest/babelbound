@@ -36,7 +36,7 @@ There is no claimed pages-per-minute benchmark here. Browser versions, conversat
 
 “Paused” used to cover too many different outcomes. It could mean a deliberate pause, an error, or a successfully completed batch. Those states imply different next actions.
 
-The menu now shows warnings and completion separately. Active states show a percentage, and Start / resume names the loaded book. Progress counts committed screens against the current requested target. It does not count a pending response as saved, and it does not claim to know the entire book's length.
+The menu now shows warnings and completion separately. Active states show a percentage, and the primary action names the loaded book: Pause, Resume, Review problem, or Translate more after a completed batch. Reading copies, books, setup, and advanced tools each have a group. Progress counts committed screens against the current requested target. It does not count a pending response as saved, and it does not claim to know the entire book's length.
 
 This also explains why model metadata is kept even when it is uncertain. The observed selection is useful information; guessing an unobserved backend model would make it less useful.
 

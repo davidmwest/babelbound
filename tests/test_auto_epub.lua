@@ -50,6 +50,7 @@ local epub={new=function(options)
     return manager
 end}
 local modules={gemini_book_status=S,gemini_book_epub=epub,
+    gemini_book_menu=dofile(paths.source("gemini_book_menu.lua")),
     gemini_book_core={markdown=function()return'markdown'end,html=function()return'html'end},
     gemini_book_jobs=dofile(paths.source("gemini_book_jobs.lua")),
     gemini_book_limits={normalize=function(s)return tostring(s or''):lower()end},
@@ -135,6 +136,12 @@ local function finish(task,scanCount,code)
     test.saved[task.folder..'/illustrations/manifest.json']={sourceCount=scanCount,records={}}
     task.callback(code or 0,'fixture scan output','fixture scan failure')
 end
+local function menuItem(items,title)
+    for _,item in ipairs(items)do
+        if item.title==title then return item end
+        if item.menu then local found=menuItem(item.menu,title);if found then return found end end
+    end
+end
 local answer={first='new first',last='new last',text='new translated text',raw='valid response'}
 
 eq(M.config.epubEnabled,true,'automatic EPUB enabled by default')
@@ -178,7 +185,7 @@ do
     eq(test.flushes[1],j.folder,'correct queued book exported')
     eq(menu.title,'BT saving (100%)','running EPUB visible at 100 percent')
     manager:fail(j.folder,'disk full')
-    eq(menu.title,'BT warning','EPUB failure visible')
+    eq(menu.title,'BT finished','export failure does not replace completed translation state')
     check(M.uiState().tooltip:find('disk full',1,true),'EPUB failure cause visible')
     T.request(j);manager:complete(j.folder)
     eq(menu.title,'BT finished','successful export retry restores finished')
@@ -207,7 +214,7 @@ for _,variant in ipairs({'scan-error','start-error','missing-runtime'})do
     eq(#test.requests,1,variant..' records export intention')
     eq(#test.flushes,0,variant..' prevents partial EPUB export')
     eq(manager:state(j.folder).status,'failed',variant..' failed export visible')
-    eq(menu.title,'BT warning',variant..' has warning status')
+    eq(menu.title,'BT finished',variant..' retains completed translation status')
 end
 
 -- Actual API and actual menu both guard renaming during queued/running export.
@@ -216,8 +223,7 @@ for _,status in ipairs({'queued','running'})do
     local ok,problem=M.renameJob('New title')
     eq(ok,nil,status..' export blocks direct rename API')
     check(problem:find('wait for',1,true),status..' rename explains unfinished save')
-    local rename
-    for _,item in ipairs(M.menuItems())do if item.title=='Rename current job…'then rename=item end end
+    local rename=menuItem(M.menuItems(),'Rename this book…')
     check(rename and rename.disabled,status..' export disables rename menu')
 end
 

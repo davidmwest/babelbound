@@ -89,7 +89,7 @@ function S.idle(job)
 end
 
 local labels = {
-    ready="Ready", paused="Paused", warning="Warning", finished="Finished",
+    ready="Ready", paused="Paused", warning="Warning", finished="Batch complete",
     checking="Checking", turning="Turning page", translating="Translating",
     saving="Saving", scheduled="Scheduled",
 }
@@ -117,18 +117,14 @@ function S.view(job, ctx)
     local ebook=ctx.epubBuild
     local currentEbook=job and type(ebook)=="table" and job.folder~=nil and ebook.folder==job.folder
     local kind, reason
-    if ctx.warning then
-        kind, reason = "warning", warningText(ctx.warning)
-    elseif currentBuild and build.status == "failed" then
-        kind, reason = "warning", "Reading copy could not be rebuilt: " .. clean(build.error)
-    elseif currentEbook and ebook.status=="failed" then
-        kind, reason="warning", "EPUB export failed: " .. clean(ebook.error)
-    elseif ctx.running then
+    if ctx.running then
         kind = activeKind(ctx.phase)
     elseif ctx.recoveryActive or ctx.resuming then
         kind = "checking"
     elseif job and job.autoResume and job.autoResume.active == true then
         kind = "scheduled"
+    elseif ctx.warning then
+        kind, reason = "warning", warningText(ctx.warning)
     elseif S.idle(job) == "warning" then
         kind = "warning"
     elseif (currentBuild and build.status == "running")
@@ -153,6 +149,16 @@ function S.view(job, ctx)
         reason = reason or (job and clean(job.pauseReason)) or ""
         if reason == "" and job and job.turnUncertain then reason = "The last page turn needs review before continuing." end
         if reason ~= "" then lines[#lines + 1] = reason end
+    elseif ctx.warning and warningText(ctx.warning) ~= "" then
+        lines[#lines + 1] = "Warning: " .. warningText(ctx.warning)
+    end
+    -- Export workers run independently of translation. Report their failures
+    -- without hiding active work or changing a completed batch into a warning.
+    if currentBuild and build.status == "failed" then
+        lines[#lines + 1] = "Reading copy could not be rebuilt: " .. clean(build.error)
+    end
+    if currentEbook and ebook.status == "failed" then
+        lines[#lines + 1] = "EPUB export failed: " .. clean(ebook.error)
     end
     return {
         kind=kind, label=label, menuTitle="BT " .. kind .. suffix, bookTitle=title,

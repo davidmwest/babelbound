@@ -22,7 +22,7 @@ Capture numbers are ordering identifiers, not printed book-page numbers. One cap
 
 ## Illustrated HTML
 
-Illustration extraction runs against saved source captures. It does not browse backward through a book or acquire missing pages. **Rebuild illustrated reading copy (all saved screens)** rescans the committed archive and updates the HTML.
+Illustration extraction runs against saved source captures. It does not browse backward through a book or acquire missing pages. **Advanced → Rebuild reading copy** rescans the committed archive and updates the HTML. **Advanced → Rebuild EPUB** exports the saved reading copy again without translating or turning another page.
 
 The detector finds image regions using pixels and connected regions; it does not understand the scene. Simple line art, decorative regions, or unusual page layouts can need review. Original screenshots remain intact, and extracted art is stored separately.
 
@@ -45,7 +45,7 @@ The HTML keeps a plain-text transcript with a composed page. EPUB exports render
 
 ## EPUB for Apple Books
 
-EPUB is generated after a successful batch, once illustration and HTML writers have finished. **Open EPUB in Books** opens the existing export; if none exists, it queues an export. A paused job may have newer committed screens than its last completed-batch EPUB.
+EPUB is generated after a successful batch, once illustration and HTML writers have finished. **Open EPUB in Books** opens the existing export. If it is missing or needs updating, use **Advanced → Rebuild EPUB** (**Retry EPUB export** after a failure). A paused job may have newer committed screens than its last completed-batch EPUB.
 
 To explicitly export the current saved reading copy from the Hammerspoon Console:
 

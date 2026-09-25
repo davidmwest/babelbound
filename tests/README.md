@@ -48,9 +48,18 @@ Lua tests cover status and percentage progress, prepared-draft resume and
 duplicate-submit prevention, source review and cancellation, page-turn focus
 and write-ahead guards, response markers, job naming and transactional renames,
 automatic EPUB export, its asynchronous writer queue, and pre-load configuration.
-Main-module tests
-load the actual production code into a memory-only environment; no separate
-copy of the translator implementation is used.
+Menu-policy tests check the primary action and command availability across
+running, checking, paused, warning, scheduled, completed, and pending-response
+states. They cover missing outputs, conflicting background writers, provider
+restrictions, and export errors without hiding active translation. Policy
+construction cannot call Hammerspoon or mutate the supplied job.
+
+Main-module tests load the actual production code into a memory-only environment;
+no separate copy of the translator implementation is used. Menu integration
+checks cover passive construction, stale callbacks, handler checks after state
+changes, primary and pause shortcuts, and cancelling work before opening an
+output. Cancelling warning review must not resume translation, and the pause
+shortcut must not bypass a warning or create another batch.
 
 The GitHub workflow also compiles every Lua file before running the tests on
 Ubuntu 24.04 with Python 3.10 and macOS 15 with Python 3.14, using Lua 5.4 on both.

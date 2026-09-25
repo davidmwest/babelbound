@@ -104,9 +104,12 @@ local env=setmetatable({hs=hs,io=virtualIO,os=virtualOS,print=function()end},{__
 local M=assert(loadfile(paths.source("gemini_book.lua"),"t",env))()
 M.config.illustrationsEnabled=false
 local function upvalue(fn,name,value,set)
+    local handler
     for i=1,100 do local key,old=debug.getupvalue(fn,i);if not key then break end
         if key==name then if set then debug.setupvalue(fn,i,value) end;return old end
+        if key=="handler" then handler=old end
     end
+    if handler then return upvalue(handler,name,value,set) end
     error("Missing upvalue "..name)
 end
 local function flush(max)

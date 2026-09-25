@@ -8,7 +8,7 @@ Choose a model and a batch size. Babelbound translates the current screen, saves
 
 **Independent, unofficial project.** Babelbound is not affiliated with, endorsed by, or sponsored by Google or OpenAI. Gemini and Chrome are Google products; ChatGPT is an OpenAI product. See the [third-party notices](NOTICE.md).
 
-**Version 1.5.0 · Lua / Hammerspoon · Python / Pillow · Chrome / macOS**
+**Version 1.6.0 · Lua / Hammerspoon · Python / Pillow · Chrome / macOS**
 
 [Try the reading copy](#try-the-reading-copy) · [Setup](#install) · [Calibration](#first-translation) · [Model choice](#your-plan-and-model) · [Reading copies](#saved-output) · [Documentation](#documentation)
 
@@ -38,7 +38,7 @@ During calibration, you identify the provider’s empty input, the book’s forw
 
 Babelbound uses **your own Google account and Gemini access in Chrome**. Requests use your account’s model access and usage allowance; Babelbound does not provide a separate plan or require an API key. Availability and limits can change, so check [Google’s current plan and model information](https://support.google.com/gemini/answer/16275805?hl=en) rather than assuming a fixed number of pages per day.
 
-The experimental ChatGPT provider uses **your own ChatGPT account, selected model, and available allowance** through the official extension. It does not use an API key or change your model for you. Select **BT → Provider → ChatGPT extension**, choose the model and reasoning level offered in the panel, then calibrate that panel separately. Live translation and local page-turning checks have passed; a full BOOKWALKER batch remains unverified. [Setup and testing details](docs/chatgpt.md).
+The experimental ChatGPT provider uses **your own ChatGPT account, selected model, and available allowance** through the official extension. It does not use an API key or change your model for you. Select **BT → Setup → Translation provider → ChatGPT extension**, choose the model and reasoning level offered in the panel, then calibrate that panel separately. Live translation and local page-turning checks have passed; a full BOOKWALKER batch remains unverified. [Setup and testing details](docs/chatgpt.md).
 
 Choose the model yourself: click the model name inside Gemini’s input box, select the model you want, and close the picker before starting Babelbound. Pause Babelbound before changing models mid-job. The tool uses that selection and records the observed model for each saved screen. [Google’s Chrome guide](https://support.google.com/gemini/answer/16283624?hl=en) documents the model picker and account requirements.
 
@@ -69,7 +69,8 @@ This is a small sample from one series with AI reviews, not human-validated scor
 
 - Translates batches of visible screens or spreads, saving each accepted response before turning the page.
 - Resumes saved jobs with checks for the correct source page and any pending response.
-- Shows the loaded book title in **Start / resume** and progress such as **BT translating (42%)**.
+- Puts the loaded book, provider, progress, and next useful action at the top of the menu, with reading copies, books, setup, and repair tools grouped below.
+- Shows progress such as **BT translating (42%)**, measured against the requested screen count.
 - Distinguishes deliberate pauses, warnings, active work, and finished batches.
 - Stores jobs in named folders such as `Book-The Lantern Archive - Vol. 01`.
 - Records the provider and observed model selection for each translation.
@@ -109,11 +110,11 @@ Existing Gemini Book Translator installations can [upgrade without migrating job
 ## First translation
 
 1. Open a book you have permission to translate in BOOKWALKER’s Chrome reader.
-2. Select the provider in **BT → Provider** and open its sidebar in the same Chrome window. For Gemini, share the book tab. For ChatGPT, follow the [extension setup](docs/chatgpt.md). Select the model you want and leave the input empty.
+2. Select the provider in **BT → Setup → Translation provider** and open its sidebar in the same Chrome window. For Gemini, share the book tab. For ChatGPT, follow the [extension setup](docs/chatgpt.md). Select the model you want and leave the input empty.
 3. Keep the book on the left and the selected chat panel on the right, with the window on one display.
-4. Choose **BT → Calibrate**, then follow the five hover prompts using **Control–Option–Command–C**. No clicking is needed to record the points.
-5. Choose **Preview source crop**. Check that it contains the whole visible book page or spread, without browser controls or the chat pane.
-6. Choose **New job on current screen** and start with three screens. The current visible screen is the first one. A screen may contain more than one printed page.
+4. Choose **BT → Setup → Calibrate…**, then follow the five hover prompts using **Control–Option–Command–C**. No clicking is needed to record the points.
+5. Choose **Setup → Preview source crop**. Check that it contains the whole visible book page or spread, without browser controls or the chat pane.
+6. Choose **Start translating…** or **Books → Start a new book…** and start with three screens. The current visible screen is the first one. A screen may contain more than one printed page.
 7. Let the automation use that Chrome window. **Control–Option–Command–P** pauses it; **Control–Option–Command–X** stops it while retaining saved work.
 
 ![Five numbered calibration points: Gemini input, forward-click area, book crop corners, and Gemini pane corner](docs/images/calibration-guide.png)
@@ -122,13 +123,13 @@ Existing Gemini Book Translator installations can [upgrade without migrating job
 
 The normal request mode sends the bundled translation prompt directly. Creating a Gemini `/ln` skill is optional.
 
-When the requested batch completes, Babelbound leaves the last translated screen visible and builds the reading copy. **BT → Open EPUB in Books** opens the saved ebook on the Mac. Transfer `translation.epub` to your iPad and open it in Books; the illustrations travel inside the file.
+When the requested batch completes, Babelbound leaves the last translated screen visible and builds the reading copy. **BT → Read translation → Open EPUB in Books** opens the saved ebook on the Mac. Transfer `translation.epub` to your iPad and open it in Books; the illustrations travel inside the file.
 
 ## Continue a book
 
-Use **Start / resume — [book title]** to continue the loaded job. After a reload, use **Restore latest saved job** or **Choose saved job…**, review the book’s position, then resume. Restoring does not start translation.
+Use **Resume — [book title]** to continue a paused job. After a reload, use **Books → Open most recent book** or **Open saved book…**, review the book’s position, then resume. Opening a saved book does not start translation. A warning changes the primary action to **Review problem…** or **Review page position…** so you can resolve it first.
 
-If the previous batch is finished, Start / resume asks how many additional screens to translate. **Finished means the requested batch is complete, not that Babelbound has independently detected the end of the book.**
+If the previous batch is finished, **Translate more — [book title]…** asks how many additional screens to translate. **Finished means the requested batch is complete, not that Babelbound has independently detected the end of the book.** Whole-book translation is still planned; the current release uses fixed screen counts.
 
 Read [usage and recovery](docs/usage.md) before retrying a pending request or an uncertain page turn.
 
@@ -154,7 +155,7 @@ GeminiBookTranslations/
 
 *An actual EPUB layout check in Apple Books on macOS. Artwork and translated text travel together inside the EPUB; this is an output example, not a supported source reader.*
 
-Use **Rename current job…** to change a title while the job is paused and background saves have finished. Babelbound updates the job’s paths without changing its request IDs or translated text.
+Use **Books → Rename this book…** to change a title while the job is paused and background saves have finished. Babelbound updates the job’s paths without changing its request IDs or translated text.
 
 ## Documentation
 
@@ -165,7 +166,7 @@ Use **Rename current job…** to change a title while the job is paused and back
 - [Illustrations, HTML, EPUB, and model metadata](docs/reading-copies.md)
 - [Troubleshooting](docs/troubleshooting.md)
 - [Design notes](docs/design-notes.md)
-- [Proposed menu redesign and whole-book translation](docs/menu-and-whole-book-design.md) — design and tradeoffs; not implemented yet
+- [Menu design and whole-book translation plan](docs/menu-and-whole-book-design.md) — menu cleanup shipped in 1.6.0; continuous scopes and end detection remain planned
 - [Architecture](docs/architecture.md)
 - [Contributing](CONTRIBUTING.md)
 
