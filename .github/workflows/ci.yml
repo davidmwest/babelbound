@@ -51,6 +51,8 @@ jobs:
           done
       - name: Test exports, demo, and installer
         run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Test benchmark pricing and publication
+        run: python -m unittest discover -s docs/benchmarks/2026-09-japanese-english -p 'test_*.py' -v
       - name: Test translator policies and state transitions
         env:
           BT_LUA: ${{ matrix.lua }}

@@ -10,7 +10,7 @@ Choose a model and a batch size. Babelbound translates the current screen, saves
 
 **Version 1.5.0 · Lua / Hammerspoon · Python / Pillow · Chrome / macOS**
 
-[Try the reading copy](#try-the-reading-copy) · [Setup](#install) · [Calibration](#first-translation) · [Model choice](#your-gemini-plan-and-model) · [Reading copies](#saved-output) · [Documentation](#documentation)
+[Try the reading copy](#try-the-reading-copy) · [Setup](#install) · [Calibration](#first-translation) · [Model choice](#your-plan-and-model) · [Reading copies](#saved-output) · [Documentation](#documentation)
 
 ## Where it works
 
@@ -47,6 +47,8 @@ Choose the model yourself: click the model name inside Gemini’s input box, sel
 **Flash-Lite gave significantly worse translations in the comparison behind that recommendation.** The same 20 reader screens were translated with the same prompt in separate conversations. On the 15 prose screens, the source-based review scored Flash-Lite **5.0/10**, versus **9.1/10** for Flash. Flash-Lite’s problems included missing passages and reversed meanings; Flash still made errors and needed review.
 
 Those are this project’s blind AI-reviewer assessments of one sample, not a universal model benchmark or a promise about future versions. The observed UI selections were 3.5 Flash-Lite and 3.8 Flash; the backend models were not independently verified. Babelbound can run with Flash-Lite, but I would not use it for a faithful reading copy based on those results.
+
+For a broader comparison, the [Japanese → English benchmark](docs/benchmarks/2026-09-japanese-english/README.md) tests 29 model/reasoning settings on the same twelve captures. It separates translation quality from failed requests and estimates OpenAI API-equivalent costs. Gemini browser costs remain unknown. These are separate Codex CLI and Gemini web experiments, not a test of the ChatGPT extension.
 
 ## What it does
 
@@ -144,6 +146,7 @@ Use **Rename current job…** to change a title while the job is paused and back
 - [Installation and configuration](docs/installation.md)
 - [Usage, shortcuts, statuses, and recovery](docs/usage.md)
 - [ChatGPT extension setup and testing limits](docs/chatgpt.md)
+- [Translation quality, reliability, and cost benchmark](docs/benchmarks/2026-09-japanese-english/README.md)
 - [Illustrations, HTML, EPUB, and model metadata](docs/reading-copies.md)
 - [Troubleshooting](docs/troubleshooting.md)
 - [Design notes](docs/design-notes.md)

@@ -9,6 +9,7 @@ From the repository root, with Python 3.10+ and Lua 5.4 installed:
 ```sh
 python3 -m pip install "Pillow>=10.1,<13"
 python3 -m unittest discover -s tests -p 'test_*.py' -v
+python3 -m unittest discover -s docs/benchmarks/2026-09-japanese-english -p 'test_*.py' -v
 for file in tests/test_*.lua; do lua "$file" || exit; done
 ```
 
@@ -23,6 +24,10 @@ prompts, backups, repeat installation, safe Lua loader edits, path validation,
 and dependency failures. The offline demo smoke test checks packaged artwork,
 reading order, continuation cleanup, network-free operation, and refusal to
 replace an existing output path. All image fixtures are created at test time.
+The benchmark suites use synthetic records to check token pricing, matched
+quality comparisons, private-content exclusion, and publication readiness.
+They do not call a model or require the private source corpus.
+
 Illustration extraction tests check committed-screen selection, stale review
 rejection, cache reuse, preservation of the published manifest after a failure,
 and exact crop contents and ordering.

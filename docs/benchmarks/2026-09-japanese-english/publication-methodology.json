@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "review_version": 2,
+  "methodology_input_sha256": "2c29cf179c5ceecd1759419aae9d59f49468f801d062abb141fba31056ee4c3f",
+  "pricing_input_sha256": "61c8bd834191ea4974a3dea9d9efd1d813d1f8c75b5a3fa777faaf6cfcfe0eaf",
+  "methodology": {
+    "direction": "Japanese → English",
+    "planned_captures": 12,
+    "planned_configurations": 23,
+    "planned_translations": 276,
+    "sample": "Purposive sample: nine prose captures and three illustrated/typographic captures from volumes 6, 7, and 10 of one light-novel series. Captures may contain two printed pages. Five overlap a prior Gemini study.",
+    "conditions": "Identical original PNG bytes and user prompt; fresh ephemeral Codex CLI session per capture/configuration. No supplied glossary or prior translations. Codex model-specific system instructions and the default installed-skill catalogue remain part of the client environment. A tool audit flags additional observable file/context reads; generic skill-document reads are disclosed separately from external book context. Some delegated child tool histories are not exposed, so their context cannot be fully audited. Tests the Codex vision-plus-translation workflow, not an isolated raw-model API. Collection crossed an account usage boundary. New dispatch paused proactively with three translation attempts in flight; those attempts retained their existing deadlines. Collection resumed after an account usage reset, preserving prior outputs and requested model/reasoning settings. No quota error was recorded at the pause, and the service still reported ordinary usage allowed. Actual serving-model routing is not observable, so this event does not establish model substitution. A later user-requested pause interrupted only Luna/max and Terra/ultra on V10-S090. The user explicitly resumed them in fresh second attempts, preserving the interrupted logs and all 274 already completed outputs. During that pause, the desktop client updated from codex-cli 0.155.0-alpha.9.2 to codex-cli 0.155.0-alpha.16.3. Only those two translation replacements use the newer build; source bytes, prompts and requested model/reasoning settings remain unchanged. Remaining review calls also use the newer client. This environment boundary is disclosed rather than treated as a quality retry.",
+    "scoring": "Two attribution-blind AI reviewers, GPT-6 Astra/high and GPT-6 Sol/high; independently shuffled batches of at most eight candidates. Accuracy 50%, completeness 25%, names/numbers 15%, fluency 10%. Each capture receives equal weight.",
+    "judges": [
+      "gpt-6-astra / high",
+      "gpt-6-sol / high"
+    ],
+    "weights": {
+      "accuracy": 0.5,
+      "completeness": 0.25,
+      "names_numbers": 0.15,
+      "fluency": 0.1
+    },
+    "amendment": "Review v2: all 23 illustrated-card translations were blindly re-scored after reviewers penalized a literal character designation using an unprovided canonical name. The source-alone ambiguity rule accepts defensible readings without ruby or a glossary; other captures had not yet been graded. Source clarification v3: both judges regrade all 23 profile-layout translations after a source audit found repeated misreading of a city-name glyph and erroneous penalties for a defensible reading. Both amendments preserve original reviews and unchanged translations; no candidate-specific score overrides are used.",
+    "limitations": "One series, twelve purposively selected captures, one generation per setting/capture, and AI judgments without a human-validated gold translation. Reviewers may favor particular writing styles even when candidate identities are hidden. Tenths of a point are not strong evidence of a real difference. Partial means are not a fair full comparison until all paired cells are scored.",
+    "intervals": "95% percentile bootstrap over observed capture scores (4,000 resamples); descriptive sample uncertainty, not a population guarantee or model run-to-run uncertainty.",
+    "timing": "End-to-end CLI launch-to-completion under concurrent execution; includes overhead and retries. Not pure model latency. API-equivalent estimates separately apply published Standard rates to observed usage; delegated usage may not be separately observable. Resumed cells sum active elapsed time across both attempts, excluding the time the job was paused. Interrupted attempts did not emit complete usage, so those two cells have lower-bound costs and do not qualify for value recommendations.",
+    "ultra": "Ultra is maximum reasoning plus automatic delegation. Requested settings are recorded; internal routing is not independently observable from the emitted CLI events.",
+    "privacy": "The publication includes numeric results and reviewed method descriptions. Licensed scans, translations, review quotations, source interpretation notes, commands, local paths and account data remain private.",
+    "cli_version": "codex-cli 0.155.0-alpha.9.2; codex-cli 0.155.0-alpha.16.3 for two user-interrupted replacement attempts and remaining reviews",
+    "prompt_sha256": "555c9e280d266e0c3c9cbbb1c3a61443356f69a914a999d259740256c51d9dd6",
+    "protocol_path": "grading-rubric.md",
+    "documentation": [
+      "https://learn.chatgpt.com/docs/models",
+      "https://learn.chatgpt.com/docs/non-interactive-mode"
+    ]
+  },
+  "pricing": {
+    "date": "2026-09-24",
+    "currency": "USD",
+    "tier": "Standard",
+    "rates": {
+      "gpt-6-astra": {
+        "input": 10.0,
+        "cached_input": 1.0,
+        "cache_write": 12.5,
+        "output": 50.0
+      },
+      "gpt-6-sol": {
+        "input": 2.0,
+        "cached_input": 0.2,
+        "cache_write": 2.5,
+        "output": 10.0
+      },
+      "gpt-5.6-terra": {
+        "input": 2.0,
+        "cached_input": 0.2,
+        "cache_write": 2.5,
+        "output": 12.0
+      },
+      "gpt-6-luna": {
+        "input": 0.1,
+        "cached_input": 0.01,
+        "cache_write": 0.125,
+        "output": 0.5
+      }
+    },
+    "source_url": "https://developers.openai.com/api/docs/pricing",
+    "sources": [
+      "https://developers.openai.com/api/docs/pricing",
+      "https://developers.openai.com/api/docs/models/gpt-5.6-terra",
+      "https://developers.openai.com/api/docs/models/gpt-6-astra",
+      "https://developers.openai.com/api/docs/guides/prompt-caching",
+      "https://developers.openai.com/api/docs/guides/agents-api/observability"
+    ],
+    "method": "Apply published Standard USD rates per million tokens to the observed CLI usage across all attempts. Ordinary input = total input minus cached reads minus cache writes. Output already includes reasoning; image input is already included in input usage. Neither is charged twice. No-cache sensitivity prices all input as ordinary input with caching disabled.",
+    "limitations": "Counterfactual API-equivalent token cost, not an API bill or a Codex subscription charge. Includes Codex instructions and tool-loop context; a lean API translator may cost less. Excludes grading, local compute, taxes, regional uplifts and separately charged hosted tools. Requested model rates are used because backend routing is not independently observable. Missing delegated usage or request-level long-context detail is labeled as a lower bound and excluded from value recommendations. Cache reuse in production can differ. Captures may contain two printed pages; cost per 100 captures is an extrapolation, not per 100 printed pages.",
+    "long_context_threshold_input_tokens": 272000,
+    "long_context_multipliers": {
+      "input": 2,
+      "cached_input": 2,
+      "cache_write": 2,
+      "output": 1.5
+    }
+  }
+}
