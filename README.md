@@ -46,7 +46,7 @@ Choose the model yourself: click the model name inside Gemini’s input box, sel
 
 **For Gemini, start with Flash with extended thinking off, especially if you don’t have Google AI Ultra.** Ultra is not required by Babelbound. Flash delivered English for every capture in this comparison, though its translations still needed review. Pro's delivered translations scored higher, but several requests failed in the tested browser session.
 
-The September 2026 benchmark compares **29 model/reasoning settings on 12 Japanese → English captures: 348 responses, each reviewed by two AI judges against the source**. A capture can contain more than one printed page.
+The September 2026 benchmark compares **31 model/reasoning settings on 12 Japanese → English captures: 372 responses, each reviewed by two AI judges against the source**. A capture can contain more than one printed page.
 
 | Setting | What the sample showed | Estimated API cost per capture |
 | --- | --- | --- |
@@ -56,14 +56,18 @@ The September 2026 benchmark compares **29 model/reasoning settings on 12 Japane
 | Gemini Pro / extended thinking off | **7.13/10 overall**; **9.83/10** on the 8 delivered English translations. Four requests failed. | Unknown |
 | Gemini Flash-Lite / extended thinking off | **5.28/10**; English delivered for 10/12 captures. Translation quality was substantially weaker. | Unknown |
 | Gemini Flash-Lite / extended thinking on | **8.44/10**; English delivered for 12/12 captures, with **8/12** outputs usable by both reviewers. | Unknown |
+| DeepSeek V4.1 Flash / Instant | **3.81/10**; **1/12** outputs usable by both reviewers. | **0.0704¢** at Ollama's off-peak uncached tariff |
+| DeepSeek V4.1 Flash / Light | **6.59/10**; **5/12** outputs usable by both reviewers. | **0.3607¢** at Ollama's off-peak uncached tariff |
 
 With extended thinking off, Flash-Lite is a poor starting point for a faithful reading copy based on this sample. Extended thinking helped it considerably, but neither that improvement nor a completed response guarantees an accurate translation.
 
-**Babelbound uses your provider's existing allowance; the prices above are API-equivalent estimates, not per-page charges from Babelbound.** The OpenAI runs used Codex CLI and the Gemini runs used gemini.google.com. They measure those model settings in those workflows, not the ChatGPT extension or Gemini sidebar. Model names and reasoning controls available in your panel may differ; Babelbound uses the selection you make there.
+DeepSeek's Light setting improved substantially over Instant, but both made serious meaning errors, including invented events. On the nine prose captures, they scored **6.57/10** and **2.81/10**, respectively. Low cost alone doesn't make either a good choice for an unattended reading copy in this sample. These runs used `deepseek-v4.1-flash:cloud` through Ollama, with `think: false` for Instant and `think: "low"` for Light. **DeepSeek is included in the research comparison; Babelbound does not have an Ollama provider integration.**
+
+**Babelbound uses your provider's existing allowance; the prices above are tariff estimates, not per-page charges from Babelbound.** The OpenAI runs used Codex CLI, Gemini used gemini.google.com, and DeepSeek used Ollama's native API. They measure those model settings in those workflows, not the ChatGPT extension or Gemini sidebar. Model names and reasoning controls available in your panel may differ; Babelbound uses the selection you make there. DeepSeek estimates include reported output tokens once, including thinking, and assume uncached input; actual account charges are unknown.
 
 This is a small sample from one series with AI reviews, not human-validated scores. The providers were graded in separate batches, so cross-provider comparisons are exploratory. Pro's successful-only score covers a different subset, and browser failures do not establish a model's intrinsic translation ability. Gemini token usage and API-equivalent costs were unavailable.
 
-**[See the full benchmark →](docs/benchmarks/2026-09-japanese-english/README.md)** All 29 settings, per-capture scores, delivery failures, pricing assumptions, and methods are available there, along with a downloadable interactive report.
+**[See the full benchmark →](docs/benchmarks/2026-09-japanese-english/README.md)** All 31 settings, per-capture scores, delivery failures, pricing assumptions, and methods are available there, along with a downloadable interactive report.
 
 ## What it does
 

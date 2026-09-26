@@ -2,13 +2,13 @@
 
 How much translation quality does more reasoning buy—and which settings are worth the cost? This study compares model settings on a selected set of Japanese light-novel captures.
 
-**Final numeric publication.** 348 / 348 planned translations graded across 29 configurations and 12 captures; two source-based AI reviews per completed translation.
+**Final numeric publication.** 372 / 372 planned translations graded across 31 configurations and 12 captures; two source-based AI reviews per completed translation.
 
 [Interactive report](report.html) · [Numeric results](results.json) · [Full methods and limitations](METHODS.md)
 
 ## Practical takeaways
 
-On the same 12 captures, using recorded cache usage and complete Standard API cost estimates:
+Within the OpenAI cohort, on the same 12 captures, using recorded cache usage and complete Standard API cost estimates:
 
 - **gpt-6-sol / high** was the cheapest eligible setting with mean quality ≥ 9.5/10: **9.67/10 at $0.064151 per capture**.
 
@@ -63,11 +63,38 @@ The primary mean includes every response. Conditional mean uses only delivered E
 
 `standard` and `extended` mean the browser’s extended-thinking switch was off or on. Off does not guarantee zero backend reasoning. Service errors describe this observed browser session/configuration, not intrinsic translation ability or API behavior.
 
+## DeepSeek on Ollama Cloud
+
+Instant requests disable thinking (`think: false`); Light requests use low thinking (`think: "low"`). Native Ollama requests form a separate two-candidate grading batch. The original OpenAI value comparison remains separate.
+
+Within this two-setting batch, **DeepSeek V4.1 Flash / light** had the highest observed mean: **6.59/10**. DeepSeek V4.1 Flash / instant: **1/12 usable by both reviewers**; DeepSeek V4.1 Flash / light: **5/12 usable by both reviewers**. English delivery does not by itself establish an acceptable translation. One generation per capture; small differences are weak evidence.
+
+Primary means retain all responses; conditional means use delivered English translations only. Usable counts require both reviewers to mark the output usable; an English response can still contain serious translation errors. No-cache tariff estimates use recorded usage and request-time Ollama rates. These are estimates, not invoices; — means unknown.
+
+| Model / setting | Think | Primary mean | Prose | Layout | English / planned | Usable by both / planned | Service errors | Non-English | Other failures | Conditional mean | Graded | Median seconds | No-cache USD / capture | Priced | Cost status |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| DeepSeek V4.1 Flash / instant | false | 3.81 | 2.81 | 6.82 | 12/12 | 1/12 | 0 | 0 | 0 | 3.81 | 12/12 | 5.0 | $0.000704 | 12 | estimated |
+| DeepSeek V4.1 Flash / light | low | 6.59 | 6.57 | 6.64 | 12/12 | 5/12 | 0 | 0 | 0 | 6.59 | 12/12 | 10.6 | $0.003607 | 12 | estimated |
+
+DeepSeek tariff estimates and OpenAI API-equivalent estimates can be compared descriptively. Separate transports and grading batches do not establish a controlled best-value ranking. Gemini browser cost remains unknown.
+
+Ollama pricing snapshot: 2026-09-25 · [Official Ollama pricing](https://ollama.com/pricing).
+
+Peak, USD per million tokens: $0.300000 input; $0.006000 cached input; $1.200000 output.
+
+Off-peak, USD per million tokens: $0.150000 input; $0.003000 cached input; $0.600000 output.
+
+Peak weekdays 12:00–18:00 UTC; all other hours off-peak.
+
+Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Review costs, taxes and subscription charges are excluded.
+
+DeepSeek reviewers use codex-cli 0.155.0-alpha.16.4; earlier cohorts retain their recorded versions.
+
 ## How to read the results
 
 - This is a small, selected corpus with one generation per setting and capture. AI reviewers can share blind spots; there is no human-validated gold translation. Small score differences are weak evidence.
-- OpenAI and Gemini used separate grading batches without drift controls. Cross-provider comparisons are exploratory, not a controlled ranking.
-- Costs use a Standard API pricing snapshot. Incomplete attempt or delegated usage remains a lower bound and cannot establish best value. Exact client changes, audit limitations and affected runs are disclosed in [METHODS.md](METHODS.md) and [results.json](results.json).
+- Providers used separate grading batches without drift controls. Cross-provider comparisons are exploratory, not a controlled ranking.
+- OpenAI costs use a Standard API pricing snapshot. Incomplete attempt or delegated usage remains a lower bound and cannot establish best value. Exact client changes, audit limitations and affected runs are disclosed in [METHODS.md](METHODS.md) and [results.json](results.json).
 - Browser elapsed time includes polling, collection and audit gaps. It is not inference latency and is not ranked against CLI time.
 
 ## Explore or reproduce the report
@@ -82,4 +109,4 @@ The [full methods](METHODS.md), [prompt](translation-prompt.txt), [rubric](gradi
 
 Pricing snapshot: 2026-09-24 · [Official Standard API pricing](https://developers.openai.com/api/docs/pricing).
 
-Report renderer 1.1.2. Generated: 2026-09-25T06:58:40.346504+00:00.
+Report renderer 1.2.0. Generated: 2026-09-26T03:23:51.667366+00:00.

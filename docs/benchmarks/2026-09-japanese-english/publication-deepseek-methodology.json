@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "base_results_sha256": "cf5c9db4dba74d744fbb0646d03ab4ac000d93ddd60b797b9ebc88c9f2dbae4f",
+  "deepseek_review_version": 1,
+  "pricing": {
+    "date": "2026-09-25",
+    "source_url": "https://ollama.com/pricing",
+    "peak": {
+      "input": 0.3,
+      "cached_input": 0.006,
+      "output": 1.2
+    },
+    "off_peak": {
+      "input": 0.15,
+      "cached_input": 0.003,
+      "output": 0.6
+    },
+    "schedule": "Peak weekdays 12:00–18:00 UTC; all other hours off-peak.",
+    "limitations": "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Review costs, taxes and subscription charges are excluded."
+  },
+  "methodology_additions": {
+    "cohorts": "A third cohort adds DeepSeek V4.1 Flash via native Ollama cloud requests: Instant (think:false) and Light (think:low), 24 responses on the same 12 source PNGs. These candidates were reviewed in separate two-candidate batches, without common calibration controls. Cross-cohort comparisons remain exploratory.",
+    "conditions": "DeepSeek receives the identical source PNG bytes and user prompt in a fresh single-message native Ollama /api/chat request, with no supplied system message, tools, prior output, glossary or context. Sampling parameters use provider defaults. The requested and returned model labels are recorded; they do not independently establish backend weights. No quality retries are allowed. A transient transport error before any model output may be retried once, preserving both attempts.",
+    "scoring": "DeepSeek uses the same amended source-alone anchors, dimensions, weights and Astra/high and Sol/high reviewers. Each judge receives two anonymous candidates per source in an independently shuffled order. DeepSeek review version 1 is cohort-local. Critical issues and large disagreements require source audits; no candidate-specific score changes are made.",
+    "limitations": "The DeepSeek cohort was collected later through a native API, unlike the Codex CLI and Gemini web cohorts. System context, provider preprocessing and reviewer batch composition differ. No cross-cohort calibration or repeated-generation controls were added. The original Codex dollar-value selector is preserved; DeepSeek quality and tariff estimates are shown separately for descriptive comparison.",
+    "timing": "DeepSeek timing covers native request start through the final streamed receipt. It includes transport and provider processing under two concurrent requests and is not directly comparable to browser polling or CLI timing.",
+    "intervals": "No confidence intervals are estimated for the DeepSeek addition.",
+    "deepseek": "Instant maps to native think:false and Light maps to think:low on deepseek-v4.1-flash:cloud. Both requests use original source images. Published Ollama pricing is reported separately from original OpenAI Standard API equivalents and unknown Gemini web costs. Native eval_count reports total generated output; no separate thinking-token counter is exposed. The estimate applies the output tariff once to that count.",
+    "cli_versions": "DeepSeek reviewers use codex-cli 0.155.0-alpha.16.4; earlier cohorts retain their recorded versions."
+  }
+}
