@@ -25,7 +25,7 @@ MODELS = {'gpt-6-astra', 'gpt-6-sol', 'gpt-5.6-terra', 'gpt-6-luna'}
 EFFORTS = {'low', 'medium', 'high', 'xhigh', 'max', 'ultra'}
 JUDGES = {'astra-high', 'sol-high'}
 SCORES = ('accuracy', 'completeness', 'names_numbers', 'fluency', 'overall')
-STATES = {'pending', 'running', 'completed', 'complete', 'success', 'failed', 'error', 'timeout', 'cancelled', 'canceled', 'quota_limit', 'quota_blocked', 'configuration_or_auth_error', 'transient_transport_error', 'interrupted_unknown', 'incomplete', 'invalid_output', 'reviewer_error', 'unusable'}
+STATES = {'pending', 'running', 'completed', 'complete', 'success', 'failed', 'error', 'timeout', 'cancelled', 'canceled', 'quota_limit', 'quota_blocked', 'configuration_or_auth_error', 'transient_transport_error', 'interrupted_unknown', 'interrupted', 'incomplete', 'invalid_output', 'reviewer_error', 'unusable'}
 CATEGORIES = {
     'Abstract exposition + dialogue + ruby names', 'Comic dialogue + physical action + idioms',
     'Contents / typographic front matter', 'Dense hazard exposition + measurements',
@@ -375,7 +375,7 @@ def methods_markdown(data):
     blocks = ['# Methods', '', 'This package omits the licensed source images, full translations, and quoted reviewer evidence. Source IDs and hashes identify the frozen private corpus; they do not supply access to it.', '']
     for key in ('sample', 'cohorts', 'conditions', 'scoring', 'amendment', 'limitations', 'intervals', 'timing', 'ultra'):
         blocks.extend(['## ' + key.replace('_', ' ').capitalize(), '', str(data['methodology'].get(key, 'Not recorded.')), ''])
-    for key in ('deepseek', 'cli_versions'):
+    for key in ('deepseek', 'ollama_expanded', 'native_controls', 'grading_batches', 'transports', 'cli_versions'):
         if data['methodology'].get(key):
             blocks.extend(['## ' + key.replace('_', ' ').capitalize(), '', str(data['methodology'][key]), ''])
     if data.get('deepseek_pricing'):
@@ -383,6 +383,10 @@ def methods_markdown(data):
         blocks.extend(['## Ollama tariff estimates', '',
             f"Rates per million tokens, checked {p['date']}: peak input ${p['peak']['input']:.2f}, cached input ${p['peak']['cached_input']:.3f}, output ${p['peak']['output']:.2f}; off-peak input ${p['off_peak']['input']:.2f}, cached input ${p['off_peak']['cached_input']:.3f}, output ${p['off_peak']['output']:.2f}.", '',
             p['schedule'], '', p['limitations'], '', f"Source: [Ollama pricing]({p['source_url']}).", ''])
+    for model, p in data.get('ollama_expanded_pricing', {}).items():
+        blocks.extend(['## ' + model + ' tariff estimate', '',
+            f"USD per million tokens, checked {p['date']}: peak input {p['peak']['input']}, cached input {p['peak']['cached_input']}, output {p['peak']['output']}; off-peak input {p['off_peak']['input']}, cached input {p['off_peak']['cached_input']}, output {p['off_peak']['output']}.", '',
+            p['schedule'], '', p['limitations'], '', f"Source: [Published Ollama tariff]({p['source_url']}).", ''])
     blocks += ['## Cost estimates', '', data['pricing']['method'], '', data['pricing']['limitations'], '',
         'Rates: [' + data['pricing']['date'] + ' Standard API pricing](' + data['pricing']['source_url'] + ').', '',
         '## Reproduce the report', '', 'Run `python3 render_publication.py --results results.json --output report.html`. Python 3.10 or newer is sufficient; the report needs no network requests or third-party JavaScript.', '',

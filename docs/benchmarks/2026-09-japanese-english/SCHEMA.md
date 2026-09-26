@@ -1,4 +1,31 @@
-# Expanded result schema
+# Expanded result schema (schema 4)
+
+This extension adds 36 native Ollama translation attempts and 72 blinded assessments,
+bringing the package to 34 configurations, 408 attempts and 816 assessments.
+All 372 earlier response records and the original value analysis remain frozen.
+
+Cohort `ollama-cloud-expanded` contains DeepSeek V4.1 Flash High (native
+`think: "high"`) and Gemma 4 31B Instant/Thinking (`think: false`/`true`).
+DeepSeek Medium is unsupported and silently falls back to High, so no separate
+Medium result is claimed. The new grading uses independently shuffled pairs
+plus a singleton for each source/judge; older cohorts used different batch sizes.
+Cross-cohort differences are exploratory, not controlled treatment effects.
+
+`ollama_expanded_pricing` maps each exact requested model to its reviewed tariff.
+Native token counts and unknown cache/reasoning splits follow schema 3 below.
+No actual account charge is inferred. Inputs remain byte-bound to the frozen
+31-configuration publication and to the new passing integrity receipt.
+
+An `interrupted` attempt has no native final receipt or final token/cost estimate.
+Its `administrative_interruption` records the thirty-minute deadline, observed
+elapsed time, timestamps and hashes binding the request, raw stream, delivered
+translation and protocol amendment. Both reviewers assess only delivered content.
+Elapsed time is a censored lower bound, excluded from completion-latency averages
+and shown separately. Unknown cost excludes the configuration from complete-cost
+comparisons; known subset totals are partial. Final study status means the entire
+attempt matrix has been audited, not that every request delivered a translation.
+
+## Earlier schema history
 
 The current schema 3 package contains 12 source captures, 31 configurations,
 372 responses and 744 reviews. The original schema 2 cohorts described below

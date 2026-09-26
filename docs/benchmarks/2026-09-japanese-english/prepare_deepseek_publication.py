@@ -73,18 +73,20 @@ def native_cost(run, pricing):
     return usage, cost
 
 
-def public_run(raw, source_ids, pricing):
-    cid = core.enum(raw.get('configuration_id'), CONFIGS)
+def public_run(raw, source_ids, pricing, *, config_specs=None, cohort=COHORT):
+    specs = config_specs or {cid: (MODEL, effort, think, {MODEL, 'deepseek-v4.1-flash'})
+        for cid, (effort, think) in CONFIGS.items()}
+    cid = core.enum(raw.get('configuration_id'), specs)
     sid = core.enum(raw.get('source_id'), source_ids)
-    effort, think = CONFIGS[cid]
-    if raw.get('model') != MODEL or raw.get('native_think') != think or type(raw.get('native_think')) is not type(think):
+    model, effort, think, returned_labels = specs[cid]
+    if raw.get('model') != model or raw.get('native_think') != think or type(raw.get('native_think')) is not type(think):
         raise ValueError('Native request identity differs from declared setting')
-    returned = core.enum(raw.get('returned_model'), {MODEL, 'deepseek-v4.1-flash'}, nullable=True)
+    returned = core.enum(raw.get('returned_model'), returned_labels, nullable=True)
     usage, cost = native_cost(raw, pricing)
     a = raw.get('adjudication') or {}
     out = {'id': cid + '/' + sid, 'configuration_id': cid, 'source_id': sid,
-        'cohort': COHORT, 'status': core.enum(raw.get('status'), core.STATES),
-        'requested_model': MODEL, 'returned_model': returned, 'requested_think': think,
+        'cohort': cohort, 'status': core.enum(raw.get('status'), core.STATES),
+        'requested_model': model, 'returned_model': returned, 'requested_think': think,
         'backend_identity_verified': False, 'thinking_present': core.boolean(raw.get('thinking_present')),
         'started_at': raw['started_at'], 'attempt_count': core.numeric(raw.get('attempt_count'), 1),
         'scores': core.scores(raw.get('scores')), 'usage': usage, 'cost': cost,
@@ -110,17 +112,25 @@ def public_run(raw, source_ids, pricing):
     return out
 
 
-def summarize(cid, runs, sources):
+def summarize(cid, runs, sources, *, cohort=COHORT):
     row = combined.gemini_summary(cid, runs, sources)
     cells = [r for r in runs if r['configuration_id'] == cid]
     costs = [r['cost']['usd'] for r in cells if r['cost']['usd'] is not None]
     states = {r['cost']['status'] for r in cells}
     all_priced = bool(cells) and len(costs) == len(cells) and states <= {'estimated', 'lower_bound'}
     status = ('estimated' if states == {'estimated'} else 'lower_bound') if all_priced else 'unavailable'
-    row.update(cohort=COHORT, cost_n=len(costs), cost_status=status,
+    row.update(cohort=cohort, cost_n=len(costs), cost_status=status,
         cost_mean_usd=statistics.mean(costs) if all_priced else None,
         cost_mean_no_cache_usd=statistics.mean(costs) if all_priced else None,
         cost_total_usd=sum(costs) if costs else None)
+    if cohort == 'ollama-cloud-expanded':
+        elapsed = [r['elapsed_seconds'] for r in cells if r['status'] == 'completed' and r['elapsed_seconds'] is not None]
+        interrupted = [r['elapsed_seconds'] for r in cells if r['status'] == 'interrupted' and r['elapsed_seconds'] is not None]
+        row.update(median_seconds=statistics.median(elapsed) if elapsed else None,
+            mean_seconds=statistics.mean(elapsed) if elapsed else None,
+            max_seconds=max(elapsed) if elapsed else None, timing_n=len(elapsed),
+            interrupted=sum(r['status'] == 'interrupted' for r in cells),
+            interrupted_elapsed_seconds_max=max(interrupted) if interrupted else None)
     return row
 
 

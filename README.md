@@ -46,11 +46,11 @@ Choose the model yourself: click the model name inside Gemini’s input box, sel
 
 **For Gemini, start with Flash with extended thinking off, especially if you don’t have Google AI Ultra.** Ultra is not required by Babelbound. Flash delivered English for every capture in this comparison, though its translations still needed review. Pro's delivered translations scored higher, but several requests failed in the tested browser session.
 
-The September 2026 benchmark compares **31 model/reasoning settings on 12 Japanese → English captures: 372 responses, each reviewed by two AI judges against the source**. A capture can contain more than one printed page.
+The September 2026 benchmark compares **34 model/reasoning settings on 12 Japanese → English captures: 408 translation attempts, each reviewed by two AI judges against the source**. A capture can contain more than one printed page.
 
-| Setting | What the sample showed | Estimated API cost per capture |
+| Setting | What the sample showed | Estimated cost per capture |
 | --- | --- | --- |
-| OpenAI Sol / high | **9.67/10**; all 12 outputs usable by both reviewers. Best measured API value among settings averaging at least 9.5/10 with all outputs usable and complete cost estimates. | **6.4¢** with observed caching; **8.4¢** without caching |
+| OpenAI Sol / high | **9.67/10**; all 12 outputs usable by both reviewers. Best measured API value among the original Codex CLI settings averaging at least 9.5/10 with all outputs usable and complete cost estimates. | **6.4¢** with observed caching; **8.4¢** without caching |
 | OpenAI Astra / high | **9.79/10**; all 12 outputs usable by both reviewers. | **20.5¢** with observed caching |
 | Gemini Flash / extended thinking off | **8.76/10**; English delivered for 12/12 captures, but only **7/12** outputs usable by both reviewers. | Unknown |
 | Gemini Pro / extended thinking off | **7.13/10 overall**; **9.83/10** on the 8 delivered English translations. Four requests failed. | Unknown |
@@ -58,16 +58,23 @@ The September 2026 benchmark compares **31 model/reasoning settings on 12 Japane
 | Gemini Flash-Lite / extended thinking on | **8.44/10**; English delivered for 12/12 captures, with **8/12** outputs usable by both reviewers. | Unknown |
 | DeepSeek V4.1 Flash / Instant | **3.81/10**; **1/12** outputs usable by both reviewers. | **0.0704¢** at Ollama's off-peak uncached tariff |
 | DeepSeek V4.1 Flash / Light | **6.59/10**; **5/12** outputs usable by both reviewers. | **0.3607¢** at Ollama's off-peak uncached tariff |
+| DeepSeek V4.1 Flash / High | **8.15/10**; **7/12** outputs usable by both reviewers. | **0.8854¢** at Ollama's off-peak uncached tariff |
+| Gemma 4 31B / Instant | **4.00/10**; **1/12** outputs usable by both reviewers. | **0.0270¢** at Ollama's uncached tariff |
+| Gemma 4 31B / Thinking | **4.46/10 overall**; English delivered for **9/12** captures, with **1/12** outputs usable by both reviewers. | **2.8200¢**, including the three empty responses |
 
 With extended thinking off, Flash-Lite is a poor starting point for a faithful reading copy based on this sample. Extended thinking helped it considerably, but neither that improvement nor a completed response guarantees an accurate translation.
 
-DeepSeek's Light setting improved substantially over Instant, but both made serious meaning errors, including invented events. On the nine prose captures, they scored **6.57/10** and **2.81/10**, respectively. Low cost alone doesn't make either a good choice for an unattended reading copy in this sample. These runs used `deepseek-v4.1-flash:cloud` through Ollama, with `think: false` for Instant and `think: "low"` for Light. **DeepSeek is included in the research comparison; Babelbound does not have an Ollama provider integration.**
+DeepSeek's Light setting improved substantially over Instant, but both made serious meaning errors, including invented events. On the nine prose captures, they scored **6.57/10** and **2.81/10**, respectively. Low cost alone doesn't make either a good choice for an unattended reading copy in this sample.
 
-**Babelbound uses your provider's existing allowance; the prices above are tariff estimates, not per-page charges from Babelbound.** The OpenAI runs used Codex CLI, Gemini used gemini.google.com, and DeepSeek used Ollama's native API. They measure those model settings in those workflows, not the ChatGPT extension or Gemini sidebar. Model names and reasoning controls available in your panel may differ; Babelbound uses the selection you make there. DeepSeek estimates include reported output tokens once, including thinking, and assume uncached input; actual account charges are unknown.
+DeepSeek High scored better in its later batch, but still needed substantial review: both reviewers found only **7/12** outputs usable. Its requests averaged **56 seconds**. Gemma Instant was fast and cheap, averaging **7 seconds**, but struggled with the prose. Gemma Thinking spent **21–24 minutes** on three captures and returned no translation. Those attempts retain their **1/10** failure scores, elapsed time, and full estimated token costs; they bring its average request time to nearly **six minutes**. Neither Gemma mode is a good default for this translation workflow based on these results.
 
-This is a small sample from one series with AI reviews, not human-validated scores. The providers were graded in separate batches, so cross-provider comparisons are exploratory. Pro's successful-only score covers a different subset, and browser failures do not establish a model's intrinsic translation ability. Gemini token usage and API-equivalent costs were unavailable.
+The Ollama runs use `deepseek-v4.1-flash:cloud` with thinking off, low, or high, and `gemma4:31b-cloud` with thinking off or on. **DeepSeek Medium is not a supported setting on this route**: Ollama falls back to High for unsupported names, so there is no separate Medium result. **These models are included in the research comparison; Babelbound does not have an Ollama provider integration.**
 
-**[See the full benchmark →](docs/benchmarks/2026-09-japanese-english/README.md)** All 31 settings, per-capture scores, delivery failures, pricing assumptions, and methods are available there, along with a downloadable interactive report.
+**Babelbound uses your provider's existing allowance; the prices above are tariff estimates, not per-page charges from Babelbound.** The OpenAI runs used Codex CLI, Gemini used gemini.google.com, and DeepSeek/Gemma used Ollama's native API. They measure those model settings in those workflows, not the ChatGPT extension or Gemini sidebar. Model names and reasoning controls available in your panel may differ; Babelbound uses the selection you make there. Ollama estimates use each model's own tariff, include reported output tokens once, including thinking, and assume uncached input; actual account charges are unknown.
+
+This is a small sample from one series with AI reviews, not human-validated scores. The cohorts were graded separately; the later DeepSeek High/Gemma cohort uses pairs plus a singleton per source and judge. Comparisons across those batches are exploratory, including DeepSeek High versus its earlier Instant/Light runs. Pro's successful-only score covers a different subset, and browser failures do not establish a model's intrinsic translation ability. Gemini token usage and API-equivalent costs were unavailable.
+
+**[See the full benchmark →](docs/benchmarks/2026-09-japanese-english/README.md)** All 34 settings, per-capture scores, delivery failures, pricing assumptions, and methods are available there, along with a downloadable interactive report.
 
 ## What it does
 

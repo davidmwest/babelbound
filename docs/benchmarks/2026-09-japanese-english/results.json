@@ -1,7 +1,7 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "status": "complete",
-  "generated_at": "2026-09-26T03:23:51.667366+00:00",
+  "generated_at": "2026-09-26T08:01:22.235540+00:00",
   "publication": {
     "ready": true,
     "status": "final",
@@ -14,17 +14,20 @@
       "cli_amendment_sha256": "b6b3e0a76fb294812fa5187e419ed0523419e42aa765a18ef63428c62559f267",
       "base_publication_sha256": "cf5c9db4dba74d744fbb0646d03ab4ac000d93ddd60b797b9ebc88c9f2dbae4f",
       "deepseek_results_sha256": "976b4c3889157138c9e7742db3a0f0f94afc4125ecb0c389b1f79dd81c325935",
-      "deepseek_integrity_sha256": "82a8ff8d6e8eecb83a89e8b6738fd1598e3027c4327f5258333c5350af7db4ef"
+      "deepseek_integrity_sha256": "82a8ff8d6e8eecb83a89e8b6738fd1598e3027c4327f5258333c5350af7db4ef",
+      "expanded_base_publication_sha256": "6d482a05970290e91a71364956a8261a558f0fa491965feb0793160f2fb16cb0",
+      "ollama_expanded_results_sha256": "24aa419e1cce7ea9e4c2c9f63d0034e65bf48a73d2049f0721d11789e4b3ef27",
+      "ollama_expanded_integrity_sha256": "8228e2d14314c1e8ce8d43b2eda19fad27a616a35a97de10d915ab0c5011a1a6"
     }
   },
   "methodology": {
     "direction": "Japanese → English",
     "planned_captures": 12,
-    "planned_configurations": 31,
-    "planned_translations": 372,
+    "planned_configurations": 34,
+    "planned_translations": 408,
     "sample": "Purposive sample: nine prose captures and three illustrated/typographic captures from volumes 6, 7, and 10 of one light-novel series. Captures may contain two printed pages. Five overlap a prior Gemini study.",
-    "conditions": "Identical original PNG bytes and user prompt; fresh ephemeral Codex CLI session per capture/configuration. No supplied glossary or prior translations. Codex model-specific system instructions and the default installed-skill catalogue remain part of the client environment. A tool audit flags additional observable file/context reads; generic skill-document reads are disclosed separately from external book context. Some delegated child tool histories are not exposed, so their context cannot be fully audited. Tests the Codex vision-plus-translation workflow, not an isolated raw-model API. Collection crossed an account usage boundary. New dispatch paused proactively with three translation attempts in flight; those attempts retained their existing deadlines. Collection resumed after an account usage reset, preserving prior outputs and requested model/reasoning settings. No quota error was recorded at the pause, and the service still reported ordinary usage allowed. Actual serving-model routing is not observable, so this event does not establish model substitution. A later user-requested pause interrupted only Luna/max and Terra/ultra on V10-S090. The user explicitly resumed them in fresh second attempts, preserving the interrupted logs and all 274 already completed outputs. During that pause, the desktop client updated from codex-cli 0.155.0-alpha.9.2 to codex-cli 0.155.0-alpha.16.3. Only those two translation replacements use the newer build; source bytes, prompts and requested model/reasoning settings remain unchanged. Remaining review calls also use the newer client. This environment boundary is disclosed rather than treated as a quality retry. Gemini collection uses a fresh conversation in the signed-in web interface for each source/configuration with the same source PNG and prompt. Model selection and extended-thinking switch state are observed in the UI; actual backend identity and API equivalence are unverified. Standard and extended indicate the extended-thinking switch off and on; off does not mean zero intrinsic reasoning. Error messages returned instead of translations are retained and scored as delivered, without quality retries. Service errors measure delivery reliability in the observed Gemini browser session and selected configuration; they do not establish the model's intrinsic translation ability or its API behavior. DeepSeek receives the identical source PNG bytes and user prompt in a fresh single-message native Ollama /api/chat request, with no supplied system message, tools, prior output, glossary or context. Sampling parameters use provider defaults. The requested and returned model labels are recorded; they do not independently establish backend weights. No quality retries are allowed. A transient transport error before any model output may be retried once, preserving both attempts.",
-    "scoring": "Two attribution-blind AI reviewers, GPT-6 Astra/high and GPT-6 Sol/high; independently shuffled batches of at most eight candidates. Accuracy 50%, completeness 25%, names/numbers 15%, fluency 10%. Each capture receives equal weight. Gemini uses the same amended source-alone anchors and rubric with six anonymous candidates per source and two independent judge orders. Gemini review files use cohort-local version 1; original OpenAI review files retain version 2. Critical issues and large judge disagreements require source audits, without candidate-specific score changes. An anonymous content audit separately classifies delivery as an English translation, service error, non-English transcription or other failure. The primary score includes every delivered response. Conditional English-translation means exclude delivery failures, use differing subsets, and must not replace the primary ranking. DeepSeek uses the same amended source-alone anchors, dimensions, weights and Astra/high and Sol/high reviewers. Each judge receives two anonymous candidates per source in an independently shuffled order. DeepSeek review version 1 is cohort-local. Critical issues and large disagreements require source audits; no candidate-specific score changes are made.",
+    "conditions": "Identical original PNG bytes and user prompt; fresh ephemeral Codex CLI session per capture/configuration. No supplied glossary or prior translations. Codex model-specific system instructions and the default installed-skill catalogue remain part of the client environment. A tool audit flags additional observable file/context reads; generic skill-document reads are disclosed separately from external book context. Some delegated child tool histories are not exposed, so their context cannot be fully audited. Tests the Codex vision-plus-translation workflow, not an isolated raw-model API. Collection crossed an account usage boundary. New dispatch paused proactively with three translation attempts in flight; those attempts retained their existing deadlines. Collection resumed after an account usage reset, preserving prior outputs and requested model/reasoning settings. No quota error was recorded at the pause, and the service still reported ordinary usage allowed. Actual serving-model routing is not observable, so this event does not establish model substitution. A later user-requested pause interrupted only Luna/max and Terra/ultra on V10-S090. The user explicitly resumed them in fresh second attempts, preserving the interrupted logs and all 274 already completed outputs. During that pause, the desktop client updated from codex-cli 0.155.0-alpha.9.2 to codex-cli 0.155.0-alpha.16.3. Only those two translation replacements use the newer build; source bytes, prompts and requested model/reasoning settings remain unchanged. Remaining review calls also use the newer client. This environment boundary is disclosed rather than treated as a quality retry. Gemini collection uses a fresh conversation in the signed-in web interface for each source/configuration with the same source PNG and prompt. Model selection and extended-thinking switch state are observed in the UI; actual backend identity and API equivalence are unverified. Standard and extended indicate the extended-thinking switch off and on; off does not mean zero intrinsic reasoning. Error messages returned instead of translations are retained and scored as delivered, without quality retries. Service errors measure delivery reliability in the observed Gemini browser session and selected configuration; they do not establish the model's intrinsic translation ability or its API behavior. DeepSeek receives the identical source PNG bytes and user prompt in a fresh single-message native Ollama /api/chat request, with no supplied system message, tools, prior output, glossary or context. Sampling parameters use provider defaults. The requested and returned model labels are recorded; they do not independently establish backend weights. No quality retries are allowed. A transient transport error before any model output may be retried once, preserving both attempts. The added Ollama configurations receive the identical source PNG bytes and user prompt in fresh single-message native /api/chat requests, with no supplied system message, tools, prior output, glossary or context. Sampling parameters use provider defaults. Requested and returned model labels are recorded; they do not independently establish backend weights. No quality retries are allowed. A transient transport error before any model output may be retried once, preserving both attempts. Collection uses at most two concurrent requests and finishes all three settings for one source before starting the next. The original collection setup used a 300-second socket-inactivity timeout and no total wall-time deadline or output-token cap override. After a Gemma Thinking request streamed reasoning for over twenty minutes without delivering translation content, an operational amendment added a 30-minute wall-time deadline for remaining in-flight and future requests. The amendment was recorded after the triggering request had already finished; a preserved addendum corrects the stale live-stream observation. This limit was introduced after observing that run, not preregistered. The triggering request ultimately ended naturally after 1,254.447 seconds with no visible translation; no administrative interruption was needed for that request. An interrupted attempt is retained without retry, with received content assessed by both judges and no invented final usage or cost. Sampling and output-token limits otherwise remain provider defaults. A final receipt with no translation content remains in the evaluation as a delivery failure, without a quality rerun.",
+    "scoring": "Two attribution-blind AI reviewers, GPT-6 Astra/high and GPT-6 Sol/high; independently shuffled batches of at most eight candidates. Accuracy 50%, completeness 25%, names/numbers 15%, fluency 10%. Each capture receives equal weight. Gemini uses the same amended source-alone anchors and rubric with six anonymous candidates per source and two independent judge orders. Gemini review files use cohort-local version 1; original OpenAI review files retain version 2. Critical issues and large judge disagreements require source audits, without candidate-specific score changes. An anonymous content audit separately classifies delivery as an English translation, service error, non-English transcription or other failure. The primary score includes every delivered response. Conditional English-translation means exclude delivery failures, use differing subsets, and must not replace the primary ranking. DeepSeek uses the same amended source-alone anchors, dimensions, weights and Astra/high and Sol/high reviewers. Each judge receives two anonymous candidates per source in an independently shuffled order. DeepSeek review version 1 is cohort-local. Critical issues and large disagreements require source audits; no candidate-specific score changes are made. The added Ollama cohort uses the same amended source-alone anchors, dimensions, weights and Astra/high and Sol/high reviewers. Each judge receives a pair and a singleton of anonymous candidates per source, with independently shuffled placement and order. This differs from the earlier DeepSeek two-candidate batches. Ollama review version 1 is cohort-local. Critical issues and large disagreements require source audits; no candidate-specific score changes are made.",
     "judges": [
       "gpt-6-astra / high",
       "gpt-6-sol / high"
@@ -36,9 +39,9 @@
       "fluency": 0.1
     },
     "amendment": "Review v2: all 23 illustrated-card translations were blindly re-scored after reviewers penalized a literal character designation using an unprovided canonical name. The source-alone ambiguity rule accepts defensible readings without ruby or a glossary; other captures had not yet been graded. Source clarification v3: both judges regrade all 23 profile-layout translations after a source audit found repeated misreading of a city-name glyph and erroneous penalties for a defensible reading. Both amendments preserve original reviews and unchanged translations; no candidate-specific score overrides are used.",
-    "limitations": "One series, twelve purposively selected captures, one generation per setting/capture, and AI judgments without a human-validated gold translation. Reviewers may favor particular writing styles even when candidate identities are hidden. Tenths of a point are not strong evidence of a real difference. Partial means are not a fair full comparison until all paired cells are scored. The later Gemini cohort has a different transport, collection period and reviewer batch composition. No cross-cohort drift controls were run. UI model labels do not establish the serving API model. Thirteen original runs retain an explicit limitation: delegated child context and usage were not fully observable. The publication acknowledges only those exact runs and frozen findings; it does not clear their audit flags or claim complete child histories or total spend. Their lower-bound costs and affected configurations remain excluded from dollar-value recommendations. The DeepSeek cohort was collected later through a native API, unlike the Codex CLI and Gemini web cohorts. System context, provider preprocessing and reviewer batch composition differ. No cross-cohort calibration or repeated-generation controls were added. The original Codex dollar-value selector is preserved; DeepSeek quality and tariff estimates are shown separately for descriptive comparison.",
-    "intervals": "95% percentile bootstrap over observed capture scores (4,000 resamples); descriptive sample uncertainty, not a population guarantee or model run-to-run uncertainty. Gemini confidence intervals are not estimated in this publication. No confidence intervals are estimated for the DeepSeek addition.",
-    "timing": "End-to-end CLI launch-to-completion under concurrent execution; includes overhead and retries. Not pure model latency. API-equivalent estimates separately apply published Standard rates to observed usage; delegated usage may not be separately observable. Resumed cells sum active elapsed time across both attempts, excluding the time the job was paused. Interrupted attempts did not emit complete usage, so those two cells have lower-bound costs and do not qualify for value recommendations. Gemini elapsed times run from observed UI submission to observed completion and include polling, collection and interleaved audit gaps. They are browser-observed elapsed time, not model inference latency, and are not directly comparable with concurrent CLI timing. No cross-provider speed ranking is made. DeepSeek timing covers native request start through the final streamed receipt. It includes transport and provider processing under two concurrent requests and is not directly comparable to browser polling or CLI timing.",
+    "limitations": "One series, twelve purposively selected captures, one generation per setting/capture, and AI judgments without a human-validated gold translation. Reviewers may favor particular writing styles even when candidate identities are hidden. Tenths of a point are not strong evidence of a real difference. Partial means are not a fair full comparison until all paired cells are scored. The later Gemini cohort has a different transport, collection period and reviewer batch composition. No cross-cohort drift controls were run. UI model labels do not establish the serving API model. Thirteen original runs retain an explicit limitation: delegated child context and usage were not fully observable. The publication acknowledges only those exact runs and frozen findings; it does not clear their audit flags or claim complete child histories or total spend. Their lower-bound costs and affected configurations remain excluded from dollar-value recommendations. The DeepSeek cohort was collected later through a native API, unlike the Codex CLI and Gemini web cohorts. System context, provider preprocessing and reviewer batch composition differ. No cross-cohort calibration or repeated-generation controls were added. The original Codex dollar-value selector is preserved; DeepSeek quality and tariff estimates are shown separately for descriptive comparison. The Gemma 4 and DeepSeek High additions were collected later through a native API. System context, provider preprocessing, collection time and reviewer batch composition differ across cohorts. No cross-cohort calibration or repeated-generation controls were added. The original Codex dollar-value selector and earlier numeric records remain frozen; the added quality and no-cache tariff estimates appear separately for descriptive comparison. The post-hoc wall-time limit can censor slow responses; interrupted requests have unknown final token cost and prevent a complete-cost comparison for that configuration.",
+    "intervals": "95% percentile bootstrap over observed capture scores (4,000 resamples); descriptive sample uncertainty, not a population guarantee or model run-to-run uncertainty. Gemini confidence intervals are not estimated in this publication. No confidence intervals are estimated for the DeepSeek addition. No confidence intervals are estimated for the added Ollama cohort.",
+    "timing": "End-to-end CLI launch-to-completion under concurrent execution; includes overhead and retries. Not pure model latency. API-equivalent estimates separately apply published Standard rates to observed usage; delegated usage may not be separately observable. Resumed cells sum active elapsed time across both attempts, excluding the time the job was paused. Interrupted attempts did not emit complete usage, so those two cells have lower-bound costs and do not qualify for value recommendations. Gemini elapsed times run from observed UI submission to observed completion and include polling, collection and interleaved audit gaps. They are browser-observed elapsed time, not model inference latency, and are not directly comparable with concurrent CLI timing. No cross-provider speed ranking is made. DeepSeek timing covers native request start through the final streamed receipt. It includes transport and provider processing under two concurrent requests and is not directly comparable to browser polling or CLI timing. Added Ollama timing covers native request start through the final streamed receipt, including transport and provider processing under the recorded concurrency. It is not directly comparable to Gemini browser polling or Codex CLI timing. Administrative interruptions report observed elapsed time as a censored lower bound to completion, separately from completed median, mean and maximum latency. A complete study includes all assessed attempts, including delivery failures; it does not imply every request finished normally.",
     "ultra": "Ultra is maximum reasoning plus automatic delegation. Requested settings are recorded; internal routing is not independently observable from the emitted CLI events.",
     "privacy": "The publication includes numeric results and reviewed method descriptions. Licensed scans, translations, review quotations, source interpretation notes, commands, local paths and account data remain private.",
     "cli_version": "codex-cli 0.155.0-alpha.9.2; codex-cli 0.155.0-alpha.16.3 for two user-interrupted replacement attempts and remaining reviews",
@@ -48,9 +51,12 @@
       "https://learn.chatgpt.com/docs/models",
       "https://learn.chatgpt.com/docs/non-interactive-mode"
     ],
-    "cohorts": "Two separately graded cohorts share the same twelve source PNGs and translation prompt: 23 Codex CLI configurations (276 outputs) and six Gemini web configurations (72 responses). Gemini candidates were graded in batches of six after the original OpenAI reviews, with no shared calibration controls. Cross-cohort reviewer drift was not measured. Cross-provider quality comparisons are exploratory; pooled ordering is descriptive, not a controlled provider comparison. Gemini token usage and API-equivalent costs are unknown, so Gemini is excluded from all dollar-value recommendations. A third cohort adds DeepSeek V4.1 Flash via native Ollama cloud requests: Instant (think:false) and Light (think:low), 24 responses on the same 12 source PNGs. These candidates were reviewed in separate two-candidate batches, without common calibration controls. Cross-cohort comparisons remain exploratory.",
+    "cohorts": "Two separately graded cohorts share the same twelve source PNGs and translation prompt: 23 Codex CLI configurations (276 outputs) and six Gemini web configurations (72 responses). Gemini candidates were graded in batches of six after the original OpenAI reviews, with no shared calibration controls. Cross-cohort reviewer drift was not measured. Cross-provider quality comparisons are exploratory; pooled ordering is descriptive, not a controlled provider comparison. Gemini token usage and API-equivalent costs are unknown, so Gemini is excluded from all dollar-value recommendations. A third cohort adds DeepSeek V4.1 Flash via native Ollama cloud requests: Instant (think:false) and Light (think:low), 24 responses on the same 12 source PNGs. These candidates were reviewed in separate two-candidate batches, without common calibration controls. Cross-cohort comparisons remain exploratory. A later native Ollama cohort adds DeepSeek V4.1 Flash High and Gemma 4 31B Instant and Thinking: 36 attempted translations on the same 12 source PNGs. The prior 31 configurations and 372 responses remain frozen, yielding 34 configurations and 408 attempts. The new candidates use separate review batches without common calibration controls. Cross-cohort comparisons remain exploratory.",
     "deepseek": "Instant maps to native think:false and Light maps to think:low on deepseek-v4.1-flash:cloud. Both requests use original source images. Published Ollama pricing is reported separately from original OpenAI Standard API equivalents and unknown Gemini web costs. Native eval_count reports total generated output; no separate thinking-token counter is exposed. The estimate applies the output tariff once to that count.",
-    "cli_versions": "DeepSeek reviewers use codex-cli 0.155.0-alpha.16.4; earlier cohorts retain their recorded versions."
+    "cli_versions": "DeepSeek reviewers use codex-cli 0.155.0-alpha.16.4; earlier cohorts retain their recorded versions. The expanded Ollama reviewers use codex-cli 0.155.0-alpha.16.4; earlier cohorts retain their recorded versions.",
+    "ollama_expanded": "DeepSeek V4.1 Flash High requests native think:high on deepseek-v4.1-flash:cloud. Gemma 4 31B Instant and Thinking request native think:false and think:true on gemma4:31b-cloud. All use original source images. Native eval_count reports total generated output; the receipts do not expose a separate thinking-token count. The estimate applies the output tariff once to that count. Ollama tariffs are distinct from the original OpenAI Standard API-equivalent estimates and unknown Gemini web costs.",
+    "native_controls": "Ollama model metadata lists DeepSeek V4.1 Flash thinking values false, low, high and max, with high as default. Medium is not supported; Ollama documents that unsupported names fall back to the model default, so no separate Medium condition is included. Gemma 4 31B lists boolean false and true, with false as default. These are model-specific native controls, not universal reasoning levels. Sources: https://docs.ollama.com/capabilities/thinking and each model's public /api/show metadata, verified 2026-09-25.",
+    "grading_batches": "The expanded Ollama cohort uses a pair plus a singleton per source and reviewer. Earlier OpenAI, Gemini and DeepSeek cohorts retain their own original batch composition and numeric judgments. Differences across those batches can reflect reviewer context as well as model behavior."
   },
   "sources": [
     {
@@ -322,6 +328,30 @@
       "effort": "light",
       "requested_think": "low",
       "cohort": "ollama-cloud"
+    },
+    {
+      "id": "deepseek-v4.1-flash-cloud--high",
+      "model": "deepseek-v4.1-flash:cloud",
+      "model_display": "DeepSeek V4.1 Flash",
+      "effort": "high",
+      "requested_think": "high",
+      "cohort": "ollama-cloud-expanded"
+    },
+    {
+      "id": "gemma4-31b-cloud--instant",
+      "model": "gemma4:31b-cloud",
+      "model_display": "Gemma 4 31B",
+      "effort": "instant",
+      "requested_think": false,
+      "cohort": "ollama-cloud-expanded"
+    },
+    {
+      "id": "gemma4-31b-cloud--thinking",
+      "model": "gemma4:31b-cloud",
+      "model_display": "Gemma 4 31B",
+      "effort": "thinking",
+      "requested_think": true,
+      "cohort": "ollama-cloud-expanded"
     }
   ],
   "runs": [
@@ -37323,6 +37353,3930 @@
       "adjudication_verdict": null,
       "score_override_recommended": null,
       "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "deepseek-v4.1-flash-cloud--high/V06-S003",
+      "configuration_id": "deepseek-v4.1-flash-cloud--high",
+      "source_id": "V06-S003",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "deepseek-v4.1-flash:cloud",
+      "returned_model": "deepseek-v4.1-flash",
+      "requested_think": "high",
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T06:42:53.802368+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 10,
+        "names_numbers": 10,
+        "fluency": 9.75,
+        "overall": 9.975
+      },
+      "usage": {
+        "input_tokens": 1319,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 3792,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0024730499999999996,
+        "upper_usd": null,
+        "no_cache_usd": 0.0024730499999999996,
+        "uncached_input_usd": 0.00019784999999999998,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0022752,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.15,
+          "cached_input": 0.003,
+          "cache_write": null,
+          "output": 0.6
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 16.139,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 10,
+          "completeness": 10,
+          "names_numbers": 10,
+          "fluency": 10,
+          "overall": 10.0,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 0,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 10,
+          "completeness": 10,
+          "names_numbers": 10,
+          "fluency": 9.5,
+          "overall": 9.95,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 0,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.05000000000000071,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--instant/V06-S003",
+      "configuration_id": "gemma4-31b-cloud--instant",
+      "source_id": "V06-S003",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": false,
+      "backend_identity_verified": false,
+      "thinking_present": false,
+      "started_at": "2026-09-26T06:42:53.803255+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 8.5,
+        "completeness": 10,
+        "names_numbers": 8.75,
+        "fluency": 9.25,
+        "overall": 8.9875
+      },
+      "usage": {
+        "input_tokens": 605,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 35,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 9.87e-05,
+        "upper_usd": null,
+        "no_cache_usd": 9.87e-05,
+        "uncached_input_usd": 8.47e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 1.4e-05,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 4.429,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 8,
+          "completeness": 10,
+          "names_numbers": 9,
+          "fluency": 9,
+          "overall": 8.75,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 0,
+            "minor": 2
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 9,
+          "completeness": 10,
+          "names_numbers": 8.5,
+          "fluency": 9.5,
+          "overall": 9.225,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 0,
+            "minor": 1
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.47499999999999964,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--thinking/V06-S003",
+      "configuration_id": "gemma4-31b-cloud--thinking",
+      "source_id": "V06-S003",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": true,
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T06:42:58.283496+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 9.5,
+        "completeness": 10,
+        "names_numbers": 10,
+        "fluency": 9.5,
+        "overall": 9.7
+      },
+      "usage": {
+        "input_tokens": 608,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 594,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00032272000000000003,
+        "upper_usd": null,
+        "no_cache_usd": 0.00032272000000000003,
+        "uncached_input_usd": 8.512e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.00023760000000000003,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 6.381,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 9,
+          "completeness": 10,
+          "names_numbers": 10,
+          "fluency": 9,
+          "overall": 9.4,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 0,
+            "minor": 1
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 10,
+          "completeness": 10,
+          "names_numbers": 10,
+          "fluency": 10,
+          "overall": 10.0,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 0,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.5999999999999996,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "deepseek-v4.1-flash-cloud--high/V06-S012",
+      "configuration_id": "deepseek-v4.1-flash-cloud--high",
+      "source_id": "V06-S012",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "deepseek-v4.1-flash:cloud",
+      "returned_model": "deepseek-v4.1-flash",
+      "requested_think": "high",
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T06:43:09.972105+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 8.75,
+        "completeness": 10,
+        "names_numbers": 9,
+        "fluency": 8.75,
+        "overall": 9.1
+      },
+      "usage": {
+        "input_tokens": 1319,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 12371,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00762045,
+        "upper_usd": null,
+        "no_cache_usd": 0.00762045,
+        "uncached_input_usd": 0.00019784999999999998,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0074226,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.15,
+          "cached_input": 0.003,
+          "cache_write": null,
+          "output": 0.6
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 46.643,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 9,
+          "completeness": 10,
+          "names_numbers": 9,
+          "fluency": 9,
+          "overall": 9.25,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 0,
+            "minor": 2
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 8.5,
+          "completeness": 10,
+          "names_numbers": 9,
+          "fluency": 8.5,
+          "overall": 8.95,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 0,
+            "minor": 2
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.3000000000000007,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--instant/V06-S012",
+      "configuration_id": "gemma4-31b-cloud--instant",
+      "source_id": "V06-S012",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": false,
+      "backend_identity_verified": false,
+      "thinking_present": false,
+      "started_at": "2026-09-26T06:43:09.972504+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 7.25,
+        "completeness": 9.25,
+        "names_numbers": 6.25,
+        "fluency": 8.75,
+        "overall": 7.75
+      },
+      "usage": {
+        "input_tokens": 605,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 139,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00014030000000000002,
+        "upper_usd": null,
+        "no_cache_usd": 0.00014030000000000002,
+        "uncached_input_usd": 8.47e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 5.56e-05,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 2.65,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 7.5,
+          "completeness": 9.5,
+          "names_numbers": 7,
+          "fluency": 9,
+          "overall": 8.075,
+          "coverage_percent": 100,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 2,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 7,
+          "completeness": 9,
+          "names_numbers": 5.5,
+          "fluency": 8.5,
+          "overall": 7.425,
+          "coverage_percent": 98,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 2,
+            "minor": 1
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.6499999999999995,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--thinking/V06-S012",
+      "configuration_id": "gemma4-31b-cloud--thinking",
+      "source_id": "V06-S012",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": true,
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T06:43:12.646338+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 8.5,
+        "completeness": 10,
+        "names_numbers": 7,
+        "fluency": 9.5,
+        "overall": 8.75
+      },
+      "usage": {
+        "input_tokens": 608,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 2327,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00101592,
+        "upper_usd": null,
+        "no_cache_usd": 0.00101592,
+        "uncached_input_usd": 8.512e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0009308000000000001,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 11.234,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 8.5,
+          "completeness": 10,
+          "names_numbers": 7,
+          "fluency": 9.5,
+          "overall": 8.75,
+          "coverage_percent": 100,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 1,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 8.5,
+          "completeness": 10,
+          "names_numbers": 7,
+          "fluency": 9.5,
+          "overall": 8.75,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 1,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.0,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "deepseek-v4.1-flash-cloud--high/V06-S016",
+      "configuration_id": "deepseek-v4.1-flash-cloud--high",
+      "source_id": "V06-S016",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "deepseek-v4.1-flash:cloud",
+      "returned_model": "deepseek-v4.1-flash",
+      "requested_think": "high",
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T06:43:56.677437+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 9,
+        "completeness": 10,
+        "names_numbers": 6.5,
+        "fluency": 8.0,
+        "overall": 8.775
+      },
+      "usage": {
+        "input_tokens": 1319,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 14103,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00865965,
+        "upper_usd": null,
+        "no_cache_usd": 0.00865965,
+        "uncached_input_usd": 0.00019784999999999998,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.008461799999999998,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.15,
+          "cached_input": 0.003,
+          "cache_write": null,
+          "output": 0.6
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 62.243,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 9,
+          "completeness": 10,
+          "names_numbers": 6,
+          "fluency": 7.5,
+          "overall": 8.65,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 2,
+            "minor": 1
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 9,
+          "completeness": 10,
+          "names_numbers": 7,
+          "fluency": 8.5,
+          "overall": 8.9,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 0,
+            "minor": 3
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.25,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--instant/V06-S016",
+      "configuration_id": "gemma4-31b-cloud--instant",
+      "source_id": "V06-S016",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": false,
+      "backend_identity_verified": false,
+      "thinking_present": false,
+      "started_at": "2026-09-26T06:43:56.679354+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 2.5,
+        "completeness": 4.75,
+        "names_numbers": 1.75,
+        "fluency": 6.25,
+        "overall": 3.325
+      },
+      "usage": {
+        "input_tokens": 605,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 506,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00028710000000000004,
+        "upper_usd": null,
+        "no_cache_usd": 0.00028710000000000004,
+        "uncached_input_usd": 8.47e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.00020240000000000001,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 9.611,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 2.5,
+          "completeness": 6,
+          "names_numbers": 1.5,
+          "fluency": 7,
+          "overall": 3.675,
+          "coverage_percent": 75,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 2.5,
+          "completeness": 3.5,
+          "names_numbers": 2,
+          "fluency": 5.5,
+          "overall": 2.975,
+          "coverage_percent": 50,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.6999999999999997,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--thinking/V06-S016",
+      "configuration_id": "gemma4-31b-cloud--thinking",
+      "source_id": "V06-S016",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": true,
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T06:44:06.332823+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 5,
+        "completeness": 7.25,
+        "names_numbers": 5,
+        "fluency": 5.5,
+        "overall": 5.6125
+      },
+      "usage": {
+        "input_tokens": 608,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 6453,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0026663200000000002,
+        "upper_usd": null,
+        "no_cache_usd": 0.0026663200000000002,
+        "uncached_input_usd": 8.512e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0025812,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 30.813,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 5,
+          "completeness": 7.5,
+          "names_numbers": 5,
+          "fluency": 6,
+          "overall": 5.725,
+          "coverage_percent": 90,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 5,
+          "completeness": 7,
+          "names_numbers": 5,
+          "fluency": 5,
+          "overall": 5.5,
+          "coverage_percent": 80,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.22499999999999964,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "deepseek-v4.1-flash-cloud--high/V06-S024",
+      "configuration_id": "deepseek-v4.1-flash-cloud--high",
+      "source_id": "V06-S024",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "deepseek-v4.1-flash:cloud",
+      "returned_model": "deepseek-v4.1-flash",
+      "requested_think": "high",
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T06:44:58.984076+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 6.5,
+        "completeness": 8.75,
+        "names_numbers": 6.25,
+        "fluency": 8.75,
+        "overall": 7.25
+      },
+      "usage": {
+        "input_tokens": 1319,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 17813,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.01088565,
+        "upper_usd": null,
+        "no_cache_usd": 0.01088565,
+        "uncached_input_usd": 0.00019784999999999998,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.010687799999999999,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.15,
+          "cached_input": 0.003,
+          "cache_write": null,
+          "output": 0.6
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 68.399,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 6.5,
+          "completeness": 10,
+          "names_numbers": 6.5,
+          "fluency": 8.5,
+          "overall": 7.575,
+          "coverage_percent": 100,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 2,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 6.5,
+          "completeness": 7.5,
+          "names_numbers": 6,
+          "fluency": 9,
+          "overall": 6.925,
+          "coverage_percent": 99,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 2,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.6500000000000004,
+      "needs_adjudication": true,
+      "adjudication_resolved": true,
+      "adjudication_recorded": true,
+      "adjudication_verdict": "supported",
+      "score_override_recommended": false,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--instant/V06-S024",
+      "configuration_id": "gemma4-31b-cloud--instant",
+      "source_id": "V06-S024",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": false,
+      "backend_identity_verified": false,
+      "thinking_present": false,
+      "started_at": "2026-09-26T06:44:58.987073+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 2.75,
+        "completeness": 5,
+        "names_numbers": 3,
+        "fluency": 4.75,
+        "overall": 3.55
+      },
+      "usage": {
+        "input_tokens": 605,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 537,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0002995,
+        "upper_usd": null,
+        "no_cache_usd": 0.0002995,
+        "uncached_input_usd": 8.47e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.00021480000000000002,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 7.073,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 2.5,
+          "completeness": 6,
+          "names_numbers": 3,
+          "fluency": 5.5,
+          "overall": 3.75,
+          "coverage_percent": 80,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 3,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 3,
+          "completeness": 4,
+          "names_numbers": 3,
+          "fluency": 4,
+          "overall": 3.35,
+          "coverage_percent": 65,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.3999999999999999,
+      "needs_adjudication": true,
+      "adjudication_resolved": true,
+      "adjudication_recorded": true,
+      "adjudication_verdict": "supported",
+      "score_override_recommended": false,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--thinking/V06-S024",
+      "configuration_id": "gemma4-31b-cloud--thinking",
+      "source_id": "V06-S024",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": true,
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T06:45:06.112699+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 3,
+        "completeness": 4.5,
+        "names_numbers": 3.75,
+        "fluency": 2.5,
+        "overall": 3.4375
+      },
+      "usage": {
+        "input_tokens": 608,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 9406,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00384752,
+        "upper_usd": null,
+        "no_cache_usd": 0.00384752,
+        "uncached_input_usd": 8.512e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0037624,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 44.852,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 3,
+          "completeness": 5,
+          "names_numbers": 4,
+          "fluency": 3,
+          "overall": 3.65,
+          "coverage_percent": 80,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 3,
+          "completeness": 4,
+          "names_numbers": 3.5,
+          "fluency": 2,
+          "overall": 3.225,
+          "coverage_percent": 75,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.4249999999999998,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "deepseek-v4.1-flash-cloud--high/V06-S029",
+      "configuration_id": "deepseek-v4.1-flash-cloud--high",
+      "source_id": "V06-S029",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "deepseek-v4.1-flash:cloud",
+      "returned_model": "deepseek-v4.1-flash",
+      "requested_think": "high",
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T06:46:07.434828+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 7.0,
+        "completeness": 7.75,
+        "names_numbers": 9.75,
+        "fluency": 8.75,
+        "overall": 7.775
+      },
+      "usage": {
+        "input_tokens": 1319,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 15112,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.009265049999999999,
+        "upper_usd": null,
+        "no_cache_usd": 0.009265049999999999,
+        "uncached_input_usd": 0.00019784999999999998,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0090672,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.15,
+          "cached_input": 0.003,
+          "cache_write": null,
+          "output": 0.6
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 69.424,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 6.5,
+          "completeness": 8,
+          "names_numbers": 10,
+          "fluency": 9,
+          "overall": 7.65,
+          "coverage_percent": 98,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 0,
+            "minor": 1
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 7.5,
+          "completeness": 7.5,
+          "names_numbers": 9.5,
+          "fluency": 8.5,
+          "overall": 7.9,
+          "coverage_percent": 100,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 0,
+            "minor": 1
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.25,
+      "needs_adjudication": true,
+      "adjudication_resolved": true,
+      "adjudication_recorded": true,
+      "adjudication_verdict": "supported",
+      "score_override_recommended": false,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--instant/V06-S029",
+      "configuration_id": "gemma4-31b-cloud--instant",
+      "source_id": "V06-S029",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": false,
+      "backend_identity_verified": false,
+      "thinking_present": false,
+      "started_at": "2026-09-26T06:46:07.435722+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 1.75,
+        "completeness": 2,
+        "names_numbers": 1,
+        "fluency": 5.75,
+        "overall": 2.0999999999999996
+      },
+      "usage": {
+        "input_tokens": 605,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 591,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0003211,
+        "upper_usd": null,
+        "no_cache_usd": 0.0003211,
+        "uncached_input_usd": 8.47e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0002364,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 7.958,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 2,
+          "completeness": 2,
+          "names_numbers": 1,
+          "fluency": 6.5,
+          "overall": 2.3,
+          "coverage_percent": 25,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 3,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 1.5,
+          "completeness": 2,
+          "names_numbers": 1,
+          "fluency": 5,
+          "overall": 1.9,
+          "coverage_percent": 20,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 2,
+            "major": 2,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.3999999999999999,
+      "needs_adjudication": true,
+      "adjudication_resolved": true,
+      "adjudication_recorded": true,
+      "adjudication_verdict": "supported",
+      "score_override_recommended": false,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--thinking/V06-S029",
+      "configuration_id": "gemma4-31b-cloud--thinking",
+      "source_id": "V06-S029",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": true,
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T06:46:15.445760+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 4,
+        "completeness": 5.75,
+        "names_numbers": 2.5,
+        "fluency": 5.25,
+        "overall": 4.3375
+      },
+      "usage": {
+        "input_tokens": 608,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 11331,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.004617520000000001,
+        "upper_usd": null,
+        "no_cache_usd": 0.004617520000000001,
+        "uncached_input_usd": 8.512e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.004532400000000001,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 61.643,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 4,
+          "completeness": 5.5,
+          "names_numbers": 2,
+          "fluency": 5.5,
+          "overall": 4.225,
+          "coverage_percent": 70,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 4,
+          "completeness": 6,
+          "names_numbers": 3,
+          "fluency": 5,
+          "overall": 4.45,
+          "coverage_percent": 70,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.22500000000000053,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "deepseek-v4.1-flash-cloud--high/V06-S030",
+      "configuration_id": "deepseek-v4.1-flash-cloud--high",
+      "source_id": "V06-S030",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "deepseek-v4.1-flash:cloud",
+      "returned_model": "deepseek-v4.1-flash",
+      "requested_think": "high",
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T06:47:17.148047+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 6.0,
+        "completeness": 7.5,
+        "names_numbers": 7.25,
+        "fluency": 8.5,
+        "overall": 6.8125
+      },
+      "usage": {
+        "input_tokens": 1319,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 14962,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.009175049999999999,
+        "upper_usd": null,
+        "no_cache_usd": 0.009175049999999999,
+        "uncached_input_usd": 0.00019784999999999998,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0089772,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.15,
+          "cached_input": 0.003,
+          "cache_write": null,
+          "output": 0.6
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 65.015,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 5.5,
+          "completeness": 7.5,
+          "names_numbers": 7,
+          "fluency": 8.5,
+          "overall": 6.525,
+          "coverage_percent": 100,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 0,
+            "minor": 1
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 6.5,
+          "completeness": 7.5,
+          "names_numbers": 7.5,
+          "fluency": 8.5,
+          "overall": 7.1,
+          "coverage_percent": 100,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 0,
+            "minor": 1
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.5749999999999993,
+      "needs_adjudication": true,
+      "adjudication_resolved": true,
+      "adjudication_recorded": true,
+      "adjudication_verdict": "supported",
+      "score_override_recommended": false,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--instant/V06-S030",
+      "configuration_id": "gemma4-31b-cloud--instant",
+      "source_id": "V06-S030",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": false,
+      "backend_identity_verified": false,
+      "thinking_present": false,
+      "started_at": "2026-09-26T06:47:17.146001+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 2.75,
+        "completeness": 4.25,
+        "names_numbers": 2.25,
+        "fluency": 4.25,
+        "overall": 3.2
+      },
+      "usage": {
+        "input_tokens": 605,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 546,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00030310000000000005,
+        "upper_usd": null,
+        "no_cache_usd": 0.00030310000000000005,
+        "uncached_input_usd": 8.47e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0002184,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 6.183,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 2.5,
+          "completeness": 4,
+          "names_numbers": 2.5,
+          "fluency": 4.5,
+          "overall": 3.075,
+          "coverage_percent": 70,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 3,
+          "completeness": 4.5,
+          "names_numbers": 2,
+          "fluency": 4,
+          "overall": 3.325,
+          "coverage_percent": 60,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.25,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--thinking/V06-S030",
+      "configuration_id": "gemma4-31b-cloud--thinking",
+      "source_id": "V06-S030",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": true,
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T06:47:23.382271+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 1,
+        "completeness": 1,
+        "names_numbers": 1,
+        "fluency": 1,
+        "overall": 1.0
+      },
+      "usage": {
+        "input_tokens": 608,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 261536,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.10469952,
+        "upper_usd": null,
+        "no_cache_usd": 0.10469952,
+        "uncached_input_usd": 8.512e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.10461440000000001,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 1254.447,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 1,
+          "completeness": 1,
+          "names_numbers": 1,
+          "fluency": 1,
+          "overall": 1.0,
+          "coverage_percent": 0,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 0,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 1,
+          "completeness": 1,
+          "names_numbers": 1,
+          "fluency": 1,
+          "overall": 1.0,
+          "coverage_percent": 0,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 0,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.0,
+      "needs_adjudication": true,
+      "adjudication_resolved": true,
+      "adjudication_recorded": true,
+      "adjudication_verdict": "supported",
+      "score_override_recommended": false,
+      "delivery_outcome": "other_failure"
+    },
+    {
+      "id": "deepseek-v4.1-flash-cloud--high/V06-S103",
+      "configuration_id": "deepseek-v4.1-flash-cloud--high",
+      "source_id": "V06-S103",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "deepseek-v4.1-flash:cloud",
+      "returned_model": "deepseek-v4.1-flash",
+      "requested_think": "high",
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T07:08:17.893334+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 6.25,
+        "completeness": 7.75,
+        "names_numbers": 4.75,
+        "fluency": 5.5,
+        "overall": 6.324999999999999
+      },
+      "usage": {
+        "input_tokens": 1319,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 25844,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.01570425,
+        "upper_usd": null,
+        "no_cache_usd": 0.01570425,
+        "uncached_input_usd": 0.00019784999999999998,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0155064,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.15,
+          "cached_input": 0.003,
+          "cache_write": null,
+          "output": 0.6
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 87.263,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 6,
+          "completeness": 8,
+          "names_numbers": 4,
+          "fluency": 5,
+          "overall": 6.1,
+          "coverage_percent": 100,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 6.5,
+          "completeness": 7.5,
+          "names_numbers": 5.5,
+          "fluency": 6,
+          "overall": 6.55,
+          "coverage_percent": 97,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.4500000000000002,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--instant/V06-S103",
+      "configuration_id": "gemma4-31b-cloud--instant",
+      "source_id": "V06-S103",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": false,
+      "backend_identity_verified": false,
+      "thinking_present": false,
+      "started_at": "2026-09-26T07:08:17.894319+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 2.75,
+        "completeness": 5.5,
+        "names_numbers": 2,
+        "fluency": 5.5,
+        "overall": 3.5999999999999996
+      },
+      "usage": {
+        "input_tokens": 605,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 561,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00030910000000000003,
+        "upper_usd": null,
+        "no_cache_usd": 0.00030910000000000003,
+        "uncached_input_usd": 8.47e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0002244,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 7.51,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 3,
+          "completeness": 7,
+          "names_numbers": 2,
+          "fluency": 5.5,
+          "overall": 4.1,
+          "coverage_percent": 87,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 2.5,
+          "completeness": 4,
+          "names_numbers": 2,
+          "fluency": 5.5,
+          "overall": 3.1,
+          "coverage_percent": 48,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.9999999999999996,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--thinking/V06-S103",
+      "configuration_id": "gemma4-31b-cloud--thinking",
+      "source_id": "V06-S103",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": true,
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T07:08:25.440671+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 3.75,
+        "completeness": 5.5,
+        "names_numbers": 3.75,
+        "fluency": 4.75,
+        "overall": 4.2875
+      },
+      "usage": {
+        "input_tokens": 608,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 6865,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00283112,
+        "upper_usd": null,
+        "no_cache_usd": 0.00283112,
+        "uncached_input_usd": 8.512e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.002746,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 31.425,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 4,
+          "completeness": 6,
+          "names_numbers": 4,
+          "fluency": 4.5,
+          "overall": 4.55,
+          "coverage_percent": 77,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 3.5,
+          "completeness": 5,
+          "names_numbers": 3.5,
+          "fluency": 5,
+          "overall": 4.025,
+          "coverage_percent": 78,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 3,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.5249999999999995,
+      "needs_adjudication": true,
+      "adjudication_resolved": true,
+      "adjudication_recorded": true,
+      "adjudication_verdict": "supported",
+      "score_override_recommended": false,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "deepseek-v4.1-flash-cloud--high/V07-S020",
+      "configuration_id": "deepseek-v4.1-flash-cloud--high",
+      "source_id": "V07-S020",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "deepseek-v4.1-flash:cloud",
+      "returned_model": "deepseek-v4.1-flash",
+      "requested_think": "high",
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T07:09:45.208493+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 9.75,
+        "completeness": 10,
+        "names_numbers": 10,
+        "fluency": 9,
+        "overall": 9.775
+      },
+      "usage": {
+        "input_tokens": 1319,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 2881,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00192645,
+        "upper_usd": null,
+        "no_cache_usd": 0.00192645,
+        "uncached_input_usd": 0.00019784999999999998,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0017285999999999998,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.15,
+          "cached_input": 0.003,
+          "cache_write": null,
+          "output": 0.6
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 10.555,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 10,
+          "completeness": 10,
+          "names_numbers": 10,
+          "fluency": 9,
+          "overall": 9.9,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 0,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 9.5,
+          "completeness": 10,
+          "names_numbers": 10,
+          "fluency": 9,
+          "overall": 9.65,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 0,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.25,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--instant/V07-S020",
+      "configuration_id": "gemma4-31b-cloud--instant",
+      "source_id": "V07-S020",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": false,
+      "backend_identity_verified": false,
+      "thinking_present": false,
+      "started_at": "2026-09-26T07:09:45.209603+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 3.5,
+        "completeness": 6.5,
+        "names_numbers": 3,
+        "fluency": 6,
+        "overall": 4.425000000000001
+      },
+      "usage": {
+        "input_tokens": 605,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 259,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00018830000000000002,
+        "upper_usd": null,
+        "no_cache_usd": 0.00018830000000000002,
+        "uncached_input_usd": 8.47e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.00010360000000000001,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 5.204,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 3.5,
+          "completeness": 7.5,
+          "names_numbers": 4,
+          "fluency": 6,
+          "overall": 4.825,
+          "coverage_percent": 90,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 3.5,
+          "completeness": 5.5,
+          "names_numbers": 2,
+          "fluency": 6,
+          "overall": 4.025,
+          "coverage_percent": 78,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.7999999999999998,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--thinking/V07-S020",
+      "configuration_id": "gemma4-31b-cloud--thinking",
+      "source_id": "V07-S020",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": true,
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T07:09:50.449255+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 6,
+        "completeness": 8.25,
+        "names_numbers": 5.5,
+        "fluency": 7.25,
+        "overall": 6.612500000000001
+      },
+      "usage": {
+        "input_tokens": 608,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 3924,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0016547200000000001,
+        "upper_usd": null,
+        "no_cache_usd": 0.0016547200000000001,
+        "uncached_input_usd": 8.512e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0015696000000000002,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 19.787,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 6,
+          "completeness": 8.5,
+          "names_numbers": 6,
+          "fluency": 7.5,
+          "overall": 6.775,
+          "coverage_percent": 95,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 6,
+          "completeness": 8,
+          "names_numbers": 5,
+          "fluency": 7,
+          "overall": 6.45,
+          "coverage_percent": 91,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.3250000000000002,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "deepseek-v4.1-flash-cloud--high/V07-S035",
+      "configuration_id": "deepseek-v4.1-flash-cloud--high",
+      "source_id": "V07-S035",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "deepseek-v4.1-flash:cloud",
+      "returned_model": "deepseek-v4.1-flash",
+      "requested_think": "high",
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T07:10:10.288295+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 8.75,
+        "completeness": 9.5,
+        "names_numbers": 4.75,
+        "fluency": 8.75,
+        "overall": 8.337499999999999
+      },
+      "usage": {
+        "input_tokens": 1319,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 11025,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0068128500000000005,
+        "upper_usd": null,
+        "no_cache_usd": 0.0068128500000000005,
+        "uncached_input_usd": 0.00019784999999999998,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.006615,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.15,
+          "cached_input": 0.003,
+          "cache_write": null,
+          "output": 0.6
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 43.142,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 9,
+          "completeness": 9.5,
+          "names_numbers": 5,
+          "fluency": 8.5,
+          "overall": 8.475,
+          "coverage_percent": 99,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 1,
+            "minor": 2
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 8.5,
+          "completeness": 9.5,
+          "names_numbers": 4.5,
+          "fluency": 9,
+          "overall": 8.2,
+          "coverage_percent": 99,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 2,
+            "minor": 2
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.27500000000000036,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--instant/V07-S035",
+      "configuration_id": "gemma4-31b-cloud--instant",
+      "source_id": "V07-S035",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": false,
+      "backend_identity_verified": false,
+      "thinking_present": false,
+      "started_at": "2026-09-26T07:10:10.289278+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 2.25,
+        "completeness": 2.75,
+        "names_numbers": 2,
+        "fluency": 6.5,
+        "overall": 2.7625
+      },
+      "usage": {
+        "input_tokens": 605,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 664,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0003503,
+        "upper_usd": null,
+        "no_cache_usd": 0.0003503,
+        "uncached_input_usd": 8.47e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0002656,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 10.163,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 2,
+          "completeness": 3,
+          "names_numbers": 2,
+          "fluency": 7,
+          "overall": 2.75,
+          "coverage_percent": 40,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 3,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 2.5,
+          "completeness": 2.5,
+          "names_numbers": 2,
+          "fluency": 6,
+          "overall": 2.775,
+          "coverage_percent": 25,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 3,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.02499999999999991,
+      "needs_adjudication": true,
+      "adjudication_resolved": true,
+      "adjudication_recorded": true,
+      "adjudication_verdict": "supported",
+      "score_override_recommended": false,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--thinking/V07-S035",
+      "configuration_id": "gemma4-31b-cloud--thinking",
+      "source_id": "V07-S035",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": true,
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T07:10:20.493483+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 1,
+        "completeness": 1,
+        "names_numbers": 1,
+        "fluency": 1,
+        "overall": 1.0
+      },
+      "usage": {
+        "input_tokens": 608,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 261536,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.10469952,
+        "upper_usd": null,
+        "no_cache_usd": 0.10469952,
+        "uncached_input_usd": 8.512e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.10461440000000001,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 1425.647,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 1,
+          "completeness": 1,
+          "names_numbers": 1,
+          "fluency": 1,
+          "overall": 1.0,
+          "coverage_percent": 0,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 0,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 1,
+          "completeness": 1,
+          "names_numbers": 1,
+          "fluency": 1,
+          "overall": 1.0,
+          "coverage_percent": 0,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 0,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.0,
+      "needs_adjudication": true,
+      "adjudication_resolved": true,
+      "adjudication_recorded": true,
+      "adjudication_verdict": "supported",
+      "score_override_recommended": false,
+      "delivery_outcome": "other_failure"
+    },
+    {
+      "id": "deepseek-v4.1-flash-cloud--high/V07-S067",
+      "configuration_id": "deepseek-v4.1-flash-cloud--high",
+      "source_id": "V07-S067",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "deepseek-v4.1-flash:cloud",
+      "returned_model": "deepseek-v4.1-flash",
+      "requested_think": "high",
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T07:34:06.199492+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 8.25,
+        "completeness": 9.75,
+        "names_numbers": 5.25,
+        "fluency": 8.5,
+        "overall": 8.2
+      },
+      "usage": {
+        "input_tokens": 1319,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 20408,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.01244265,
+        "upper_usd": null,
+        "no_cache_usd": 0.01244265,
+        "uncached_input_usd": 0.00019784999999999998,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0122448,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.15,
+          "cached_input": 0.003,
+          "cache_write": null,
+          "output": 0.6
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 61.668,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 8.5,
+          "completeness": 10,
+          "names_numbers": 5.5,
+          "fluency": 8.5,
+          "overall": 8.425,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 1,
+            "minor": 2
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 8,
+          "completeness": 9.5,
+          "names_numbers": 5,
+          "fluency": 8.5,
+          "overall": 7.975,
+          "coverage_percent": 98,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 2,
+            "minor": 2
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.45000000000000107,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--instant/V07-S067",
+      "configuration_id": "gemma4-31b-cloud--instant",
+      "source_id": "V07-S067",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": false,
+      "backend_identity_verified": false,
+      "thinking_present": false,
+      "started_at": "2026-09-26T07:34:06.200285+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 2.5,
+        "completeness": 4.5,
+        "names_numbers": 2.25,
+        "fluency": 3.5,
+        "overall": 3.0625
+      },
+      "usage": {
+        "input_tokens": 605,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 402,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0002455,
+        "upper_usd": null,
+        "no_cache_usd": 0.0002455,
+        "uncached_input_usd": 8.47e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0001608,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 4.45,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 2.5,
+          "completeness": 5,
+          "names_numbers": 2.5,
+          "fluency": 4,
+          "overall": 3.275,
+          "coverage_percent": 72,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 2.5,
+          "completeness": 4,
+          "names_numbers": 2,
+          "fluency": 3,
+          "overall": 2.85,
+          "coverage_percent": 55,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.4249999999999998,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--thinking/V07-S067",
+      "configuration_id": "gemma4-31b-cloud--thinking",
+      "source_id": "V07-S067",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": true,
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T07:34:10.683735+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 4,
+        "completeness": 5.75,
+        "names_numbers": 3.0,
+        "fluency": 6.25,
+        "overall": 4.5125
+      },
+      "usage": {
+        "input_tokens": 608,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 7076,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00291552,
+        "upper_usd": null,
+        "no_cache_usd": 0.00291552,
+        "uncached_input_usd": 8.512e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0028304000000000003,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 24.877,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 5,
+          "completeness": 6.5,
+          "names_numbers": 3.5,
+          "fluency": 6.5,
+          "overall": 5.3,
+          "coverage_percent": 85,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 3,
+          "completeness": 5,
+          "names_numbers": 2.5,
+          "fluency": 6,
+          "overall": 3.725,
+          "coverage_percent": 72,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 1.5749999999999997,
+      "needs_adjudication": true,
+      "adjudication_resolved": true,
+      "adjudication_recorded": true,
+      "adjudication_verdict": "supported",
+      "score_override_recommended": false,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "deepseek-v4.1-flash-cloud--high/V10-S050",
+      "configuration_id": "deepseek-v4.1-flash-cloud--high",
+      "source_id": "V10-S050",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "deepseek-v4.1-flash:cloud",
+      "returned_model": "deepseek-v4.1-flash",
+      "requested_think": "high",
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T07:35:07.917826+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 8,
+        "completeness": 8.25,
+        "names_numbers": 6.25,
+        "fluency": 8.25,
+        "overall": 7.825
+      },
+      "usage": {
+        "input_tokens": 1319,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 18948,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.01156665,
+        "upper_usd": null,
+        "no_cache_usd": 0.01156665,
+        "uncached_input_usd": 0.00019784999999999998,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0113688,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.15,
+          "cached_input": 0.003,
+          "cache_write": null,
+          "output": 0.6
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 54.881,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 8,
+          "completeness": 8.5,
+          "names_numbers": 6.5,
+          "fluency": 8.5,
+          "overall": 7.95,
+          "coverage_percent": 100,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 2,
+            "minor": 2
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 8,
+          "completeness": 8,
+          "names_numbers": 6,
+          "fluency": 8,
+          "overall": 7.7,
+          "coverage_percent": 99,
+          "usable": true,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 3,
+            "minor": 1
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.25,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--instant/V10-S050",
+      "configuration_id": "gemma4-31b-cloud--instant",
+      "source_id": "V10-S050",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": false,
+      "backend_identity_verified": false,
+      "thinking_present": false,
+      "started_at": "2026-09-26T07:35:07.916780+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 2.25,
+        "completeness": 3.5,
+        "names_numbers": 2.25,
+        "fluency": 4.0,
+        "overall": 2.7375
+      },
+      "usage": {
+        "input_tokens": 605,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 621,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0003331,
+        "upper_usd": null,
+        "no_cache_usd": 0.0003331,
+        "uncached_input_usd": 8.47e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0002484,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 7.667,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 2.5,
+          "completeness": 4,
+          "names_numbers": 2,
+          "fluency": 4.5,
+          "overall": 3.0,
+          "coverage_percent": 65,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 2,
+          "completeness": 3,
+          "names_numbers": 2.5,
+          "fluency": 3.5,
+          "overall": 2.475,
+          "coverage_percent": 45,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 3,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.5249999999999999,
+      "needs_adjudication": true,
+      "adjudication_resolved": true,
+      "adjudication_recorded": true,
+      "adjudication_verdict": "supported",
+      "score_override_recommended": false,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--thinking/V10-S050",
+      "configuration_id": "gemma4-31b-cloud--thinking",
+      "source_id": "V10-S050",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": true,
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T07:35:15.619731+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 1,
+        "completeness": 1,
+        "names_numbers": 1,
+        "fluency": 1,
+        "overall": 1.0
+      },
+      "usage": {
+        "input_tokens": 608,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 261536,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.10469952,
+        "upper_usd": null,
+        "no_cache_usd": 0.10469952,
+        "uncached_input_usd": 8.512e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.10461440000000001,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 1263.699,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 1,
+          "completeness": 1,
+          "names_numbers": 1,
+          "fluency": 1,
+          "overall": 1.0,
+          "coverage_percent": 0,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 0,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 1,
+          "completeness": 1,
+          "names_numbers": 1,
+          "fluency": 1,
+          "overall": 1.0,
+          "coverage_percent": 0,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 0,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.0,
+      "needs_adjudication": true,
+      "adjudication_resolved": true,
+      "adjudication_recorded": true,
+      "adjudication_verdict": "supported",
+      "score_override_recommended": false,
+      "delivery_outcome": "other_failure"
+    },
+    {
+      "id": "deepseek-v4.1-flash-cloud--high/V10-S090",
+      "configuration_id": "deepseek-v4.1-flash-cloud--high",
+      "source_id": "V10-S090",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "deepseek-v4.1-flash:cloud",
+      "returned_model": "deepseek-v4.1-flash",
+      "requested_think": "high",
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T07:56:19.385411+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 7.5,
+        "completeness": 9,
+        "names_numbers": 6,
+        "fluency": 8.0,
+        "overall": 7.7
+      },
+      "usage": {
+        "input_tokens": 1318,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 15858,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0097125,
+        "upper_usd": null,
+        "no_cache_usd": 0.0097125,
+        "uncached_input_usd": 0.00019769999999999998,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.009514799999999999,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.15,
+          "cached_input": 0.003,
+          "cache_write": null,
+          "output": 0.6
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 81.619,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 7,
+          "completeness": 9,
+          "names_numbers": 6,
+          "fluency": 7.5,
+          "overall": 7.4,
+          "coverage_percent": 96,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 3,
+            "minor": 1
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 8,
+          "completeness": 9,
+          "names_numbers": 6,
+          "fluency": 8.5,
+          "overall": 8.0,
+          "coverage_percent": 98,
+          "usable": true,
+          "confidence": "medium",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 2,
+            "minor": 1
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.5999999999999996,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--instant/V10-S090",
+      "configuration_id": "gemma4-31b-cloud--instant",
+      "source_id": "V10-S090",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": false,
+      "backend_identity_verified": false,
+      "thinking_present": false,
+      "started_at": "2026-09-26T07:56:19.386383+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 2,
+        "completeness": 2.75,
+        "names_numbers": 1.5,
+        "fluency": 5.5,
+        "overall": 2.4625
+      },
+      "usage": {
+        "input_tokens": 605,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 690,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0003607,
+        "upper_usd": null,
+        "no_cache_usd": 0.0003607,
+        "uncached_input_usd": 8.47e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.000276,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 9.055,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 2,
+          "completeness": 3.5,
+          "names_numbers": 2,
+          "fluency": 6,
+          "overall": 2.775,
+          "coverage_percent": 55,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 1,
+            "major": 3,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 2,
+          "completeness": 2,
+          "names_numbers": 1,
+          "fluency": 5,
+          "overall": 2.15,
+          "coverage_percent": 25,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 2,
+            "major": 2,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.625,
+      "needs_adjudication": true,
+      "adjudication_resolved": true,
+      "adjudication_recorded": true,
+      "adjudication_verdict": "supported",
+      "score_override_recommended": false,
+      "delivery_outcome": "english_translation"
+    },
+    {
+      "id": "gemma4-31b-cloud--thinking/V10-S090",
+      "configuration_id": "gemma4-31b-cloud--thinking",
+      "source_id": "V10-S090",
+      "cohort": "ollama-cloud-expanded",
+      "status": "completed",
+      "requested_model": "gemma4:31b-cloud",
+      "returned_model": "gemma4:31b",
+      "requested_think": true,
+      "backend_identity_verified": false,
+      "thinking_present": true,
+      "started_at": "2026-09-26T07:56:28.477984+00:00",
+      "attempt_count": 1,
+      "scores": {
+        "accuracy": 2.75,
+        "completeness": 4.5,
+        "names_numbers": 2.25,
+        "fluency": 4.5,
+        "overall": 3.2874999999999996
+      },
+      "usage": {
+        "input_tokens": 608,
+        "cached_input_tokens": null,
+        "cache_write_input_tokens": null,
+        "output_tokens": 10852,
+        "reasoning_output_tokens": null
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00442592,
+        "upper_usd": null,
+        "no_cache_usd": 0.00442592,
+        "uncached_input_usd": 8.512e-05,
+        "cached_input_usd": null,
+        "cache_write_usd": null,
+        "output_usd": 0.0043408000000000006,
+        "ordinary_input_tokens": null,
+        "rates_per_million": {
+          "input": 0.14,
+          "cached_input": 0.05,
+          "cache_write": null,
+          "output": 0.4
+        },
+        "pricing_date": "2026-09-25",
+        "source_url": "https://ollama.com/pricing",
+        "notes": [
+          "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+        ],
+        "period": "off_peak",
+        "scenario": "all_input_uncached",
+        "actual_account_charge_known": false,
+        "cache_usage_known": false,
+        "output_includes_thinking": true
+      },
+      "elapsed_seconds": 89.721,
+      "reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 3,
+          "completeness": 5,
+          "names_numbers": 2.5,
+          "fluency": 5.5,
+          "overall": 3.675,
+          "coverage_percent": 65,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 2.5,
+          "completeness": 4,
+          "names_numbers": 2,
+          "fluency": 3.5,
+          "overall": 2.9,
+          "coverage_percent": 67,
+          "usable": false,
+          "confidence": "high",
+          "review_version": 1,
+          "severity_counts": {
+            "critical": 0,
+            "major": 4,
+            "minor": 0
+          }
+        }
+      ],
+      "review_statuses": [
+        {
+          "judge": "astra-high",
+          "status": "completed"
+        },
+        {
+          "judge": "sol-high",
+          "status": "completed"
+        }
+      ],
+      "judge_disagreement": 0.7749999999999999,
+      "needs_adjudication": false,
+      "adjudication_resolved": false,
+      "adjudication_recorded": false,
+      "adjudication_verdict": null,
+      "score_override_recommended": null,
+      "delivery_outcome": "english_translation"
     }
   ],
   "summary": [
@@ -38155,6 +42109,108 @@
       },
       "english_translation_n": 12,
       "english_translation_mean": 6.585416666666666
+    },
+    {
+      "configuration_id": "deepseek-v4.1-flash-cloud--high",
+      "cohort": "ollama-cloud-expanded",
+      "n": 12,
+      "total": 12,
+      "completed": 12,
+      "mean": 8.154166666666667,
+      "prose_mean": 7.666666666666666,
+      "layout_mean": 9.616666666666667,
+      "median_seconds": 61.9555,
+      "unusable": 4,
+      "review_disagreements": 0,
+      "failed": 0,
+      "ci_low": null,
+      "ci_high": null,
+      "cost_n": 12,
+      "cost_mean_usd": 0.0088536875,
+      "cost_mean_no_cache_usd": 0.0088536875,
+      "cost_total_usd": 0.10624425,
+      "cost_status": "estimated",
+      "delivery_counts": {
+        "english_translation": 12,
+        "non_english_transcription": 0,
+        "other_failure": 0,
+        "service_error": 0
+      },
+      "english_translation_n": 12,
+      "english_translation_mean": 8.154166666666667,
+      "mean_seconds": 55.58258333333333,
+      "max_seconds": 87.263,
+      "timing_n": 12,
+      "interrupted": 0,
+      "interrupted_elapsed_seconds_max": null
+    },
+    {
+      "configuration_id": "gemma4-31b-cloud--instant",
+      "cohort": "ollama-cloud-expanded",
+      "n": 12,
+      "total": 12,
+      "completed": 12,
+      "mean": 3.996875,
+      "prose_mean": 2.977777777777778,
+      "layout_mean": 7.054166666666667,
+      "median_seconds": 7.2915,
+      "unusable": 11,
+      "review_disagreements": 0,
+      "failed": 0,
+      "ci_low": null,
+      "ci_high": null,
+      "cost_n": 12,
+      "cost_mean_usd": 0.00026973333333333335,
+      "cost_mean_no_cache_usd": 0.00026973333333333335,
+      "cost_total_usd": 0.0032368,
+      "cost_status": "estimated",
+      "delivery_counts": {
+        "english_translation": 12,
+        "non_english_transcription": 0,
+        "other_failure": 0,
+        "service_error": 0
+      },
+      "english_translation_n": 12,
+      "english_translation_mean": 3.996875,
+      "mean_seconds": 6.829416666666667,
+      "max_seconds": 10.163,
+      "timing_n": 12,
+      "interrupted": 0,
+      "interrupted_elapsed_seconds_max": null
+    },
+    {
+      "configuration_id": "gemma4-31b-cloud--thinking",
+      "cohort": "ollama-cloud-expanded",
+      "n": 12,
+      "total": 12,
+      "completed": 12,
+      "mean": 4.461458333333333,
+      "prose_mean": 3.1638888888888888,
+      "layout_mean": 8.354166666666666,
+      "median_seconds": 38.1385,
+      "unusable": 10,
+      "review_disagreements": 1,
+      "failed": 0,
+      "ci_low": null,
+      "ci_high": null,
+      "cost_n": 12,
+      "cost_mean_usd": 0.028199653333333335,
+      "cost_mean_no_cache_usd": 0.028199653333333335,
+      "cost_total_usd": 0.33839584,
+      "cost_status": "estimated",
+      "delivery_counts": {
+        "english_translation": 9,
+        "non_english_transcription": 0,
+        "other_failure": 3,
+        "service_error": 0
+      },
+      "english_translation_n": 9,
+      "english_translation_mean": 5.615277777777778,
+      "mean_seconds": 355.37716666666665,
+      "max_seconds": 1425.647,
+      "timing_n": 12,
+      "interrupted": 0,
+      "interrupted_elapsed_seconds_max": null
     }
   ],
   "pricing": {
@@ -39143,7 +43199,8 @@
   "review_versions": {
     "codex-cli": 2,
     "gemini-web": 1,
-    "ollama-cloud": 1
+    "ollama-cloud": 1,
+    "ollama-cloud-expanded": 1
   },
   "cli_resume_amendment": {
     "old_cli_version": "codex-cli 0.155.0-alpha.9.2",
@@ -39178,5 +43235,39 @@
     },
     "schedule": "Peak weekdays 12:00–18:00 UTC; all other hours off-peak.",
     "limitations": "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Review costs, taxes and subscription charges are excluded."
+  },
+  "ollama_expanded_pricing": {
+    "deepseek-v4.1-flash:cloud": {
+      "date": "2026-09-25",
+      "source_url": "https://ollama.com/pricing",
+      "peak": {
+        "input": 0.3,
+        "cached_input": 0.006,
+        "output": 1.2
+      },
+      "off_peak": {
+        "input": 0.15,
+        "cached_input": 0.003,
+        "output": 0.6
+      },
+      "schedule": "Peak weekdays 12:00–18:00 UTC; all other hours off-peak.",
+      "limitations": "Published Ollama tariff applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+    },
+    "gemma4:31b-cloud": {
+      "date": "2026-09-25",
+      "source_url": "https://ollama.com/pricing",
+      "peak": {
+        "input": 0.14,
+        "cached_input": 0.05,
+        "output": 0.4
+      },
+      "off_peak": {
+        "input": 0.14,
+        "cached_input": 0.05,
+        "output": 0.4
+      },
+      "schedule": "A single all-hours rate is published for Gemma 4; no separate off-peak rate is listed. Peak and off-peak fields repeat that same tariff. The exact gemma4:31b-cloud model page also lists these rates: https://ollama.com/library/gemma4:31b-cloud.",
+      "limitations": "Published Ollama Gemma 4 tariff, also shown on the exact gemma4:31b-cloud page, applied to native token receipts with all input charged at the uncached rate. Cache-hit counts and account billing terms are unavailable; this is a no-cache estimate, not an observed account charge. Total output includes thinking where present and is charged once. Review costs, taxes and subscription charges are excluded."
+    }
   }
 }
