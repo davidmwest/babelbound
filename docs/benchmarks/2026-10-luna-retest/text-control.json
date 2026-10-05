@@ -1,0 +1,782 @@
+{
+  "status": "complete",
+  "capture_count": 9,
+  "planned_count": 9,
+  "model": "gpt-6-luna",
+  "effort": "medium",
+  "methodology": "Nine prose captures, same series. Astra High transcribed Japanese; Sol High checked it against the original image. Luna Medium received that Japanese text only. Astra High and Sol High graded anonymous image-input and text-input translations together against the original image. Transcripts are AI-verified, not human ground truth. Scores weight accuracy 50%, completeness 25%, names/numbers 15%, fluency 10%. Usability requires both judges. No translations or source images are included in this report.",
+  "runs": [
+    {
+      "source_id": "V06-S016",
+      "source_sha256": "7be90ed0d9f746fc094a0bb5cf60925009f20db3b818b33f80710a6cc5cf2ccd",
+      "japanese_sha256": "4435ec77beb8b43c2d7d65da9b431873258c84aad80c528c4a805f7d0c8895c7",
+      "image_score": 2.8625,
+      "image_usable": false,
+      "image_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 2,
+          "completeness": 4,
+          "names_numbers": 2,
+          "fluency": 6.5,
+          "overall": 2.95,
+          "usable": false,
+          "coverage_percent": 55
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 2,
+          "completeness": 3,
+          "names_numbers": 2.5,
+          "fluency": 6.5,
+          "overall": 2.775,
+          "usable": false,
+          "coverage_percent": 30
+        }
+      ],
+      "text_score": 9.6625,
+      "text_usable": true,
+      "text_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 9.5,
+          "completeness": 10,
+          "names_numbers": 9.5,
+          "fluency": 9.5,
+          "overall": 9.625,
+          "usable": true,
+          "coverage_percent": 100
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 9.5,
+          "completeness": 10,
+          "names_numbers": 10,
+          "fluency": 9.5,
+          "overall": 9.7,
+          "usable": true,
+          "coverage_percent": 100
+        }
+      ],
+      "translation_cost": {
+        "status": "estimated",
+        "usd": 0.00105944,
+        "upper_usd": null,
+        "no_cache_usd": 0.0014972,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0007478000000000001,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.000263,
+        "ordinary_input_tokens": 7478
+      },
+      "preparation_cost_usd": 0.267218,
+      "translation_usage": [
+        {
+          "input_tokens": 12342,
+          "cached_input_tokens": 4864,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 526,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "seconds": 13.452518224716187,
+      "unreadable_markers": 0
+    },
+    {
+      "source_id": "V06-S024",
+      "source_sha256": "edad30f2ecd9af1fd27b7ac77cc66a0327a4c731473c348a2b2e9ed688c0125f",
+      "japanese_sha256": "d04e8b38561e3a29b6bd831c187f6c3403e21758aaca0d4fb866d1ae28685742",
+      "image_score": 4.2625,
+      "image_usable": false,
+      "image_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 3,
+          "completeness": 6,
+          "names_numbers": 5,
+          "fluency": 6.5,
+          "overall": 4.4,
+          "usable": false,
+          "coverage_percent": 85
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 3,
+          "completeness": 5.5,
+          "names_numbers": 5,
+          "fluency": 5,
+          "overall": 4.125,
+          "usable": false,
+          "coverage_percent": 78
+        }
+      ],
+      "text_score": 9.4375,
+      "text_usable": true,
+      "text_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 9.5,
+          "completeness": 10,
+          "names_numbers": 8,
+          "fluency": 9.5,
+          "overall": 9.4,
+          "usable": true,
+          "coverage_percent": 100
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 9.5,
+          "completeness": 10,
+          "names_numbers": 8.5,
+          "fluency": 9.5,
+          "overall": 9.475,
+          "usable": true,
+          "coverage_percent": 100
+        }
+      ],
+      "translation_cost": {
+        "status": "estimated",
+        "usd": 0.00054698,
+        "upper_usd": null,
+        "no_cache_usd": 0.0015377000000000001,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0001429,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.000294,
+        "ordinary_input_tokens": 1429
+      },
+      "preparation_cost_usd": 0.29646,
+      "translation_usage": [
+        {
+          "input_tokens": 12437,
+          "cached_input_tokens": 11008,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 588,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "seconds": 13.381275177001953,
+      "unreadable_markers": 0
+    },
+    {
+      "source_id": "V06-S029",
+      "source_sha256": "66fc2608119624737d0ed03390e1235c77c4b3c6faac2357470c8733f1a26422",
+      "japanese_sha256": "cc0d27c2f6a2f6065c15580fc31315c23c66b6ffba1517da624c72e838dcd6eb",
+      "image_score": 3.4875,
+      "image_usable": false,
+      "image_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 2.5,
+          "completeness": 6,
+          "names_numbers": 2,
+          "fluency": 5.5,
+          "overall": 3.6,
+          "usable": false,
+          "coverage_percent": 75
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 2.5,
+          "completeness": 5.5,
+          "names_numbers": 2,
+          "fluency": 4.5,
+          "overall": 3.375,
+          "usable": false,
+          "coverage_percent": 75
+        }
+      ],
+      "text_score": 9.5625,
+      "text_usable": true,
+      "text_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 10,
+          "completeness": 10,
+          "names_numbers": 8.5,
+          "fluency": 9.5,
+          "overall": 9.725,
+          "usable": true,
+          "coverage_percent": 100
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 9.5,
+          "completeness": 10,
+          "names_numbers": 8,
+          "fluency": 9.5,
+          "overall": 9.4,
+          "usable": true,
+          "coverage_percent": 100
+        }
+      ],
+      "translation_cost": {
+        "status": "estimated",
+        "usd": 0.0005488800000000001,
+        "upper_usd": null,
+        "no_cache_usd": 0.0015396000000000001,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0001463,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0002925,
+        "ordinary_input_tokens": 1463
+      },
+      "preparation_cost_usd": 0.29384879999999997,
+      "translation_usage": [
+        {
+          "input_tokens": 12471,
+          "cached_input_tokens": 11008,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 585,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "seconds": 13.698215961456299,
+      "unreadable_markers": 0
+    },
+    {
+      "source_id": "V06-S030",
+      "source_sha256": "5c621e0c4ddecab54d49c9d7bf38f4a399f70e087e7f414334e2dfefe88acc34",
+      "japanese_sha256": "8d7ce8f4a178c8c17af66544a39dd3c786554aa3e67f780c9ef5ca5acdf8dab9",
+      "image_score": 9.825,
+      "image_usable": true,
+      "image_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 9.5,
+          "completeness": 10,
+          "names_numbers": 10,
+          "fluency": 9.5,
+          "overall": 9.7,
+          "usable": true,
+          "coverage_percent": 100
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 10,
+          "completeness": 10,
+          "names_numbers": 10,
+          "fluency": 9.5,
+          "overall": 9.95,
+          "usable": true,
+          "coverage_percent": 100
+        }
+      ],
+      "text_score": 9.425,
+      "text_usable": true,
+      "text_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 9,
+          "completeness": 9.5,
+          "names_numbers": 10,
+          "fluency": 9,
+          "overall": 9.275,
+          "usable": true,
+          "coverage_percent": 99
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 9.5,
+          "completeness": 9.5,
+          "names_numbers": 10,
+          "fluency": 9.5,
+          "overall": 9.575,
+          "usable": true,
+          "coverage_percent": 100
+        }
+      ],
+      "translation_cost": {
+        "status": "estimated",
+        "usd": 0.0013420200000000002,
+        "upper_usd": null,
+        "no_cache_usd": 0.0015033000000000002,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0010611000000000002,
+        "cached_input_usd": 1.792e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.000263,
+        "ordinary_input_tokens": 10611
+      },
+      "preparation_cost_usd": 0.33286,
+      "translation_usage": [
+        {
+          "input_tokens": 12403,
+          "cached_input_tokens": 1792,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 526,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "seconds": 12.991427898406982,
+      "unreadable_markers": 0
+    },
+    {
+      "source_id": "V06-S103",
+      "source_sha256": "49e6b791658d26100ac5af2cc96d034d2350310bcb040dd7d6f229aceeb67278",
+      "japanese_sha256": "31f6fc8ca7eb0203236001acff2d428fde8ad378e6b522d476906743383b0eab",
+      "image_score": 6.3875,
+      "image_usable": false,
+      "image_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 4.5,
+          "completeness": 8,
+          "names_numbers": 8,
+          "fluency": 7.5,
+          "overall": 6.2,
+          "usable": false,
+          "coverage_percent": 90
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 5.5,
+          "completeness": 8,
+          "names_numbers": 7.5,
+          "fluency": 7,
+          "overall": 6.575,
+          "usable": false,
+          "coverage_percent": 91
+        }
+      ],
+      "text_score": 9.975,
+      "text_usable": true,
+      "text_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 10,
+          "completeness": 10,
+          "names_numbers": 10,
+          "fluency": 10,
+          "overall": 10.0,
+          "usable": true,
+          "coverage_percent": 100
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 10,
+          "completeness": 10,
+          "names_numbers": 10,
+          "fluency": 9.5,
+          "overall": 9.95,
+          "usable": true,
+          "coverage_percent": 100
+        }
+      ],
+      "translation_cost": {
+        "status": "estimated",
+        "usd": 0.00050588,
+        "upper_usd": null,
+        "no_cache_usd": 0.0014966,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00013030000000000002,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0002655,
+        "ordinary_input_tokens": 1303
+      },
+      "preparation_cost_usd": 0.291458,
+      "translation_usage": [
+        {
+          "input_tokens": 12311,
+          "cached_input_tokens": 11008,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 531,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "seconds": 12.12136697769165,
+      "unreadable_markers": 0
+    },
+    {
+      "source_id": "V07-S035",
+      "source_sha256": "b9209f8dcf28b17b6e3fa297180cbebf937bfbcba607e2dcc08617f9b45dc043",
+      "japanese_sha256": "b99990c34d5fe1edb01ac0a78425332de04524c90b0bdc60cc21f7fda5daf183",
+      "image_score": 3.2625,
+      "image_usable": false,
+      "image_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 2,
+          "completeness": 4.5,
+          "names_numbers": 2,
+          "fluency": 6,
+          "overall": 3.025,
+          "usable": false,
+          "coverage_percent": 65
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 3,
+          "completeness": 5,
+          "names_numbers": 2,
+          "fluency": 4.5,
+          "overall": 3.5,
+          "usable": false,
+          "coverage_percent": 65
+        }
+      ],
+      "text_score": 9.375,
+      "text_usable": true,
+      "text_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 9.5,
+          "completeness": 10,
+          "names_numbers": 8.5,
+          "fluency": 9.5,
+          "overall": 9.475,
+          "usable": true,
+          "coverage_percent": 100
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 9.5,
+          "completeness": 9.5,
+          "names_numbers": 8,
+          "fluency": 9.5,
+          "overall": 9.275,
+          "usable": true,
+          "coverage_percent": 99
+        }
+      ],
+      "translation_cost": {
+        "status": "estimated",
+        "usd": 0.0007406,
+        "upper_usd": null,
+        "no_cache_usd": 0.001547,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0003515,
+        "cached_input_usd": 8.960000000000001e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0002995,
+        "ordinary_input_tokens": 3515
+      },
+      "preparation_cost_usd": 0.343526,
+      "translation_usage": [
+        {
+          "input_tokens": 12475,
+          "cached_input_tokens": 8960,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 599,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "seconds": 14.225579023361206,
+      "unreadable_markers": 0
+    },
+    {
+      "source_id": "V07-S067",
+      "source_sha256": "b584c98a3d96f16338363a0fa96a247b794b5e70b260e63bd0f82fba455ac9f1",
+      "japanese_sha256": "b953f55ee8889ed195d1eadbc2042c799732d5a8cd738db16ce7e51f30c4395d",
+      "image_score": 4.675,
+      "image_usable": false,
+      "image_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 4,
+          "completeness": 7,
+          "names_numbers": 2,
+          "fluency": 7.5,
+          "overall": 4.8,
+          "usable": false,
+          "coverage_percent": 95
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 4,
+          "completeness": 6,
+          "names_numbers": 3,
+          "fluency": 6,
+          "overall": 4.55,
+          "usable": false,
+          "coverage_percent": 88
+        }
+      ],
+      "text_score": 9.475,
+      "text_usable": true,
+      "text_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 9.5,
+          "completeness": 10,
+          "names_numbers": 8.5,
+          "fluency": 9.5,
+          "overall": 9.475,
+          "usable": true,
+          "coverage_percent": 100
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 9.5,
+          "completeness": 10,
+          "names_numbers": 8.5,
+          "fluency": 9.5,
+          "overall": 9.475,
+          "usable": true,
+          "coverage_percent": 100
+        }
+      ],
+      "translation_cost": {
+        "status": "estimated",
+        "usd": 0.00042198,
+        "upper_usd": null,
+        "no_cache_usd": 0.0014127,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0001099,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.000202,
+        "ordinary_input_tokens": 1099
+      },
+      "preparation_cost_usd": 0.26627080000000003,
+      "translation_usage": [
+        {
+          "input_tokens": 12107,
+          "cached_input_tokens": 11008,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 404,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "seconds": 10.297086954116821,
+      "unreadable_markers": 0
+    },
+    {
+      "source_id": "V10-S050",
+      "source_sha256": "d12a37f0c99612fec17dfcac8bdbd065ab266776a3f8af02bcffafc799fef2ad",
+      "japanese_sha256": "4810b360067712d951e13aca167b31769c03dfa4a16a3dcaeeb7cddfe5da55f1",
+      "image_score": 4.125,
+      "image_usable": false,
+      "image_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 3.5,
+          "completeness": 6.5,
+          "names_numbers": 3,
+          "fluency": 5.5,
+          "overall": 4.375,
+          "usable": false,
+          "coverage_percent": 85
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 3,
+          "completeness": 6.5,
+          "names_numbers": 2,
+          "fluency": 4.5,
+          "overall": 3.875,
+          "usable": false,
+          "coverage_percent": 85
+        }
+      ],
+      "text_score": 9.6625,
+      "text_usable": true,
+      "text_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 9.5,
+          "completeness": 10,
+          "names_numbers": 10,
+          "fluency": 9.5,
+          "overall": 9.7,
+          "usable": true,
+          "coverage_percent": 100
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 9.5,
+          "completeness": 10,
+          "names_numbers": 9.5,
+          "fluency": 9.5,
+          "overall": 9.625,
+          "usable": true,
+          "coverage_percent": 100
+        }
+      ],
+      "translation_cost": {
+        "status": "estimated",
+        "usd": 0.00051238,
+        "upper_usd": null,
+        "no_cache_usd": 0.0015031,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00013580000000000002,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0002665,
+        "ordinary_input_tokens": 1358
+      },
+      "preparation_cost_usd": 0.2911788,
+      "translation_usage": [
+        {
+          "input_tokens": 12366,
+          "cached_input_tokens": 11008,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 533,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "seconds": 16.271533966064453,
+      "unreadable_markers": 0
+    },
+    {
+      "source_id": "V10-S090",
+      "source_sha256": "2955a71131ade67f0d6e2f4102992d47a910899f013e62f8c7f4bb98407cf504",
+      "japanese_sha256": "20c2f22aad51123a4a591e62666de1487f4f06668681539d338504c5d5c40293",
+      "image_score": 3.3375000000000004,
+      "image_usable": false,
+      "image_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 2.5,
+          "completeness": 6.5,
+          "names_numbers": 3,
+          "fluency": 4,
+          "overall": 3.725,
+          "usable": false,
+          "coverage_percent": 90
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 2,
+          "completeness": 5,
+          "names_numbers": 2,
+          "fluency": 4,
+          "overall": 2.95,
+          "usable": false,
+          "coverage_percent": 78
+        }
+      ],
+      "text_score": 9.175,
+      "text_usable": true,
+      "text_reviews": [
+        {
+          "judge": "astra-high",
+          "accuracy": 9,
+          "completeness": 10,
+          "names_numbers": 9,
+          "fluency": 9,
+          "overall": 9.25,
+          "usable": true,
+          "coverage_percent": 100
+        },
+        {
+          "judge": "sol-high",
+          "accuracy": 9,
+          "completeness": 9.5,
+          "names_numbers": 8.5,
+          "fluency": 9.5,
+          "overall": 9.1,
+          "usable": true,
+          "coverage_percent": 99
+        }
+      ],
+      "translation_cost": {
+        "status": "estimated",
+        "usd": 0.001547,
+        "upper_usd": null,
+        "no_cache_usd": 0.001547,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0012475,
+        "cached_input_usd": 0.0,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0002995,
+        "ordinary_input_tokens": 12475
+      },
+      "preparation_cost_usd": 0.31611680000000003,
+      "translation_usage": [
+        {
+          "input_tokens": 12475,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 599,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "seconds": 14.094576120376587,
+      "unreadable_markers": 0
+    }
+  ],
+  "image_mean": 4.691666666666666,
+  "image_usable": 1,
+  "text_mean": 9.527777777777779,
+  "text_usable": 9,
+  "translation_mean_cost_usd": 0.0008027955555555556,
+  "preparation_mean_cost_usd": 0.2998819111111111,
+  "pricing_note": "Standard API-equivalent estimate using recorded CLI tokens, not an actual bill. Translation price excludes transcription and verification, shown separately, and excludes evaluation."
+}

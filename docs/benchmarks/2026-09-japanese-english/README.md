@@ -6,6 +6,8 @@ How much translation quality does more reasoning buy—and which settings are wo
 
 [Interactive report](report.html) · [Numeric results](results.json) · [Full methods and limitations](METHODS.md)
 
+**October follow-up:** [Fresh Luna screenshot results and a clean-text control](../2026-10-luna-retest/README.md). September’s results below remain unchanged.
+
 ## Practical takeaways
 
 Within the OpenAI cohort, on the same 12 captures, using recorded cache usage and complete Standard API cost estimates:

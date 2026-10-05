@@ -1,0 +1,5573 @@
+{
+  "title": "Luna Japanese \u2192 English retest",
+  "date": "2026-10-04",
+  "status": "complete",
+  "model": "gpt-6-luna",
+  "cli_version": "codex-cli 0.158.0-alpha.2.1",
+  "prompt_sha256": "555c9e280d266e0c3c9cbbb1c3a61443356f69a914a999d259740256c51d9dd6",
+  "source_count": 12,
+  "new_translation_count": 60,
+  "paired_assessment_count": 240,
+  "pricing": {
+    "date": "2026-10-04",
+    "currency": "USD",
+    "tier": "Standard",
+    "rates": {
+      "gpt-6-astra": {
+        "input": 10.0,
+        "cached_input": 1.0,
+        "cache_write": 12.5,
+        "output": 50.0
+      },
+      "gpt-6-sol": {
+        "input": 2.0,
+        "cached_input": 0.2,
+        "cache_write": 2.5,
+        "output": 10.0
+      },
+      "gpt-5.6-terra": {
+        "input": 2.0,
+        "cached_input": 0.2,
+        "cache_write": 2.5,
+        "output": 12.0
+      },
+      "gpt-6-luna": {
+        "input": 0.1,
+        "cached_input": 0.01,
+        "cache_write": 0.125,
+        "output": 0.5
+      }
+    },
+    "source_url": "https://developers.openai.com/api/docs/pricing",
+    "sources": [
+      "https://developers.openai.com/api/docs/models/gpt-6-luna"
+    ],
+    "method": "Apply published Standard USD rates per million tokens to the observed CLI usage across all attempts. Ordinary input = total input minus cached reads minus cache writes. Output already includes reasoning; image input is already included in input usage. Neither is charged twice. No-cache sensitivity prices all input as ordinary input with caching disabled.",
+    "limitations": "Counterfactual API-equivalent token cost, not an API bill or a Codex subscription charge. Includes Codex instructions and tool-loop context; a lean API translator may cost less. Excludes grading, local compute, taxes, regional uplifts and separately charged hosted tools. Requested model rates are used because backend routing is not independently observable. Missing delegated usage or request-level long-context detail is labeled as a lower bound and excluded from value recommendations. Cache reuse in production can differ. Captures may contain two printed pages; cost per 100 captures is an extrapolation, not per 100 printed pages.",
+    "long_context_threshold_input_tokens": 272000,
+    "long_context_multipliers": {
+      "input": 2,
+      "cached_input": 2,
+      "cache_write": 2,
+      "output": 1.5
+    }
+  },
+  "methodology": [
+    "Same original PNG bytes and translation prompt as the September benchmark. Five reasoning levels; fresh ephemeral CLI sessions; three translation workers.",
+    "Both original and fresh translations regraded anonymously by Astra High and Sol High. Each effort pair shares a review batch. Two batches of six and four candidates per source; randomized pair allocation and independent judge ordering.",
+    "Historical scores shown separately from fresh paired grades. Score weights: accuracy 50%, completeness 25%, names/numbers 15%, fluency 10%. Usable means both judges marked it usable.",
+    "95% paired bootstrap intervals resample the 12 captures (10,000 replicates, seed 20261004). They describe this sample, not population accuracy; captures from one series are not independent books.",
+    "The September 25 image-encoding fix motivated this retest. Timing and changes in model, CLI, context, and judges prevent attributing any change specifically to that fix.",
+    "API-equivalent costs include observed CLI context and reasoning output across attempts. These are not actual bills. Grading costs excluded. Requested models/settings are recorded; hidden backend routing is not independently observable.",
+    "Only numeric results, hashes, and methods are public. Source images, translations, review excerpts, and local account details remain private."
+  ],
+  "summary": [
+    {
+      "effort": "low",
+      "n": 12,
+      "original_mean": 1.8447916666666666,
+      "old_regraded_mean": 1.8645833333333335,
+      "new_mean": 4.325,
+      "paired_delta": 2.4604166666666667,
+      "paired_bootstrap_95": [
+        1.8895833333333334,
+        3.0927083333333334
+      ],
+      "old_usable": 0,
+      "new_usable": 0,
+      "new_prose_mean": 3.5930555555555554,
+      "new_layout_mean": 6.520833333333333,
+      "mean_cost_usd": 0.0012040466666666666,
+      "mean_no_cache_usd": 0.0017051666666666667,
+      "cost_complete": true,
+      "mean_seconds": 12.90325
+    },
+    {
+      "effort": "medium",
+      "n": 12,
+      "original_mean": 3.691666666666667,
+      "old_regraded_mean": 3.828125,
+      "new_mean": 4.88125,
+      "paired_delta": 1.0531249999999999,
+      "paired_bootstrap_95": [
+        -0.779166666666667,
+        2.927083333333333
+      ],
+      "old_usable": 0,
+      "new_usable": 1,
+      "new_prose_mean": 4.548611111111111,
+      "new_layout_mean": 5.879166666666666,
+      "mean_cost_usd": 0.0011757783333333333,
+      "mean_no_cache_usd": 0.0017594583333333334,
+      "cost_complete": true,
+      "mean_seconds": 15.04425
+    },
+    {
+      "effort": "high",
+      "n": 12,
+      "original_mean": 7.377083333333333,
+      "old_regraded_mean": 7.536458333333333,
+      "new_mean": 9.184375,
+      "paired_delta": 1.6479166666666663,
+      "paired_bootstrap_95": [
+        0.998958333333333,
+        2.322916666666666
+      ],
+      "old_usable": 4,
+      "new_usable": 12,
+      "new_prose_mean": 9.190277777777776,
+      "new_layout_mean": 9.166666666666666,
+      "mean_cost_usd": 0.0023250016666666665,
+      "mean_no_cache_usd": 0.002856841666666667,
+      "cost_complete": true,
+      "mean_seconds": 54.50533333333333
+    },
+    {
+      "effort": "xhigh",
+      "n": 12,
+      "original_mean": 7.822916666666667,
+      "old_regraded_mean": 8.052083333333334,
+      "new_mean": 9.522916666666667,
+      "paired_delta": 1.470833333333333,
+      "paired_bootstrap_95": [
+        0.9583333333333333,
+        1.9572916666666662
+      ],
+      "old_usable": 6,
+      "new_usable": 12,
+      "new_prose_mean": 9.477777777777778,
+      "new_layout_mean": 9.658333333333333,
+      "mean_cost_usd": 0.004703253333333333,
+      "mean_no_cache_usd": 0.005325333333333333,
+      "cost_complete": true,
+      "mean_seconds": 143.36541666666668
+    },
+    {
+      "effort": "max",
+      "n": 12,
+      "original_mean": 7.7437499999999995,
+      "old_regraded_mean": 8.039583333333333,
+      "new_mean": 9.330208333333333,
+      "paired_delta": 1.2906250000000001,
+      "paired_bootstrap_95": [
+        0.8239583333333335,
+        1.7562499999999999
+      ],
+      "old_usable": 5,
+      "new_usable": 12,
+      "new_prose_mean": 9.21111111111111,
+      "new_layout_mean": 9.6875,
+      "mean_cost_usd": 0.006498488333333333,
+      "mean_no_cache_usd": 0.007230008333333334,
+      "cost_complete": true,
+      "mean_seconds": 207.95891666666665
+    }
+  ],
+  "luna_only_mean_score_cost_frontier": [
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "runs": [
+    {
+      "effort": "low",
+      "source_id": "V06-S003",
+      "prose": false,
+      "source_sha256": "6fe9a3a5c1140e9aa74128a1ba37198b1f8d361631d7b04bd977a645a4892309",
+      "original_score": 4.8125,
+      "old_score": 4.362500000000001,
+      "new_score": 7.5375,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 3,
+            "completeness": 5,
+            "names_numbers": 6,
+            "fluency": 8,
+            "coverage_percent": 55,
+            "usable": false,
+            "overall": 4.45
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 3.5,
+            "completeness": 4.5,
+            "names_numbers": 4,
+            "fluency": 8,
+            "coverage_percent": 50,
+            "usable": false,
+            "overall": 4.275
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 7,
+            "completeness": 10,
+            "names_numbers": 5,
+            "fluency": 9,
+            "coverage_percent": 100,
+            "usable": false,
+            "overall": 7.65
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 7,
+            "completeness": 9.5,
+            "names_numbers": 5,
+            "fluency": 8,
+            "coverage_percent": 95,
+            "usable": false,
+            "overall": 7.425
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 1792,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 37
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00133172,
+        "upper_usd": null,
+        "no_cache_usd": 0.001493,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0012953,
+        "cached_input_usd": 1.792e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 1.85e-05,
+        "ordinary_input_tokens": 12953
+      },
+      "elapsed_seconds": 4.362,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "f1c21aac4bebc9bcfc090c9ad1b1723e08e208d26454c350b2982a5d72a4cb34",
+      "original_translation_sha256": "87a0da47b9a4bb8e13ede0b8e0fee2046c532beee70acd08218151a6e7a42d92"
+    },
+    {
+      "effort": "low",
+      "source_id": "V06-S012",
+      "prose": false,
+      "source_sha256": "788441602ac10136d478e8a7f74812da7953f3ab826c0c5714fd35bcc8c4f15a",
+      "original_score": 2.0125,
+      "old_score": 2.25,
+      "new_score": 6.8125,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1.5,
+            "completeness": 3,
+            "names_numbers": 3,
+            "fluency": 6,
+            "coverage_percent": 35,
+            "usable": false,
+            "overall": 2.55
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1.5,
+            "completeness": 2,
+            "names_numbers": 2,
+            "fluency": 4,
+            "coverage_percent": 19,
+            "usable": false,
+            "overall": 1.95
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 6.5,
+            "completeness": 8.5,
+            "names_numbers": 7,
+            "fluency": 8.5,
+            "coverage_percent": 85,
+            "usable": false,
+            "overall": 7.275
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 6,
+            "completeness": 7,
+            "names_numbers": 5,
+            "fluency": 8.5,
+            "coverage_percent": 77,
+            "usable": false,
+            "overall": 6.35
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 90
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00108174,
+        "upper_usd": null,
+        "no_cache_usd": 0.0015195,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009881,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 4.5e-05,
+        "ordinary_input_tokens": 9881
+      },
+      "elapsed_seconds": 5.377,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "adfe875cbc8a9ad3b624dcc066522c59fee1fbb292480c9c0b8e602e3b96e6ec",
+      "original_translation_sha256": "821bec56f9331265431e7971235813eaa953a174184c979c79c1ec713db1beba"
+    },
+    {
+      "effort": "low",
+      "source_id": "V06-S016",
+      "prose": true,
+      "source_sha256": "7be90ed0d9f746fc094a0bb5cf60925009f20db3b818b33f80710a6cc5cf2ccd",
+      "original_score": 1.475,
+      "old_score": 1.7,
+      "new_score": 3.4000000000000004,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 6,
+            "coverage_percent": 10,
+            "usable": false,
+            "overall": 1.5
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1.5,
+            "completeness": 1.5,
+            "names_numbers": 1.5,
+            "fluency": 5.5,
+            "coverage_percent": 10,
+            "usable": false,
+            "overall": 1.9
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 2.5,
+            "completeness": 6,
+            "names_numbers": 2,
+            "fluency": 5.5,
+            "coverage_percent": 80,
+            "usable": false,
+            "overall": 3.6
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 2.5,
+            "completeness": 4,
+            "names_numbers": 3,
+            "fluency": 5,
+            "coverage_percent": 58,
+            "usable": false,
+            "overall": 3.2
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 467
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00127024,
+        "upper_usd": null,
+        "no_cache_usd": 0.001708,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009881,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0002335,
+        "ordinary_input_tokens": 9881
+      },
+      "elapsed_seconds": 12.538,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "427f5a8bdddec5114618c39c1ee3d1e387d811d264363525f0d1fb8dede9a779",
+      "original_translation_sha256": "7a7e5dcbd06914b3643236e5cfb6bff2595a47924054f2e92715efdc50ca0a2f"
+    },
+    {
+      "effort": "low",
+      "source_id": "V06-S024",
+      "prose": true,
+      "source_sha256": "edad30f2ecd9af1fd27b7ac77cc66a0327a4c731473c348a2b2e9ed688c0125f",
+      "original_score": 1.5875,
+      "old_score": 1.6,
+      "new_score": 4.775,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 8,
+            "coverage_percent": 5,
+            "usable": false,
+            "overall": 1.7
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 6,
+            "coverage_percent": 4,
+            "usable": false,
+            "overall": 1.5
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 4,
+            "completeness": 6.5,
+            "names_numbers": 3.5,
+            "fluency": 6.5,
+            "coverage_percent": 80,
+            "usable": false,
+            "overall": 4.8
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 4,
+            "completeness": 6.5,
+            "names_numbers": 3.5,
+            "fluency": 6,
+            "coverage_percent": 76,
+            "usable": false,
+            "overall": 4.75
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 579
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00132624,
+        "upper_usd": null,
+        "no_cache_usd": 0.001764,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009881,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0002895,
+        "ordinary_input_tokens": 9881
+      },
+      "elapsed_seconds": 16.778,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "4a15f7a198715b6bcd7331fc6b860711ad01afd7cc4b415e7c57578150ec3646",
+      "original_translation_sha256": "046d8502ca4c50c762bd1c3b8cd35cd71124aaf423064a69c620124f491d58ba"
+    },
+    {
+      "effort": "low",
+      "source_id": "V06-S029",
+      "prose": true,
+      "source_sha256": "66fc2608119624737d0ed03390e1235c77c4b3c6faac2357470c8733f1a26422",
+      "original_score": 1.625,
+      "old_score": 1.5750000000000002,
+      "new_score": 3.5875000000000004,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 6.5,
+            "coverage_percent": 0,
+            "usable": false,
+            "overall": 1.55
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 7,
+            "coverage_percent": 1,
+            "usable": false,
+            "overall": 1.6
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 3,
+            "completeness": 6,
+            "names_numbers": 1,
+            "fluency": 4.5,
+            "coverage_percent": 80,
+            "usable": false,
+            "overall": 3.6
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 3,
+            "completeness": 5.5,
+            "names_numbers": 2,
+            "fluency": 4,
+            "coverage_percent": 72,
+            "usable": false,
+            "overall": 3.575
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 634
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0017915,
+        "upper_usd": null,
+        "no_cache_usd": 0.0017915,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0014745,
+        "cached_input_usd": 0.0,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.000317,
+        "ordinary_input_tokens": 14745
+      },
+      "elapsed_seconds": 16.259,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "7fec695dca566702356b21b3ac1e0f030a7e8b359dd3fc4918db2dbaac57b615",
+      "original_translation_sha256": "9b78552659a7bd25324d53bb932a8ce676e0f91197b3c446e95f16d02cf76618"
+    },
+    {
+      "effort": "low",
+      "source_id": "V06-S030",
+      "prose": true,
+      "source_sha256": "5c621e0c4ddecab54d49c9d7bf38f4a399f70e087e7f414334e2dfefe88acc34",
+      "original_score": 1.5,
+      "old_score": 1.5875,
+      "new_score": 2.9375,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1.5,
+            "names_numbers": 1.5,
+            "fluency": 6.5,
+            "coverage_percent": 12,
+            "usable": false,
+            "overall": 1.75
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1,
+            "completeness": 1.5,
+            "names_numbers": 1,
+            "fluency": 4,
+            "coverage_percent": 10,
+            "usable": false,
+            "overall": 1.425
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 2,
+            "completeness": 5,
+            "names_numbers": 3,
+            "fluency": 5.5,
+            "coverage_percent": 85,
+            "usable": false,
+            "overall": 3.25
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 2,
+            "completeness": 4,
+            "names_numbers": 1.5,
+            "fluency": 4,
+            "coverage_percent": 55,
+            "usable": false,
+            "overall": 2.625
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 612
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00078978,
+        "upper_usd": null,
+        "no_cache_usd": 0.0017805,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.000306,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 18.372,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "33e1a62d52246d52174a835740463039a1c1cedae3e95181deee3156812b3289",
+      "original_translation_sha256": "7744b7fe031800586b5c6f406ed1b36c2ce4aeff6a4764fde46b762ee492881c"
+    },
+    {
+      "effort": "low",
+      "source_id": "V06-S103",
+      "prose": true,
+      "source_sha256": "49e6b791658d26100ac5af2cc96d034d2350310bcb040dd7d6f229aceeb67278",
+      "original_score": 1.525,
+      "old_score": 1.7125,
+      "new_score": 4.0,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1.5,
+            "names_numbers": 2,
+            "fluency": 7,
+            "coverage_percent": 7,
+            "usable": false,
+            "overall": 1.875
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 2,
+            "fluency": 5,
+            "coverage_percent": 5,
+            "usable": false,
+            "overall": 1.55
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 3,
+            "completeness": 6.5,
+            "names_numbers": 4,
+            "fluency": 7.5,
+            "coverage_percent": 76,
+            "usable": false,
+            "overall": 4.475
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 2.5,
+            "completeness": 5.5,
+            "names_numbers": 3,
+            "fluency": 4.5,
+            "coverage_percent": 65,
+            "usable": false,
+            "overall": 3.525
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 3840,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 577
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0014174,
+        "upper_usd": null,
+        "no_cache_usd": 0.001763,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0010905,
+        "cached_input_usd": 3.84e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0002885,
+        "ordinary_input_tokens": 10905
+      },
+      "elapsed_seconds": 13.862,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "28fd31e69dbf154bf06ab59418c1925156c25464b40970d0047f2c49eda40903",
+      "original_translation_sha256": "c5298b5808bbb888e80266cf3ddf0a8fcd23f073182e3df420e49965e80525dc"
+    },
+    {
+      "effort": "low",
+      "source_id": "V07-S020",
+      "prose": false,
+      "source_sha256": "cbf29fe009028392d8407544a2691170d22a676f5962be9085ad95c2afe1a4af",
+      "original_score": 1.0,
+      "old_score": 1.0,
+      "new_score": 5.2125,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 1,
+            "coverage_percent": 0,
+            "usable": false,
+            "overall": 1.0
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 1,
+            "coverage_percent": 0,
+            "usable": false,
+            "overall": 1.0
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 4.5,
+            "completeness": 7,
+            "names_numbers": 4,
+            "fluency": 6.5,
+            "coverage_percent": 90,
+            "usable": false,
+            "overall": 5.25
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 4.5,
+            "completeness": 7,
+            "names_numbers": 3.5,
+            "fluency": 6.5,
+            "coverage_percent": 90,
+            "usable": false,
+            "overall": 5.175
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 3840,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 271
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0012644000000000002,
+        "upper_usd": null,
+        "no_cache_usd": 0.00161,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0010905,
+        "cached_input_usd": 3.84e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0001355,
+        "ordinary_input_tokens": 10905
+      },
+      "elapsed_seconds": 9.037,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "f6546373c0ee5c53c7f92ed6a8041b359ddc2e46b15e650e066ae5cecb01bc87",
+      "original_translation_sha256": "8b5ed2611da71703a58ac5e0f1ae30915350b938a3b22e392925e8fbea3a3b8f"
+    },
+    {
+      "effort": "low",
+      "source_id": "V07-S035",
+      "prose": true,
+      "source_sha256": "b9209f8dcf28b17b6e3fa297180cbebf937bfbcba607e2dcc08617f9b45dc043",
+      "original_score": 1.6,
+      "old_score": 1.625,
+      "new_score": 3.0375,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 8,
+            "coverage_percent": 5,
+            "usable": false,
+            "overall": 1.7
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 6.5,
+            "coverage_percent": 5,
+            "usable": false,
+            "overall": 1.55
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 2.5,
+            "completeness": 4,
+            "names_numbers": 2,
+            "fluency": 6.5,
+            "coverage_percent": 50,
+            "usable": false,
+            "overall": 3.2
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 2.5,
+            "completeness": 4,
+            "names_numbers": 1.5,
+            "fluency": 4,
+            "coverage_percent": 58,
+            "usable": false,
+            "overall": 2.875
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 655
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00136424,
+        "upper_usd": null,
+        "no_cache_usd": 0.001802,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009881,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0003275,
+        "ordinary_input_tokens": 9881
+      },
+      "elapsed_seconds": 15.926,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "8ba42ea5463255182432adcc203d315e9554a244d19833a23c5433bb5585ec53",
+      "original_translation_sha256": "7bb4d52390f3e58356b8c27d1ebc5efdccbef92f05f8806cd326964083f0549b"
+    },
+    {
+      "effort": "low",
+      "source_id": "V07-S067",
+      "prose": true,
+      "source_sha256": "b584c98a3d96f16338363a0fa96a247b794b5e70b260e63bd0f82fba455ac9f1",
+      "original_score": 1.6124999999999998,
+      "old_score": 1.5499999999999998,
+      "new_score": 2.675,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 7.5,
+            "coverage_percent": 5,
+            "usable": false,
+            "overall": 1.65
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 5.5,
+            "coverage_percent": 5,
+            "usable": false,
+            "overall": 1.45
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 2,
+            "completeness": 4.5,
+            "names_numbers": 1.5,
+            "fluency": 6,
+            "coverage_percent": 65,
+            "usable": false,
+            "overall": 2.95
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 2,
+            "completeness": 2.5,
+            "names_numbers": 1.5,
+            "fluency": 5.5,
+            "coverage_percent": 18,
+            "usable": false,
+            "overall": 2.4
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 474
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0007207800000000001,
+        "upper_usd": null,
+        "no_cache_usd": 0.0017115,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.000237,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 12.615,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "c5ccb5f2a0fe612abcc62a44243b9a273d33b4b1214d9a5a2fda2f2914624713",
+      "original_translation_sha256": "2c68b6b3ca3bd1404113090a9c70b6944b53ddbbf9c0abfaff8287bdec3335ad"
+    },
+    {
+      "effort": "low",
+      "source_id": "V10-S050",
+      "prose": true,
+      "source_sha256": "d12a37f0c99612fec17dfcac8bdbd065ab266776a3f8af02bcffafc799fef2ad",
+      "original_score": 1.6875,
+      "old_score": 1.8125,
+      "new_score": 4.0625,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1.5,
+            "names_numbers": 1.5,
+            "fluency": 7.5,
+            "coverage_percent": 15,
+            "usable": false,
+            "overall": 1.85
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1,
+            "completeness": 1.5,
+            "names_numbers": 1,
+            "fluency": 7.5,
+            "coverage_percent": 13,
+            "usable": false,
+            "overall": 1.775
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 3,
+            "completeness": 6,
+            "names_numbers": 3.5,
+            "fluency": 7,
+            "coverage_percent": 75,
+            "usable": false,
+            "overall": 4.225
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 3,
+            "completeness": 5.5,
+            "names_numbers": 3.5,
+            "fluency": 5,
+            "coverage_percent": 74,
+            "usable": false,
+            "overall": 3.9
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 567
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00132024,
+        "upper_usd": null,
+        "no_cache_usd": 0.001758,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009881,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0002835,
+        "ordinary_input_tokens": 9881
+      },
+      "elapsed_seconds": 15.204,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "ef1101a107589865ee4f97ea3f9dc2f60fc8bd1e004d799419f41eb8e61987ff",
+      "original_translation_sha256": "550035573a88b3527b757edd1cffff315266b6a0632f8b40f3063f88c862a5bc"
+    },
+    {
+      "effort": "low",
+      "source_id": "V10-S090",
+      "prose": true,
+      "source_sha256": "2955a71131ade67f0d6e2f4102992d47a910899f013e62f8c7f4bb98407cf504",
+      "original_score": 1.7,
+      "old_score": 1.6,
+      "new_score": 3.8625,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 7,
+            "coverage_percent": 1,
+            "usable": false,
+            "overall": 1.6
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 7,
+            "coverage_percent": 2,
+            "usable": false,
+            "overall": 1.6
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 3,
+            "completeness": 7,
+            "names_numbers": 3,
+            "fluency": 6.5,
+            "coverage_percent": 85,
+            "usable": false,
+            "overall": 4.35
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 2.5,
+            "completeness": 5,
+            "names_numbers": 2.5,
+            "fluency": 5,
+            "coverage_percent": 68,
+            "usable": false,
+            "overall": 3.375
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 573
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00077028,
+        "upper_usd": null,
+        "no_cache_usd": 0.001761,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0002865,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 14.509,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "cd442cfb6c829b7757c97cd0e77646094d6072d8394370f74cf1a63a482b4633",
+      "original_translation_sha256": "fca1648917091c82f40952c6b2fb3346cdb560e0ea30c13fc2361d60918dc70f"
+    },
+    {
+      "effort": "medium",
+      "source_id": "V06-S003",
+      "prose": false,
+      "source_sha256": "6fe9a3a5c1140e9aa74128a1ba37198b1f8d361631d7b04bd977a645a4892309",
+      "original_score": 7.5375,
+      "old_score": 7.325,
+      "new_score": 6.4375,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 7,
+            "completeness": 8,
+            "names_numbers": 6,
+            "fluency": 8.5,
+            "coverage_percent": 85,
+            "usable": false,
+            "overall": 7.25
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 7.5,
+            "completeness": 7.5,
+            "names_numbers": 6.5,
+            "fluency": 8,
+            "coverage_percent": 85,
+            "usable": false,
+            "overall": 7.4
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 6,
+            "completeness": 7.5,
+            "names_numbers": 8,
+            "fluency": 6,
+            "coverage_percent": 75,
+            "usable": false,
+            "overall": 6.675
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 6,
+            "completeness": 6,
+            "names_numbers": 8,
+            "fluency": 5,
+            "coverage_percent": 65,
+            "usable": false,
+            "overall": 6.2
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 29
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00105124,
+        "upper_usd": null,
+        "no_cache_usd": 0.001489,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009881,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 1.45e-05,
+        "ordinary_input_tokens": 9881
+      },
+      "elapsed_seconds": 4.871,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "dd239ed115d5b5c3d0a3a312ce55914a2c13390f1c8310fd536bdd28282bd900",
+      "original_translation_sha256": "13ad048fd5e960c30393c4a21dc04e6c12060b36da321887e5c16897a204d249"
+    },
+    {
+      "effort": "medium",
+      "source_id": "V06-S012",
+      "prose": false,
+      "source_sha256": "788441602ac10136d478e8a7f74812da7953f3ab826c0c5714fd35bcc8c4f15a",
+      "original_score": 2.825,
+      "old_score": 3.0125,
+      "new_score": 6.475,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 2,
+            "completeness": 5,
+            "names_numbers": 4.5,
+            "fluency": 5,
+            "coverage_percent": 70,
+            "usable": false,
+            "overall": 3.425
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 2,
+            "completeness": 4,
+            "names_numbers": 2,
+            "fluency": 3,
+            "coverage_percent": 65,
+            "usable": false,
+            "overall": 2.6
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 6,
+            "completeness": 9,
+            "names_numbers": 7.5,
+            "fluency": 7.5,
+            "coverage_percent": 95,
+            "usable": false,
+            "overall": 7.125
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 5.5,
+            "completeness": 7,
+            "names_numbers": 5.5,
+            "fluency": 5,
+            "coverage_percent": 90,
+            "usable": false,
+            "overall": 5.825
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 1792,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 106
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00136622,
+        "upper_usd": null,
+        "no_cache_usd": 0.0015275,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0012953,
+        "cached_input_usd": 1.792e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 5.3e-05,
+        "ordinary_input_tokens": 12953
+      },
+      "elapsed_seconds": 6.439,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "deb56221272d39ecc68253114fbb3adf04bb692e23516b5c764bab232d070bb3",
+      "original_translation_sha256": "3a2a67ab7be13167fadafc6245515efbcca07f5bd968ce0d694b7f04f60d2bed"
+    },
+    {
+      "effort": "medium",
+      "source_id": "V06-S016",
+      "prose": true,
+      "source_sha256": "7be90ed0d9f746fc094a0bb5cf60925009f20db3b818b33f80710a6cc5cf2ccd",
+      "original_score": 5.025,
+      "old_score": 5.050000000000001,
+      "new_score": 2.4000000000000004,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 6,
+            "completeness": 5,
+            "names_numbers": 4.5,
+            "fluency": 6.5,
+            "coverage_percent": 70,
+            "usable": false,
+            "overall": 5.575
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 4.5,
+            "completeness": 4,
+            "names_numbers": 3.5,
+            "fluency": 7.5,
+            "coverage_percent": 50,
+            "usable": false,
+            "overall": 4.525
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 2,
+            "completeness": 3,
+            "names_numbers": 2,
+            "fluency": 6.5,
+            "coverage_percent": 45,
+            "usable": false,
+            "overall": 2.7
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1.5,
+            "completeness": 2,
+            "names_numbers": 2,
+            "fluency": 5.5,
+            "coverage_percent": 20,
+            "usable": false,
+            "overall": 2.1
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 3840,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 422
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0013399000000000002,
+        "upper_usd": null,
+        "no_cache_usd": 0.0016855,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0010905,
+        "cached_input_usd": 3.84e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.000211,
+        "ordinary_input_tokens": 10905
+      },
+      "elapsed_seconds": 14.516,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "cb7157cb1367b34593b7304630664e419e7ae94bcffc5f7733c29c14e6d9ff43",
+      "original_translation_sha256": "0beea1c61327b254f77aa15940bafddd9786eaab64b164db920828d49c198ade"
+    },
+    {
+      "effort": "medium",
+      "source_id": "V06-S024",
+      "prose": true,
+      "source_sha256": "edad30f2ecd9af1fd27b7ac77cc66a0327a4c731473c348a2b2e9ed688c0125f",
+      "original_score": 1.4,
+      "old_score": 1.4249999999999998,
+      "new_score": 4.675,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 5.5,
+            "coverage_percent": 5,
+            "usable": false,
+            "overall": 1.45
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 5,
+            "coverage_percent": 3,
+            "usable": false,
+            "overall": 1.4
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 3,
+            "completeness": 5.5,
+            "names_numbers": 5.5,
+            "fluency": 6,
+            "coverage_percent": 65,
+            "usable": false,
+            "overall": 4.3
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 4,
+            "completeness": 7,
+            "names_numbers": 5,
+            "fluency": 5.5,
+            "coverage_percent": 80,
+            "usable": false,
+            "overall": 5.05
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 580
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00132674,
+        "upper_usd": null,
+        "no_cache_usd": 0.0017645,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009881,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.00029,
+        "ordinary_input_tokens": 9881
+      },
+      "elapsed_seconds": 14.801,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "9f68c9212e38a2130fa078f4ac95f5e378d02105fc7f1c0ea94314bb614879c8",
+      "original_translation_sha256": "c8f3576f4fe75703c0687c85075c9a88db3cc775aeff401b1297cf3091b31983"
+    },
+    {
+      "effort": "medium",
+      "source_id": "V06-S029",
+      "prose": true,
+      "source_sha256": "66fc2608119624737d0ed03390e1235c77c4b3c6faac2357470c8733f1a26422",
+      "original_score": 6.4375,
+      "old_score": 6.075,
+      "new_score": 3.175,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 6,
+            "completeness": 8,
+            "names_numbers": 4,
+            "fluency": 8,
+            "coverage_percent": 90,
+            "usable": false,
+            "overall": 6.4
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 5.5,
+            "completeness": 7.5,
+            "names_numbers": 3.5,
+            "fluency": 6,
+            "coverage_percent": 83,
+            "usable": false,
+            "overall": 5.75
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 2.5,
+            "completeness": 5,
+            "names_numbers": 1,
+            "fluency": 6.5,
+            "coverage_percent": 75,
+            "usable": false,
+            "overall": 3.3
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 2,
+            "completeness": 5.5,
+            "names_numbers": 1.5,
+            "fluency": 4.5,
+            "coverage_percent": 60,
+            "usable": false,
+            "overall": 3.05
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 8960,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 622
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0009791000000000001,
+        "upper_usd": null,
+        "no_cache_usd": 0.0017855,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0005785,
+        "cached_input_usd": 8.960000000000001e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.000311,
+        "ordinary_input_tokens": 5785
+      },
+      "elapsed_seconds": 16.992,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "a708a194845b525fdf22e0957e13da6fc86c83ea215bcc5c9d1c559c1606dd81",
+      "original_translation_sha256": "88a878165ff7ae4157061cbd5651d11021a661fceb084650d1b32eba672a6bf8"
+    },
+    {
+      "effort": "medium",
+      "source_id": "V06-S030",
+      "prose": true,
+      "source_sha256": "5c621e0c4ddecab54d49c9d7bf38f4a399f70e087e7f414334e2dfefe88acc34",
+      "original_score": 1.6,
+      "old_score": 1.9,
+      "new_score": 9.3875,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1.5,
+            "fluency": 7,
+            "coverage_percent": 5,
+            "usable": false,
+            "overall": 1.675
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1.5,
+            "completeness": 1.5,
+            "names_numbers": 2,
+            "fluency": 7,
+            "coverage_percent": 12,
+            "usable": false,
+            "overall": 2.125
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 9.5,
+            "names_numbers": 10,
+            "fluency": 9,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 9.525
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9,
+            "completeness": 9.5,
+            "names_numbers": 9.5,
+            "fluency": 9.5,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 9.25
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 1299,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1794
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00193374,
+        "upper_usd": null,
+        "no_cache_usd": 0.0023715,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009881,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.000897,
+        "ordinary_input_tokens": 9881
+      },
+      "elapsed_seconds": 36.562,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "d980fc4d88e5b32fb362c3227a624eef24af4096ce5dba935312a95da154697f",
+      "original_translation_sha256": "67588ee96b35c06b94fc25bde01e1ac51e94960b53604cd454bfa72f18f2b753"
+    },
+    {
+      "effort": "medium",
+      "source_id": "V06-S103",
+      "prose": true,
+      "source_sha256": "49e6b791658d26100ac5af2cc96d034d2350310bcb040dd7d6f229aceeb67278",
+      "original_score": 1.6875,
+      "old_score": 1.9375,
+      "new_score": 6.0625,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1.5,
+            "names_numbers": 2.5,
+            "fluency": 8.5,
+            "coverage_percent": 8,
+            "usable": false,
+            "overall": 2.1
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1,
+            "completeness": 1.5,
+            "names_numbers": 2,
+            "fluency": 6,
+            "coverage_percent": 8,
+            "usable": false,
+            "overall": 1.7750000000000001
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 4.5,
+            "completeness": 8,
+            "names_numbers": 7,
+            "fluency": 7.5,
+            "coverage_percent": 88,
+            "usable": false,
+            "overall": 6.05
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 5,
+            "completeness": 7,
+            "names_numbers": 7.5,
+            "fluency": 7,
+            "coverage_percent": 82,
+            "usable": false,
+            "overall": 6.075
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 8960,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 465
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0009006000000000001,
+        "upper_usd": null,
+        "no_cache_usd": 0.001707,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0005785,
+        "cached_input_usd": 8.960000000000001e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0002325,
+        "ordinary_input_tokens": 5785
+      },
+      "elapsed_seconds": 12.091,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "4f6009aac987dbc4fec87217e33c09beef08bbd162678d711810e18464494818",
+      "original_translation_sha256": "f067a459682fef3672d3c321e25119eeeec1ace98f4da0e248aa20a0346f2c81"
+    },
+    {
+      "effort": "medium",
+      "source_id": "V07-S020",
+      "prose": false,
+      "source_sha256": "cbf29fe009028392d8407544a2691170d22a676f5962be9085ad95c2afe1a4af",
+      "original_score": 6.8375,
+      "old_score": 7.8625,
+      "new_score": 4.725,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8.5,
+            "completeness": 7.5,
+            "names_numbers": 8,
+            "fluency": 9,
+            "coverage_percent": 94,
+            "usable": true,
+            "overall": 8.225
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8.5,
+            "completeness": 6.5,
+            "names_numbers": 5.5,
+            "fluency": 8,
+            "coverage_percent": 94,
+            "usable": false,
+            "overall": 7.5
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 3.5,
+            "completeness": 7,
+            "names_numbers": 5,
+            "fluency": 6,
+            "coverage_percent": 95,
+            "usable": false,
+            "overall": 4.85
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 3,
+            "completeness": 6,
+            "names_numbers": 6,
+            "fluency": 7,
+            "coverage_percent": 75,
+            "usable": false,
+            "overall": 4.6
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 1792,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 277
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00145172,
+        "upper_usd": null,
+        "no_cache_usd": 0.001613,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0012953,
+        "cached_input_usd": 1.792e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0001385,
+        "ordinary_input_tokens": 12953
+      },
+      "elapsed_seconds": 9.057,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "186ce3aaa3795c87e993c826e25091b120a4681a6b7a6c1e3150f7d28311b112",
+      "original_translation_sha256": "0960a3b4ba26c4263cf4ac8fd480cb07151ea2f80aa03d0751e0aa190c550b5f"
+    },
+    {
+      "effort": "medium",
+      "source_id": "V07-S035",
+      "prose": true,
+      "source_sha256": "b9209f8dcf28b17b6e3fa297180cbebf937bfbcba607e2dcc08617f9b45dc043",
+      "original_score": 1.55,
+      "old_score": 1.5625,
+      "new_score": 3.5125,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1.5,
+            "names_numbers": 2,
+            "fluency": 6,
+            "coverage_percent": 15,
+            "usable": false,
+            "overall": 1.7750000000000001
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 4.5,
+            "coverage_percent": 10,
+            "usable": false,
+            "overall": 1.35
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 3,
+            "completeness": 4.5,
+            "names_numbers": 2,
+            "fluency": 6,
+            "coverage_percent": 65,
+            "usable": false,
+            "overall": 3.525
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 3,
+            "completeness": 4,
+            "names_numbers": 3,
+            "fluency": 5.5,
+            "coverage_percent": 42,
+            "usable": false,
+            "overall": 3.5
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 750
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0008587800000000001,
+        "upper_usd": null,
+        "no_cache_usd": 0.0018495,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.000375,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 19.093,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "1022691ec5c5794d05cda156ffb193812714c9720ba64daa4fb415c4cf606812",
+      "original_translation_sha256": "7e0d734798a0f60f08da41ff3bb57d13600ddc0c7cc06900218441e059f4ea0d"
+    },
+    {
+      "effort": "medium",
+      "source_id": "V07-S067",
+      "prose": true,
+      "source_sha256": "b584c98a3d96f16338363a0fa96a247b794b5e70b260e63bd0f82fba455ac9f1",
+      "original_score": 1.4125,
+      "old_score": 1.325,
+      "new_score": 3.8625,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 5.5,
+            "coverage_percent": 10,
+            "usable": false,
+            "overall": 1.45
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 3,
+            "coverage_percent": 8,
+            "usable": false,
+            "overall": 1.2
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 3.5,
+            "completeness": 5.5,
+            "names_numbers": 1.5,
+            "fluency": 7,
+            "coverage_percent": 90,
+            "usable": false,
+            "overall": 4.05
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 3,
+            "completeness": 4.5,
+            "names_numbers": 2,
+            "fluency": 7.5,
+            "coverage_percent": 76,
+            "usable": false,
+            "overall": 3.675
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 547
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00075728,
+        "upper_usd": null,
+        "no_cache_usd": 0.001748,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0002735,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 15.725,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "9880435bf8eed2c83945cc02414fb8693f4e2625c20d7c8560c2c46abe4dc095",
+      "original_translation_sha256": "5c7e3c11fcd69d3ba5e71d49926c13468117e57b7310f168a587c678a113c67a"
+    },
+    {
+      "effort": "medium",
+      "source_id": "V10-S050",
+      "prose": true,
+      "source_sha256": "d12a37f0c99612fec17dfcac8bdbd065ab266776a3f8af02bcffafc799fef2ad",
+      "original_score": 6.2625,
+      "old_score": 6.8125,
+      "new_score": 4.4625,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 6.5,
+            "completeness": 8,
+            "names_numbers": 5.5,
+            "fluency": 7.5,
+            "coverage_percent": 93,
+            "usable": false,
+            "overall": 6.825
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 6.5,
+            "completeness": 7.5,
+            "names_numbers": 6.5,
+            "fluency": 7,
+            "coverage_percent": 88,
+            "usable": false,
+            "overall": 6.8
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 3.5,
+            "completeness": 7,
+            "names_numbers": 3,
+            "fluency": 6.5,
+            "coverage_percent": 85,
+            "usable": false,
+            "overall": 4.6
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 3.5,
+            "completeness": 6,
+            "names_numbers": 3.5,
+            "fluency": 5.5,
+            "coverage_percent": 82,
+            "usable": false,
+            "overall": 4.325
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 627
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00079728,
+        "upper_usd": null,
+        "no_cache_usd": 0.001788,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0003135,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 14.852,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "743c194bba8aed6be9baf83a2a17ec655dbdf46ccfb994f344063798bae7914f",
+      "original_translation_sha256": "4577fd9dfa7be52e9587a4221ceb29cd86360314a62ba9f3f5d4da7d81a5957a"
+    },
+    {
+      "effort": "medium",
+      "source_id": "V10-S090",
+      "prose": true,
+      "source_sha256": "2955a71131ade67f0d6e2f4102992d47a910899f013e62f8c7f4bb98407cf504",
+      "original_score": 1.725,
+      "old_score": 1.65,
+      "new_score": 3.4000000000000004,
+      "old_usable": false,
+      "new_usable": false,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 7,
+            "coverage_percent": 3,
+            "usable": false,
+            "overall": 1.6
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 1,
+            "completeness": 1,
+            "names_numbers": 1,
+            "fluency": 8,
+            "coverage_percent": 4,
+            "usable": false,
+            "overall": 1.7
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 2.5,
+            "completeness": 7,
+            "names_numbers": 2,
+            "fluency": 5.5,
+            "coverage_percent": 85,
+            "usable": false,
+            "overall": 3.85
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 2,
+            "completeness": 5,
+            "names_numbers": 2,
+            "fluency": 4,
+            "coverage_percent": 72,
+            "usable": false,
+            "overall": 2.95
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 0,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 620
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00134674,
+        "upper_usd": null,
+        "no_cache_usd": 0.0017845,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009881,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.00031,
+        "ordinary_input_tokens": 9881
+      },
+      "elapsed_seconds": 15.532,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "b6282c2aaf14ffb088d1c463bedfafb65b3149c93b300b63a1f43c1fabb4226d",
+      "original_translation_sha256": "177924a9b245d401d9e4de137f0c2c4fd090c585d6271281a1c85ec290519be1"
+    },
+    {
+      "effort": "high",
+      "source_id": "V06-S003",
+      "prose": false,
+      "source_sha256": "6fe9a3a5c1140e9aa74128a1ba37198b1f8d361631d7b04bd977a645a4892309",
+      "original_score": 8.8125,
+      "old_score": 8.7,
+      "new_score": 8.975,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 10,
+            "completeness": 7,
+            "names_numbers": 9,
+            "fluency": 10,
+            "coverage_percent": 75,
+            "usable": true,
+            "overall": 9.1
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 6,
+            "names_numbers": 8,
+            "fluency": 8.5,
+            "coverage_percent": 67,
+            "usable": false,
+            "overall": 8.3
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 8.5,
+            "names_numbers": 9,
+            "fluency": 10,
+            "coverage_percent": 90,
+            "usable": true,
+            "overall": 9.225
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 7.5,
+            "names_numbers": 8,
+            "fluency": 9,
+            "coverage_percent": 82,
+            "usable": true,
+            "overall": 8.725
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 8960,
+        "reasoning_output_tokens": 685,
+        "input_tokens": 15501,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 714
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0011007,
+        "upper_usd": null,
+        "no_cache_usd": 0.0019071000000000001,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0006541,
+        "cached_input_usd": 8.960000000000001e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.000357,
+        "ordinary_input_tokens": 6541
+      },
+      "elapsed_seconds": 17.01,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "70a5bb0739569a9c1fa33f6133c985b44ebb010a0dd6113931ff0b25eab1ebcc",
+      "original_translation_sha256": "2532704bfe54a444947058c958a19f1da5ff2b60074605036964eb2d9ba3dd48"
+    },
+    {
+      "effort": "high",
+      "source_id": "V06-S012",
+      "prose": false,
+      "source_sha256": "788441602ac10136d478e8a7f74812da7953f3ab826c0c5714fd35bcc8c4f15a",
+      "original_score": 6.824999999999999,
+      "old_score": 7.65,
+      "new_score": 8.7875,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 6.5,
+            "completeness": 10,
+            "names_numbers": 8.5,
+            "fluency": 9,
+            "coverage_percent": 100,
+            "usable": false,
+            "overall": 7.925
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 6.5,
+            "completeness": 9,
+            "names_numbers": 6.5,
+            "fluency": 9,
+            "coverage_percent": 94,
+            "usable": false,
+            "overall": 7.375
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8.5,
+            "completeness": 10,
+            "names_numbers": 7,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 8.75
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8.5,
+            "completeness": 10,
+            "names_numbers": 7.5,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 8.825
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 3840,
+        "reasoning_output_tokens": 884,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 993
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0016254000000000002,
+        "upper_usd": null,
+        "no_cache_usd": 0.001971,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0010905,
+        "cached_input_usd": 3.84e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0004965,
+        "ordinary_input_tokens": 10905
+      },
+      "elapsed_seconds": 22.624,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "a99688b734857101f9e28971f11381e852b95fb2eba6242eccf25d93547fc3fa",
+      "original_translation_sha256": "ab28cac61beac86770b99d5910d005329bf7c94489e4e61612310a9653734f60"
+    },
+    {
+      "effort": "high",
+      "source_id": "V06-S016",
+      "prose": true,
+      "source_sha256": "7be90ed0d9f746fc094a0bb5cf60925009f20db3b818b33f80710a6cc5cf2ccd",
+      "original_score": 5.6875,
+      "old_score": 5.6875,
+      "new_score": 9.7,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 5.5,
+            "completeness": 5,
+            "names_numbers": 6,
+            "fluency": 8.5,
+            "coverage_percent": 60,
+            "usable": false,
+            "overall": 5.75
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 5.5,
+            "completeness": 5,
+            "names_numbers": 5.5,
+            "fluency": 8,
+            "coverage_percent": 55,
+            "usable": false,
+            "overall": 5.625
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.7
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.7
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 1591,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2074
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00152078,
+        "upper_usd": null,
+        "no_cache_usd": 0.0025115,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.001037,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 41.821,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "4023d2c6f2993a8e81ea399d56541909b15551fdae3406b5451424201bf8f84f",
+      "original_translation_sha256": "814e71988978730ea68a27b11c33741ec75cb0b68d5fd3de21d35e6094ab5908"
+    },
+    {
+      "effort": "high",
+      "source_id": "V06-S024",
+      "prose": true,
+      "source_sha256": "edad30f2ecd9af1fd27b7ac77cc66a0327a4c731473c348a2b2e9ed688c0125f",
+      "original_score": 8.6375,
+      "old_score": 8.5875,
+      "new_score": 9.575,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8.5,
+            "completeness": 9.5,
+            "names_numbers": 7,
+            "fluency": 9.5,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 8.625
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9,
+            "completeness": 9,
+            "names_numbers": 6,
+            "fluency": 9,
+            "coverage_percent": 97,
+            "usable": true,
+            "overall": 8.55
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 9.5,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 9.575
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 9.5,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 9.575
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 0,
+        "reasoning_output_tokens": 2761,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3336
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0031425,
+        "upper_usd": null,
+        "no_cache_usd": 0.0031425,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0014745,
+        "cached_input_usd": 0.0,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.001668,
+        "ordinary_input_tokens": 14745
+      },
+      "elapsed_seconds": 65.727,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "f3176d6f4ef0112a4a6a0b7e0e8dcc0a1125529798769e005efd8f100fb0342a",
+      "original_translation_sha256": "7b3ca19aa155b2c2baa4425fe471a4ac60595ccc008c2c55568d1c69fe932984"
+    },
+    {
+      "effort": "high",
+      "source_id": "V06-S029",
+      "prose": true,
+      "source_sha256": "66fc2608119624737d0ed03390e1235c77c4b3c6faac2357470c8733f1a26422",
+      "original_score": 6.9,
+      "old_score": 6.75,
+      "new_score": 9.7,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 6.5,
+            "completeness": 7.5,
+            "names_numbers": 6,
+            "fluency": 8.5,
+            "coverage_percent": 85,
+            "usable": false,
+            "overall": 6.875
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 6.5,
+            "completeness": 7,
+            "names_numbers": 5.5,
+            "fluency": 8,
+            "coverage_percent": 82,
+            "usable": false,
+            "overall": 6.625
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.7
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.7
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 1792,
+        "reasoning_output_tokens": 1915,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2473
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00254972,
+        "upper_usd": null,
+        "no_cache_usd": 0.002711,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0012953,
+        "cached_input_usd": 1.792e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0012365,
+        "ordinary_input_tokens": 12953
+      },
+      "elapsed_seconds": 48.615,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "7eacbcfc97daf6ccf6babfca624f9f09310e66449a35623b20d65fb4ef00f8d0",
+      "original_translation_sha256": "693f03d09e3895cbc7399550aff36920401abc97128da02808fdc968dad85652"
+    },
+    {
+      "effort": "high",
+      "source_id": "V06-S030",
+      "prose": true,
+      "source_sha256": "5c621e0c4ddecab54d49c9d7bf38f4a399f70e087e7f414334e2dfefe88acc34",
+      "original_score": 6.8,
+      "old_score": 6.775,
+      "new_score": 9.45,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 6.5,
+            "completeness": 6.5,
+            "names_numbers": 7,
+            "fluency": 9,
+            "coverage_percent": 74,
+            "usable": false,
+            "overall": 6.825
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 6.5,
+            "completeness": 5.5,
+            "names_numbers": 8,
+            "fluency": 9,
+            "coverage_percent": 72,
+            "usable": false,
+            "overall": 6.725
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 7,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.25
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 10,
+            "completeness": 10,
+            "names_numbers": 8,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.65
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 1792,
+        "reasoning_output_tokens": 3624,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 4136
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00338122,
+        "upper_usd": null,
+        "no_cache_usd": 0.0035425,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0012953,
+        "cached_input_usd": 1.792e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.002068,
+        "ordinary_input_tokens": 12953
+      },
+      "elapsed_seconds": 78.589,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "7d5cbf84296a39f80b86dbc0a454067cbc9eb4e48c17e66afe5466a9198d3784",
+      "original_translation_sha256": "fb410a128fc355434a7f49c05b72584ae267711140c8de89f0a517fb38086925"
+    },
+    {
+      "effort": "high",
+      "source_id": "V06-S103",
+      "prose": true,
+      "source_sha256": "49e6b791658d26100ac5af2cc96d034d2350310bcb040dd7d6f229aceeb67278",
+      "original_score": 6.9125,
+      "old_score": 7.4125,
+      "new_score": 9.399999999999999,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 7,
+            "completeness": 7.5,
+            "names_numbers": 8.5,
+            "fluency": 9,
+            "coverage_percent": 82,
+            "usable": false,
+            "overall": 7.55
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 7,
+            "completeness": 7,
+            "names_numbers": 7.5,
+            "fluency": 9,
+            "coverage_percent": 83,
+            "usable": false,
+            "overall": 7.275
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 8.5,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.475
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 7.5,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.325
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 2588,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3078
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00257574,
+        "upper_usd": null,
+        "no_cache_usd": 0.0030135,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009881,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.001539,
+        "ordinary_input_tokens": 9881
+      },
+      "elapsed_seconds": 62.565,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "64f320784863b4e1e0a03b689d97f63b8f424f7c1ba02645ab25207cfe41bad7",
+      "original_translation_sha256": "10852831e200a7b1ef2ecb135df7753adab634ddac8c53c9b5b8b4c56f75944c"
+    },
+    {
+      "effort": "high",
+      "source_id": "V07-S020",
+      "prose": false,
+      "source_sha256": "cbf29fe009028392d8407544a2691170d22a676f5962be9085ad95c2afe1a4af",
+      "original_score": 9.0125,
+      "old_score": 9.3625,
+      "new_score": 9.7375,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 9.5,
+            "names_numbers": 10,
+            "fluency": 10,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 9.625
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9,
+            "completeness": 9.5,
+            "names_numbers": 8.5,
+            "fluency": 9.5,
+            "coverage_percent": 98,
+            "usable": true,
+            "overall": 9.1
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 10,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 10,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 10.0
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 8.5,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.475
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 1792,
+        "reasoning_output_tokens": 1861,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2097
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00236172,
+        "upper_usd": null,
+        "no_cache_usd": 0.002523,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0012953,
+        "cached_input_usd": 1.792e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0010485,
+        "ordinary_input_tokens": 12953
+      },
+      "elapsed_seconds": 42.102,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "d52a0f3ed3c832193a730419fc34edcced2d57626521fa69e9720d99f7c832ff",
+      "original_translation_sha256": "5645b4362cfbaeb9234278c539bd5992d6ca54764eecc7282bde80e642e997dc"
+    },
+    {
+      "effort": "high",
+      "source_id": "V07-S035",
+      "prose": true,
+      "source_sha256": "b9209f8dcf28b17b6e3fa297180cbebf937bfbcba607e2dcc08617f9b45dc043",
+      "original_score": 8.1875,
+      "old_score": 8.0875,
+      "new_score": 8.7625,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9,
+            "completeness": 9,
+            "names_numbers": 4,
+            "fluency": 9.5,
+            "coverage_percent": 95,
+            "usable": true,
+            "overall": 8.3
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8.5,
+            "completeness": 8.5,
+            "names_numbers": 4,
+            "fluency": 9,
+            "coverage_percent": 97,
+            "usable": true,
+            "overall": 7.875
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 9.5,
+            "names_numbers": 6,
+            "fluency": 9.5,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 8.975
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9,
+            "completeness": 9,
+            "names_numbers": 6,
+            "fluency": 9,
+            "coverage_percent": 98,
+            "usable": true,
+            "overall": 8.55
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 4142,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 4719
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00284328,
+        "upper_usd": null,
+        "no_cache_usd": 0.003834,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0023595,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 88.983,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "433d5ce2bcc4e39554bb34847038e90c729c86ca5cef84195e7586f4454224ea",
+      "original_translation_sha256": "194cca7381adf3f93bd7f4ef3b6bef64e2bc89918080546277d6bc5a8455c597"
+    },
+    {
+      "effort": "high",
+      "source_id": "V07-S067",
+      "prose": true,
+      "source_sha256": "b584c98a3d96f16338363a0fa96a247b794b5e70b260e63bd0f82fba455ac9f1",
+      "original_score": 7.6375,
+      "old_score": 7.825,
+      "new_score": 8.1125,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8.5,
+            "completeness": 9,
+            "names_numbers": 4,
+            "fluency": 8.5,
+            "coverage_percent": 95,
+            "usable": true,
+            "overall": 7.95
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8.5,
+            "completeness": 8.5,
+            "names_numbers": 3.5,
+            "fluency": 8,
+            "coverage_percent": 94,
+            "usable": true,
+            "overall": 7.7
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9,
+            "completeness": 9.5,
+            "names_numbers": 5,
+            "fluency": 9,
+            "coverage_percent": 98,
+            "usable": true,
+            "overall": 8.525
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8,
+            "completeness": 9,
+            "names_numbers": 4,
+            "fluency": 8.5,
+            "coverage_percent": 97,
+            "usable": true,
+            "overall": 7.7
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 3840,
+        "reasoning_output_tokens": 3106,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3491
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0028744,
+        "upper_usd": null,
+        "no_cache_usd": 0.00322,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0010905,
+        "cached_input_usd": 3.84e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0017455,
+        "ordinary_input_tokens": 10905
+      },
+      "elapsed_seconds": 66.075,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "4f2b5276ba3a30edd28250da4aa6b495bd4e23c6f13df7deb6e8c78355e7d635",
+      "original_translation_sha256": "8409fc52efd9391876d35f4176d1979c45c2d388fdd9023f8b74aeb132494acc"
+    },
+    {
+      "effort": "high",
+      "source_id": "V10-S050",
+      "prose": true,
+      "source_sha256": "d12a37f0c99612fec17dfcac8bdbd065ab266776a3f8af02bcffafc799fef2ad",
+      "original_score": 7.275,
+      "old_score": 7.0,
+      "new_score": 8.8125,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 6.5,
+            "completeness": 8.5,
+            "names_numbers": 5.5,
+            "fluency": 9,
+            "coverage_percent": 94,
+            "usable": false,
+            "overall": 7.1
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 6.5,
+            "completeness": 8.5,
+            "names_numbers": 4.5,
+            "fluency": 8.5,
+            "coverage_percent": 97,
+            "usable": false,
+            "overall": 6.9
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8.5,
+            "completeness": 10,
+            "names_numbers": 8,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 8.9
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8.5,
+            "completeness": 9.5,
+            "names_numbers": 8,
+            "fluency": 9,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 8.725
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 2506,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3015
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00199128,
+        "upper_usd": null,
+        "no_cache_usd": 0.002982,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0015075,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 57.618,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "c85997409bcc971041674c30312745ebe641997120d3c4c60107bfe2ec1b5a5d",
+      "original_translation_sha256": "eca7d0e9c1e1b5c7ae82ac673a3f827d0ba85f19c86b45b7625a29baedda7055"
+    },
+    {
+      "effort": "high",
+      "source_id": "V10-S090",
+      "prose": true,
+      "source_sha256": "2955a71131ade67f0d6e2f4102992d47a910899f013e62f8c7f4bb98407cf504",
+      "original_score": 5.8375,
+      "old_score": 6.6,
+      "new_score": 9.2,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 6.5,
+            "completeness": 7,
+            "names_numbers": 6.5,
+            "fluency": 8,
+            "coverage_percent": 76,
+            "usable": false,
+            "overall": 6.775
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 7,
+            "completeness": 5.5,
+            "names_numbers": 5,
+            "fluency": 8,
+            "coverage_percent": 63,
+            "usable": false,
+            "overall": 6.425
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 9.5,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.625
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8.5,
+            "completeness": 9.5,
+            "names_numbers": 8,
+            "fluency": 9.5,
+            "coverage_percent": 97,
+            "usable": true,
+            "overall": 8.775
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 2345,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2899
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0019332800000000001,
+        "upper_usd": null,
+        "no_cache_usd": 0.002924,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0014495,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 62.335,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "a8b5b35a735ef3687c9107b5060bd1880516082d55e6e99dea20d96c6fff2d5d",
+      "original_translation_sha256": "b3fdd1e963791c7e41d60ba14e63307fa964f21d98108a1bce1cf82381aed7b7"
+    },
+    {
+      "effort": "xhigh",
+      "source_id": "V06-S003",
+      "prose": false,
+      "source_sha256": "6fe9a3a5c1140e9aa74128a1ba37198b1f8d361631d7b04bd977a645a4892309",
+      "original_score": 8.9375,
+      "old_score": 8.975,
+      "new_score": 9.5125,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 8.5,
+            "names_numbers": 9,
+            "fluency": 10,
+            "coverage_percent": 90,
+            "usable": true,
+            "overall": 9.225
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 7.5,
+            "names_numbers": 8,
+            "fluency": 9,
+            "coverage_percent": 82,
+            "usable": true,
+            "overall": 8.725
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 9.5,
+            "names_numbers": 10,
+            "fluency": 10,
+            "coverage_percent": 98,
+            "usable": true,
+            "overall": 9.625
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 9,
+            "names_numbers": 10,
+            "fluency": 9,
+            "coverage_percent": 95,
+            "usable": true,
+            "overall": 9.4
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 1034,
+        "input_tokens": 15503,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1063
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00164404,
+        "upper_usd": null,
+        "no_cache_usd": 0.0020818,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0010639,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0005315,
+        "ordinary_input_tokens": 10639
+      },
+      "elapsed_seconds": 23.536,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "1c43710b61747d6e2d111bfbb0455f9806a528ac8e515d30718219098f196356",
+      "original_translation_sha256": "0c56e0b7c06be0bfd5c4b98ad8d6d871396eae623e515ed32925b878802d83cc"
+    },
+    {
+      "effort": "xhigh",
+      "source_id": "V06-S012",
+      "prose": false,
+      "source_sha256": "788441602ac10136d478e8a7f74812da7953f3ab826c0c5714fd35bcc8c4f15a",
+      "original_score": 9.15,
+      "old_score": 9.4875,
+      "new_score": 9.975,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 10,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.75
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9,
+            "completeness": 10,
+            "names_numbers": 8.5,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.225
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 10,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 10,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 10.0
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 10,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.95
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 1792,
+        "reasoning_output_tokens": 3624,
+        "input_tokens": 14747,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3769
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00319792,
+        "upper_usd": null,
+        "no_cache_usd": 0.0033591999999999997,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0012955,
+        "cached_input_usd": 1.792e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0018845,
+        "ordinary_input_tokens": 12955
+      },
+      "elapsed_seconds": 71.859,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "a5ebce1f341ddc91c55ec4d8547bbd9daafd7e79c1521fa69de5de42757b63b3",
+      "original_translation_sha256": "28445a47cc2a4a32e22de24ece62b8f92732f29a528a56c7916ad7d7ab27adf0"
+    },
+    {
+      "effort": "xhigh",
+      "source_id": "V06-S016",
+      "prose": true,
+      "source_sha256": "7be90ed0d9f746fc094a0bb5cf60925009f20db3b818b33f80710a6cc5cf2ccd",
+      "original_score": 7.3625,
+      "old_score": 7.262499999999999,
+      "new_score": 9.425,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 7.5,
+            "completeness": 6,
+            "names_numbers": 9,
+            "fluency": 9.5,
+            "coverage_percent": 67,
+            "usable": false,
+            "overall": 7.55
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 6.5,
+            "completeness": 6.5,
+            "names_numbers": 8,
+            "fluency": 9,
+            "coverage_percent": 75,
+            "usable": false,
+            "overall": 6.975
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 9.5,
+            "names_numbers": 10,
+            "fluency": 9,
+            "coverage_percent": 97,
+            "usable": true,
+            "overall": 9.525
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 9,
+            "names_numbers": 9.5,
+            "fluency": 9,
+            "coverage_percent": 97,
+            "usable": true,
+            "overall": 9.325
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 9222,
+        "input_tokens": 14747,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 9705
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00588944,
+        "upper_usd": null,
+        "no_cache_usd": 0.0063272,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009883000000000001,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0048525,
+        "ordinary_input_tokens": 9883
+      },
+      "elapsed_seconds": 184.418,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "77e3d8e0a260d244b41c8d0dcdc04315daf2d59a3785adde8bfc6e9f4f13048c",
+      "original_translation_sha256": "9d6fc183c6c94a74d48147bb8aa3177ca601d6ac853f9b84d62aff207dcb9f37"
+    },
+    {
+      "effort": "xhigh",
+      "source_id": "V06-S024",
+      "prose": true,
+      "source_sha256": "edad30f2ecd9af1fd27b7ac77cc66a0327a4c731473c348a2b2e9ed688c0125f",
+      "original_score": 7.7625,
+      "old_score": 7.487500000000001,
+      "new_score": 9.825,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 7,
+            "completeness": 9,
+            "names_numbers": 7,
+            "fluency": 8.5,
+            "coverage_percent": 95,
+            "usable": false,
+            "overall": 7.65
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 7,
+            "completeness": 8.5,
+            "names_numbers": 6,
+            "fluency": 8,
+            "coverage_percent": 91,
+            "usable": false,
+            "overall": 7.325
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 10,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.95
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.7
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 3840,
+        "reasoning_output_tokens": 7525,
+        "input_tokens": 14747,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 8108
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0051831,
+        "upper_usd": null,
+        "no_cache_usd": 0.0055287,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0010907,
+        "cached_input_usd": 3.84e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.004054,
+        "ordinary_input_tokens": 10907
+      },
+      "elapsed_seconds": 150.616,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "d875919fd9fa6cf57c939f53505c75ed35742d3354b32a30045e9667cf728117",
+      "original_translation_sha256": "98aee59ab52b057022469514eca797284804c1aa696b3c0042e40367e9853759"
+    },
+    {
+      "effort": "xhigh",
+      "source_id": "V06-S029",
+      "prose": true,
+      "source_sha256": "66fc2608119624737d0ed03390e1235c77c4b3c6faac2357470c8733f1a26422",
+      "original_score": 8.775,
+      "old_score": 9.275,
+      "new_score": 9.975,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9,
+            "completeness": 9,
+            "names_numbers": 10,
+            "fluency": 9,
+            "coverage_percent": 92,
+            "usable": true,
+            "overall": 9.15
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 9,
+            "names_numbers": 10,
+            "fluency": 9,
+            "coverage_percent": 96,
+            "usable": true,
+            "overall": 9.4
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 10,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 10,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 10.0
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 10,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.95
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 5178,
+        "input_tokens": 14747,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 5719
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00389644,
+        "upper_usd": null,
+        "no_cache_usd": 0.0043342,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009883000000000001,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0028595,
+        "ordinary_input_tokens": 9883
+      },
+      "elapsed_seconds": 108.475,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "fb0f44afcdd83da6d5eea6b7285f2d54851599c5d5aabf3d51f09bf0d83e6a39",
+      "original_translation_sha256": "e6daaf22eb11862fc3cc66c749c8576328f69fb7401f393b9fc3f5759043de73"
+    },
+    {
+      "effort": "xhigh",
+      "source_id": "V06-S030",
+      "prose": true,
+      "source_sha256": "5c621e0c4ddecab54d49c9d7bf38f4a399f70e087e7f414334e2dfefe88acc34",
+      "original_score": 6.5375,
+      "old_score": 7.9,
+      "new_score": 9.7,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8,
+            "completeness": 8,
+            "names_numbers": 7,
+            "fluency": 9,
+            "coverage_percent": 88,
+            "usable": false,
+            "overall": 7.95
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8.5,
+            "completeness": 7.5,
+            "names_numbers": 5.5,
+            "fluency": 9,
+            "coverage_percent": 87,
+            "usable": false,
+            "overall": 7.85
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.7
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.7
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 10519,
+        "input_tokens": 14747,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 11032
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00599998,
+        "upper_usd": null,
+        "no_cache_usd": 0.0069907,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037390000000000004,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.005516,
+        "ordinary_input_tokens": 3739
+      },
+      "elapsed_seconds": 205.13,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "5fd6fec0e791f49ae19310a18983156e08609acddd7714527e69f985199c9748",
+      "original_translation_sha256": "4aab55661b60efeb5506c13839074b77894b3f62f12ed8fbcb182f6ef1e5e071"
+    },
+    {
+      "effort": "xhigh",
+      "source_id": "V06-S103",
+      "prose": true,
+      "source_sha256": "49e6b791658d26100ac5af2cc96d034d2350310bcb040dd7d6f229aceeb67278",
+      "original_score": 7.4375,
+      "old_score": 7.9,
+      "new_score": 9.95,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 7.5,
+            "completeness": 8.5,
+            "names_numbers": 7.5,
+            "fluency": 9,
+            "coverage_percent": 90,
+            "usable": false,
+            "overall": 7.9
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8,
+            "completeness": 8.5,
+            "names_numbers": 6.5,
+            "fluency": 8,
+            "coverage_percent": 91,
+            "usable": false,
+            "overall": 7.9
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 10,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.95
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 10,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.95
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 11394,
+        "input_tokens": 14747,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 11913
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00644048,
+        "upper_usd": null,
+        "no_cache_usd": 0.0074312,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037390000000000004,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0059565,
+        "ordinary_input_tokens": 3739
+      },
+      "elapsed_seconds": 218.247,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "9d0604657d754f9052bb3c91ef2cbc8c5cd86798435799082c30f3116d60228b",
+      "original_translation_sha256": "0e0f7444f0bbe0210d16186ec37215040b700cac8ce8cf39595ab2366070d889"
+    },
+    {
+      "effort": "xhigh",
+      "source_id": "V07-S020",
+      "prose": false,
+      "source_sha256": "cbf29fe009028392d8407544a2691170d22a676f5962be9085ad95c2afe1a4af",
+      "original_score": 9.587499999999999,
+      "old_score": 9.5875,
+      "new_score": 9.4875,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 10,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.75
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 9.5,
+            "names_numbers": 9,
+            "fluency": 9.5,
+            "coverage_percent": 98,
+            "usable": true,
+            "overall": 9.425
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 10,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.75
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9,
+            "completeness": 10,
+            "names_numbers": 8.5,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.225
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 3624,
+        "input_tokens": 14747,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3872
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00241998,
+        "upper_usd": null,
+        "no_cache_usd": 0.0034107,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037390000000000004,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.001936,
+        "ordinary_input_tokens": 3739
+      },
+      "elapsed_seconds": 73.739,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "4d2abf60bd12f9e9340d581ce49fdba82b25d7a87227ad07978676b039de9d1c",
+      "original_translation_sha256": "3eaece66e98514160f044b206114e902674df37784f4b50302f9d41cf0409881"
+    },
+    {
+      "effort": "xhigh",
+      "source_id": "V07-S035",
+      "prose": true,
+      "source_sha256": "b9209f8dcf28b17b6e3fa297180cbebf937bfbcba607e2dcc08617f9b45dc043",
+      "original_score": 7.9625,
+      "old_score": 8.075,
+      "new_score": 8.9375,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8.5,
+            "completeness": 8.5,
+            "names_numbers": 6.5,
+            "fluency": 9,
+            "coverage_percent": 92,
+            "usable": true,
+            "overall": 8.25
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 7.5,
+            "completeness": 8.5,
+            "names_numbers": 7.5,
+            "fluency": 9,
+            "coverage_percent": 93,
+            "usable": true,
+            "overall": 7.9
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 9.5,
+            "names_numbers": 5.5,
+            "fluency": 9.5,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 8.9
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 9.5,
+            "names_numbers": 6,
+            "fluency": 9.5,
+            "coverage_percent": 98,
+            "usable": true,
+            "overall": 8.975
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 3840,
+        "reasoning_output_tokens": 8788,
+        "input_tokens": 14747,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 9360
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0058091,
+        "upper_usd": null,
+        "no_cache_usd": 0.0061547,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0010907,
+        "cached_input_usd": 3.84e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.00468,
+        "ordinary_input_tokens": 10907
+      },
+      "elapsed_seconds": 173.86,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "c64dd81a10bb04ce08ca130c89ecbffc44037809302a0d054d383e9962273f65",
+      "original_translation_sha256": "0ad0341244c3ae187a3b129851f674c5c86dc11ee49f7b99cad6142517d2181f"
+    },
+    {
+      "effort": "xhigh",
+      "source_id": "V07-S067",
+      "prose": true,
+      "source_sha256": "b584c98a3d96f16338363a0fa96a247b794b5e70b260e63bd0f82fba455ac9f1",
+      "original_score": 7.325,
+      "old_score": 7.8875,
+      "new_score": 9.475,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8,
+            "completeness": 8,
+            "names_numbers": 8,
+            "fluency": 8.5,
+            "coverage_percent": 87,
+            "usable": true,
+            "overall": 8.05
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 7.5,
+            "completeness": 8,
+            "names_numbers": 7.5,
+            "fluency": 8.5,
+            "coverage_percent": 87,
+            "usable": true,
+            "overall": 7.725
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 8.5,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.475
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 8.5,
+            "fluency": 9.5,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 9.475
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 9175,
+        "input_tokens": 14747,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 9598
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0052829800000000005,
+        "upper_usd": null,
+        "no_cache_usd": 0.0062737,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037390000000000004,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.004799,
+        "ordinary_input_tokens": 3739
+      },
+      "elapsed_seconds": 176.778,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "433c64ebdea940fd3d8c7f8492c0e59b5c0786c925b33b58a68fd3ab47c9e016",
+      "original_translation_sha256": "63f130584c472271e78f4d8141d3848fa95b8b1dfd3cc47f135ecc3686b1aee3"
+    },
+    {
+      "effort": "xhigh",
+      "source_id": "V10-S050",
+      "prose": true,
+      "source_sha256": "d12a37f0c99612fec17dfcac8bdbd065ab266776a3f8af02bcffafc799fef2ad",
+      "original_score": 5.725,
+      "old_score": 5.8375,
+      "new_score": 8.5875,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 5.5,
+            "completeness": 7,
+            "names_numbers": 5,
+            "fluency": 8,
+            "coverage_percent": 86,
+            "usable": false,
+            "overall": 6.05
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 5,
+            "completeness": 6.5,
+            "names_numbers": 5,
+            "fluency": 7.5,
+            "coverage_percent": 87,
+            "usable": false,
+            "overall": 5.625
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8.5,
+            "completeness": 10,
+            "names_numbers": 6.5,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 8.675
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8.5,
+            "completeness": 9.5,
+            "names_numbers": 6.5,
+            "fluency": 9,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 8.5
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 3840,
+        "reasoning_output_tokens": 8229,
+        "input_tokens": 14747,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 8731
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.0054946,
+        "upper_usd": null,
+        "no_cache_usd": 0.005840199999999999,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0010907,
+        "cached_input_usd": 3.84e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0043655,
+        "ordinary_input_tokens": 10907
+      },
+      "elapsed_seconds": 161.157,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "e47b37c4983e2ce6a8e632d5b60d61d4f4469f8f6d51fed5d8f3c64604ef82d3",
+      "original_translation_sha256": "5434a512c5553ff442cf75d2401f2107c5febabeafa20176ffa5527512d76abb"
+    },
+    {
+      "effort": "xhigh",
+      "source_id": "V10-S090",
+      "prose": true,
+      "source_sha256": "2955a71131ade67f0d6e2f4102992d47a910899f013e62f8c7f4bb98407cf504",
+      "original_score": 7.3125,
+      "old_score": 6.95,
+      "new_score": 9.425,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 7,
+            "completeness": 7,
+            "names_numbers": 7,
+            "fluency": 8.5,
+            "coverage_percent": 79,
+            "usable": false,
+            "overall": 7.15
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 6.5,
+            "completeness": 7,
+            "names_numbers": 6,
+            "fluency": 8.5,
+            "coverage_percent": 81,
+            "usable": false,
+            "overall": 6.75
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.7
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9,
+            "completeness": 10,
+            "names_numbers": 8,
+            "fluency": 9.5,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 9.15
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 8804,
+        "input_tokens": 14747,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 9394
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00518098,
+        "upper_usd": null,
+        "no_cache_usd": 0.0061717,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037390000000000004,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.004697,
+        "ordinary_input_tokens": 3739
+      },
+      "elapsed_seconds": 172.57,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "57084b944d03431b45f0295072b46be8245fef49648828d813622d7aba6809d0",
+      "original_translation_sha256": "e2514651be0a7f167c99f14bdf34f417105749e6d6194bb1c97c5310e7764f68"
+    },
+    {
+      "effort": "max",
+      "source_id": "V06-S003",
+      "prose": false,
+      "source_sha256": "6fe9a3a5c1140e9aa74128a1ba37198b1f8d361631d7b04bd977a645a4892309",
+      "original_score": 8.925,
+      "old_score": 8.975,
+      "new_score": 9.5625,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 8.5,
+            "names_numbers": 9,
+            "fluency": 10,
+            "coverage_percent": 90,
+            "usable": true,
+            "overall": 9.225
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 7.5,
+            "names_numbers": 8,
+            "fluency": 9,
+            "coverage_percent": 82,
+            "usable": true,
+            "overall": 8.725
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 10,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 10,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 10.0
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 8.5,
+            "names_numbers": 9,
+            "fluency": 9,
+            "coverage_percent": 90,
+            "usable": true,
+            "overall": 9.125
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 1792,
+        "reasoning_output_tokens": 1020,
+        "input_tokens": 15501,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1051
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00191432,
+        "upper_usd": null,
+        "no_cache_usd": 0.0020756000000000004,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0013709,
+        "cached_input_usd": 1.792e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0005255,
+        "ordinary_input_tokens": 13709
+      },
+      "elapsed_seconds": 23.372,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "d5d1a3dabfc498177917ae29e111f28d43f589737eb421290c0ac7a867f1916c",
+      "original_translation_sha256": "30a13096edfa8105371e2ba0c0217e8a7dd7bf3944063259ae3843c290f918f5"
+    },
+    {
+      "effort": "max",
+      "source_id": "V06-S012",
+      "prose": false,
+      "source_sha256": "788441602ac10136d478e8a7f74812da7953f3ab826c0c5714fd35bcc8c4f15a",
+      "original_score": 8.5875,
+      "old_score": 9.125,
+      "new_score": 10.0,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8.5,
+            "completeness": 10,
+            "names_numbers": 9,
+            "fluency": 10,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.1
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9,
+            "completeness": 10,
+            "names_numbers": 8,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.15
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 10,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 10,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 10.0
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 10,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 10,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 10.0
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 19456,
+        "reasoning_output_tokens": 6226,
+        "input_tokens": 38730,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 6444
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00534396,
+        "upper_usd": null,
+        "no_cache_usd": 0.007095,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0019274000000000001,
+        "cached_input_usd": 0.00019456,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.003222,
+        "ordinary_input_tokens": 19274
+      },
+      "elapsed_seconds": 124.164,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "cc293ecfdf4cbb47bf570bea7dcc8118864a308be7c488cf5b4635ade73bbd67",
+      "original_translation_sha256": "e529e6ea94c21fa01ebb5b62b0a3b5d953dcc510dfc930814e4702fe02905eff"
+    },
+    {
+      "effort": "max",
+      "source_id": "V06-S016",
+      "prose": true,
+      "source_sha256": "7be90ed0d9f746fc094a0bb5cf60925009f20db3b818b33f80710a6cc5cf2ccd",
+      "original_score": 6.6625,
+      "old_score": 7.1,
+      "new_score": 8.975,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 6.5,
+            "completeness": 7.5,
+            "names_numbers": 8.5,
+            "fluency": 8.5,
+            "coverage_percent": 79,
+            "usable": false,
+            "overall": 7.25
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 6.5,
+            "completeness": 7,
+            "names_numbers": 7,
+            "fluency": 9,
+            "coverage_percent": 78,
+            "usable": false,
+            "overall": 6.95
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9,
+            "completeness": 9.5,
+            "names_numbers": 8.5,
+            "fluency": 9.5,
+            "coverage_percent": 97,
+            "usable": true,
+            "overall": 9.1
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9,
+            "completeness": 9,
+            "names_numbers": 8,
+            "fluency": 9,
+            "coverage_percent": 97,
+            "usable": true,
+            "overall": 8.85
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 7901,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 8379
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00522624,
+        "upper_usd": null,
+        "no_cache_usd": 0.005664,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009881,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0041895,
+        "ordinary_input_tokens": 9881
+      },
+      "elapsed_seconds": 154.565,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "93314e1bdbbab53b1c937fc2bc54cc35e1186fc750252077f7d867b204b0c022",
+      "original_translation_sha256": "2478a03599875e8e72e99d509d4efb34cf592d8c1f273dbadaf096ebd1eae0ad"
+    },
+    {
+      "effort": "max",
+      "source_id": "V06-S024",
+      "prose": true,
+      "source_sha256": "edad30f2ecd9af1fd27b7ac77cc66a0327a4c731473c348a2b2e9ed688c0125f",
+      "original_score": 7.6625,
+      "old_score": 7.7125,
+      "new_score": 9.85,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8.5,
+            "completeness": 6.5,
+            "names_numbers": 6.5,
+            "fluency": 9.5,
+            "coverage_percent": 74,
+            "usable": false,
+            "overall": 7.8
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8,
+            "completeness": 7,
+            "names_numbers": 6.5,
+            "fluency": 9,
+            "coverage_percent": 79,
+            "usable": false,
+            "overall": 7.625
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 10,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 10,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 10.0
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.7
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 8217,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 8792
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00543274,
+        "upper_usd": null,
+        "no_cache_usd": 0.0058705,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009881,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.004396,
+        "ordinary_input_tokens": 9881
+      },
+      "elapsed_seconds": 166.327,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "ecbce6ec3050cc63cdfec0f27978839504159037aec2f234f38f1c77eec72b7d",
+      "original_translation_sha256": "d711fb6130b74d8a95b7b12e157c778a1fcf271f0a9bfb5353023ef100003ded"
+    },
+    {
+      "effort": "max",
+      "source_id": "V06-S029",
+      "prose": true,
+      "source_sha256": "66fc2608119624737d0ed03390e1235c77c4b3c6faac2357470c8733f1a26422",
+      "original_score": 9.2875,
+      "old_score": 9.45,
+      "new_score": 9.6375,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 9,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 96,
+            "usable": true,
+            "overall": 9.45
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 9,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 97,
+            "usable": true,
+            "overall": 9.45
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 9.5,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 98,
+            "usable": true,
+            "overall": 9.575
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.7
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 10708,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 11227
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.006097279999999999,
+        "upper_usd": null,
+        "no_cache_usd": 0.007088,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0056135,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 209.775,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "0f6722a10029bfcf573cb37bdcd91474c09c17113ca62b85de4fc4b4089a2cc6",
+      "original_translation_sha256": "7b966dd9fad85660a41fb058cb69ff82f9a33617bcc8737b39a912ff78a26203"
+    },
+    {
+      "effort": "max",
+      "source_id": "V06-S030",
+      "prose": true,
+      "source_sha256": "5c621e0c4ddecab54d49c9d7bf38f4a399f70e087e7f414334e2dfefe88acc34",
+      "original_score": 9.1375,
+      "old_score": 9.175,
+      "new_score": 9.1375,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 9.5,
+            "names_numbers": 9,
+            "fluency": 9.5,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 9.425
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8.5,
+            "completeness": 9.5,
+            "names_numbers": 9,
+            "fluency": 9.5,
+            "coverage_percent": 98,
+            "usable": true,
+            "overall": 8.925
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.15
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8.5,
+            "completeness": 10,
+            "names_numbers": 9.5,
+            "fluency": 9.5,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 9.125
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 16911,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 17416
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00919178,
+        "upper_usd": null,
+        "no_cache_usd": 0.0101825,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.008708,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 351.06,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "72e2c1b554e456bbc25c569a3f15a6cc59edc5f5d2c8c4748666e01b327242ab",
+      "original_translation_sha256": "cdd95771dcb128e57a8831c3e301dacef5e570784ea9553ea647236b78f15a9b"
+    },
+    {
+      "effort": "max",
+      "source_id": "V06-S103",
+      "prose": true,
+      "source_sha256": "49e6b791658d26100ac5af2cc96d034d2350310bcb040dd7d6f229aceeb67278",
+      "original_score": 7.8625,
+      "old_score": 8.0375,
+      "new_score": 9.7375,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8.5,
+            "completeness": 6.5,
+            "names_numbers": 9.5,
+            "fluency": 9,
+            "coverage_percent": 73,
+            "usable": false,
+            "overall": 8.2
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8,
+            "completeness": 6.5,
+            "names_numbers": 9,
+            "fluency": 9,
+            "coverage_percent": 73,
+            "usable": true,
+            "overall": 7.875
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 10,
+            "completeness": 9.5,
+            "names_numbers": 10,
+            "fluency": 9,
+            "coverage_percent": 98,
+            "usable": true,
+            "overall": 9.775
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.7
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 13280,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 13799
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00793624,
+        "upper_usd": null,
+        "no_cache_usd": 0.008374,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009881,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0068995,
+        "ordinary_input_tokens": 9881
+      },
+      "elapsed_seconds": 254.215,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "2d63c910a39b77157b095a1748c2d4bd3c5444be398c61a9af1ac15a919efa34",
+      "original_translation_sha256": "b87077db70159eeaf6a68fb4e7cd85db8c77c3e6ecf6cbeef3aa2e8d9bd7269e"
+    },
+    {
+      "effort": "max",
+      "source_id": "V07-S020",
+      "prose": false,
+      "source_sha256": "cbf29fe009028392d8407544a2691170d22a676f5962be9085ad95c2afe1a4af",
+      "original_score": 8.35,
+      "old_score": 8.7,
+      "new_score": 9.5,
+      "old_usable": true,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8,
+            "completeness": 9.5,
+            "names_numbers": 9,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 8.675
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8.5,
+            "completeness": 9.5,
+            "names_numbers": 8,
+            "fluency": 9,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 8.725
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 9,
+            "fluency": 10,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.6
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 8,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.4
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 1792,
+        "reasoning_output_tokens": 5639,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 5895
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00426072,
+        "upper_usd": null,
+        "no_cache_usd": 0.004422,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0012953,
+        "cached_input_usd": 1.792e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0029475,
+        "ordinary_input_tokens": 12953
+      },
+      "elapsed_seconds": 109.78,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "fee0d56da279d4ea4ae420abc621c720a77cb58d2ebe9dd16706f90b63a45c53",
+      "original_translation_sha256": "bc54d81c9c744a51aa06363f400ec9ba11b2e6a14eaf4aefa357861ec5441974"
+    },
+    {
+      "effort": "max",
+      "source_id": "V07-S035",
+      "prose": true,
+      "source_sha256": "b9209f8dcf28b17b6e3fa297180cbebf937bfbcba607e2dcc08617f9b45dc043",
+      "original_score": 7.8125,
+      "old_score": 7.725,
+      "new_score": 8.3875,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8.5,
+            "completeness": 7.5,
+            "names_numbers": 6,
+            "fluency": 9,
+            "coverage_percent": 87,
+            "usable": true,
+            "overall": 7.925
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 7,
+            "completeness": 8,
+            "names_numbers": 7.5,
+            "fluency": 9,
+            "coverage_percent": 88,
+            "usable": false,
+            "overall": 7.525
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 8.5,
+            "completeness": 9.5,
+            "names_numbers": 5.5,
+            "fluency": 9,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 8.35
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8.5,
+            "completeness": 9.5,
+            "names_numbers": 6,
+            "fluency": 9,
+            "coverage_percent": 98,
+            "usable": true,
+            "overall": 8.425
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 16250,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 16812
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00888978,
+        "upper_usd": null,
+        "no_cache_usd": 0.0098805,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.008406,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 307.222,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "29ef25d5221d0e2ef057e769702fbc5778e8eb2523e376604adc87ea991711ad",
+      "original_translation_sha256": "da9ed89133b8852815d18f8fba1155636f4b90270444910e9486e994e9d9c15a"
+    },
+    {
+      "effort": "max",
+      "source_id": "V07-S067",
+      "prose": true,
+      "source_sha256": "b584c98a3d96f16338363a0fa96a247b794b5e70b260e63bd0f82fba455ac9f1",
+      "original_score": 6.2375,
+      "old_score": 6.525,
+      "new_score": 8.725,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 6.5,
+            "completeness": 8,
+            "names_numbers": 3,
+            "fluency": 8.5,
+            "coverage_percent": 90,
+            "usable": false,
+            "overall": 6.55
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 6.5,
+            "completeness": 8,
+            "names_numbers": 3,
+            "fluency": 8,
+            "coverage_percent": 91,
+            "usable": false,
+            "overall": 6.5
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 9.5,
+            "names_numbers": 5.5,
+            "fluency": 9,
+            "coverage_percent": 98,
+            "usable": true,
+            "overall": 8.85
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9,
+            "completeness": 9.5,
+            "names_numbers": 5.5,
+            "fluency": 9,
+            "coverage_percent": 98,
+            "usable": true,
+            "overall": 8.6
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 4864,
+        "reasoning_output_tokens": 13251,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 13641
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00785724,
+        "upper_usd": null,
+        "no_cache_usd": 0.008295,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.0009881,
+        "cached_input_usd": 4.864e-05,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0068205,
+        "ordinary_input_tokens": 9881
+      },
+      "elapsed_seconds": 252.286,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "b32dc901dfd7bfaeaca4cb5b9bd8de5e0349cec79b5cca6d4e347e15d74618d2",
+      "original_translation_sha256": "9abb8fbe29e333eb1f8e0704b5995da7d2be56d543e57eb1508fa988c10a011f"
+    },
+    {
+      "effort": "max",
+      "source_id": "V10-S050",
+      "prose": true,
+      "source_sha256": "d12a37f0c99612fec17dfcac8bdbd065ab266776a3f8af02bcffafc799fef2ad",
+      "original_score": 5.925,
+      "old_score": 7.262499999999999,
+      "new_score": 9.2375,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 7,
+            "completeness": 7.5,
+            "names_numbers": 5.5,
+            "fluency": 8.5,
+            "coverage_percent": 80,
+            "usable": false,
+            "overall": 7.05
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 7.5,
+            "completeness": 8,
+            "names_numbers": 5.5,
+            "fluency": 9,
+            "coverage_percent": 84,
+            "usable": false,
+            "overall": 7.475
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9,
+            "completeness": 10,
+            "names_numbers": 7,
+            "fluency": 9.5,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.0
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 8.5,
+            "fluency": 9.5,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 9.475
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 12571,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 13119
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.00704328,
+        "upper_usd": null,
+        "no_cache_usd": 0.008034,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0065595,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 239.691,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "662f2c0827a31f08bc7486ae937e25a5ef50bfe1f3f324f4ff1b159ed448d544",
+      "original_translation_sha256": "1996cdb6573acf64fbda36e7b0d7df03cb7da675ca2120849853562397baf4ec"
+    },
+    {
+      "effort": "max",
+      "source_id": "V10-S090",
+      "prose": true,
+      "source_sha256": "2955a71131ade67f0d6e2f4102992d47a910899f013e62f8c7f4bb98407cf504",
+      "original_score": 6.475,
+      "old_score": 6.6875,
+      "new_score": 9.2125,
+      "old_usable": false,
+      "new_usable": true,
+      "reviews": {
+        "old": [
+          {
+            "judge": "astra-high",
+            "accuracy": 6.5,
+            "completeness": 7.5,
+            "names_numbers": 7,
+            "fluency": 8.5,
+            "coverage_percent": 84,
+            "usable": false,
+            "overall": 7.025
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 5.5,
+            "completeness": 8,
+            "names_numbers": 5,
+            "fluency": 8.5,
+            "coverage_percent": 88,
+            "usable": false,
+            "overall": 6.35
+          }
+        ],
+        "new": [
+          {
+            "judge": "astra-high",
+            "accuracy": 9.5,
+            "completeness": 10,
+            "names_numbers": 10,
+            "fluency": 9,
+            "coverage_percent": 100,
+            "usable": true,
+            "overall": 9.65
+          },
+          {
+            "judge": "sol-high",
+            "accuracy": 8.5,
+            "completeness": 9.5,
+            "names_numbers": 8,
+            "fluency": 9.5,
+            "coverage_percent": 99,
+            "usable": true,
+            "overall": 8.775
+          }
+        ]
+      },
+      "usage": {
+        "cached_input_tokens": 11008,
+        "reasoning_output_tokens": 16015,
+        "input_tokens": 14745,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 16609
+      },
+      "cost": {
+        "status": "estimated",
+        "usd": 0.008788279999999999,
+        "upper_usd": null,
+        "no_cache_usd": 0.009779,
+        "notes": [],
+        "pricing_date": "2026-09-24",
+        "source_url": "https://developers.openai.com/api/docs/pricing",
+        "rates_per_million": {
+          "input": 0.1,
+          "cached_input": 0.01,
+          "cache_write": 0.125,
+          "output": 0.5
+        },
+        "uncached_input_usd": 0.00037370000000000003,
+        "cached_input_usd": 0.00011008,
+        "cache_write_usd": 0.0,
+        "output_usd": 0.0083045,
+        "ordinary_input_tokens": 3737
+      },
+      "elapsed_seconds": 303.05,
+      "attempts": 1,
+      "tool_event_count": 0,
+      "delegation_observed": false,
+      "translation_sha256": "d64c474c0e1046c4baa07c75d554b40b668a54a74f6a8d559b1b2a01c2f14f0e",
+      "original_translation_sha256": "5210e59692eb5ff5e5de7874bf7e72b175f5ba0ee6e38d6d31368163fb0e2ed6"
+    }
+  ]
+}

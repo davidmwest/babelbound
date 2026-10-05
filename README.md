@@ -44,6 +44,8 @@ Choose the model yourself: click the model name inside Gemini’s input box, sel
 
 ### Which model should you use?
 
+**October Luna follow-up:** Fresh screenshot translations scored **9.18/10 at High** and **9.52/10 at Xhigh**, with all 12 outputs usable by both AI judges. In a separate nine-capture prose control, **Medium scored 9.53/10 with clean Japanese text versus 4.69/10 with screenshots**. Text translation averaged **0.0803¢ per capture**, but producing that text with the expensive transcription/verification pipeline cost **about 30¢ extra**. Clean text looks promising; cheap, reliable extraction remains untested. [Retest results, costs, and limitations →](docs/benchmarks/2026-10-luna-retest/README.md)
+
 **For Gemini, start with Flash with extended thinking off, especially if you don’t have Google AI Ultra.** Ultra is not required by Babelbound. Flash delivered English for every capture in this comparison, though its translations still needed review. Pro's delivered translations scored higher, but several requests failed in the tested browser session.
 
 The September 2026 benchmark compares **34 model/reasoning settings on 12 Japanese → English captures: 408 translation attempts, each reviewed by two AI judges against the source**. A capture can contain more than one printed page.
